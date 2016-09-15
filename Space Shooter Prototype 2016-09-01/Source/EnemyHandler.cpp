@@ -6,7 +6,7 @@ EnemyHandler::EnemyHandler(Context* context, CollisionHandler* collision)
 , m_collision(collision)
 , m_enemies()
 , m_spawnTimer(sf::Time::Zero)
-, m_maximum(1000)
+, m_maximum(10)
 {
     m_enemies.reserve(m_maximum);
 }
@@ -23,7 +23,7 @@ void EnemyHandler::collision()
 void EnemyHandler::update(sf::Time dt)
 {
     m_spawnTimer += dt;
-    if (m_spawnTimer >= sf::seconds(0.01f))
+    if (m_spawnTimer >= sf::seconds(1.f))
     {
         if (m_enemies.size() < m_maximum) m_enemies.push_back({ m_context, m_collision });
         m_spawnTimer = sf::Time::Zero;

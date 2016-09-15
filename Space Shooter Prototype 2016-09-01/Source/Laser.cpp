@@ -8,9 +8,8 @@ Laser::Laser(Object::Type type, Context* context, const sf::Vector2f & position)
 , m_exploded(false)
 , m_explosionTimer(sf::Time::Zero)
 {
-    if (type == Object::Type::PlayerWeapon) 
-        setTexture(context->textures.get("RedLaser"));
-    else 
+    (type == Object::Type::PlayerWeapon) ? 
+        setTexture(context->textures.get("RedLaser")) : 
         setTexture(context->textures.get("GreenLaser"));
 
     m_frames["laser"] = { 0, 0, 9, 33 };
@@ -23,10 +22,9 @@ Laser::Laser(Object::Type type, Context* context, const sf::Vector2f & position)
 
 void Laser::collision()
 {
-    destroy();
     setTextureRect(m_frames["explosion"]);
-    setScale(0.7f, 0.7f);
     centerOrigin();
+    destroy();
 }
 
 void Laser::draw(sf::RenderTarget & target) const
@@ -85,13 +83,14 @@ void Laser::update(sf::Time dt)
                 m_exploded = true;
                 m_explosionTimer = sf::Time::Zero;
             }
-            else 
+            else
             {
-                setColor({ 255, 255, 255, static_cast<sf::Uint8>(255.f * m_explosionTimer.asSeconds()) });
-                auto scale = 0.7f * m_explosionTimer.asSeconds() + 0.1f;
+                auto alpha = static_cast<sf::Uint8>(255.f * (1.f - m_explosionTimer.asSeconds()));
+                auto scale = 1.f - m_explosionTimer.asSeconds();
+
+                setColor({ 255, 255, 255, alpha });
                 setScale(scale, scale);
             }
-                
         }
         break;
 
