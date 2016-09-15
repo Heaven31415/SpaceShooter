@@ -10,9 +10,6 @@ GameState::GameState(Context* context)
 , m_enemies(context, &m_collision)
 , m_player(context, &m_collision)
 , m_hud(context, &m_player)
-
-, m_duration(sf::Time::Zero)
-, m_frameNumber(0)
 {
     if (!m_gameTheme.openFromFile("Resources/Music/GameTheme.ogg"))
         throw std::runtime_error("\"Resources/Music/GameTheme.ogg\" is missing!");
@@ -32,10 +29,7 @@ State::Type GameState::run()
 
     while (window.isOpen())
     {
-        sf::Time t = clock.restart();
-        dt += t;
-        m_duration += t;
-        m_frameNumber++;
+        dt += clock.restart();
         while (dt >= TimePerFrame)
         {
             handleInput();
@@ -44,10 +38,6 @@ State::Type GameState::run()
             dt -= TimePerFrame;
         }
         render();
-
-
-        system("CLS");
-        std::cout << static_cast<int>(m_frameNumber / m_duration.asSeconds()) << '\n';
 
         if (m_exitFlag.first == true)
         {

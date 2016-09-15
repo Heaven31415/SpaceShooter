@@ -7,8 +7,6 @@
 #include "Player.hpp"
 #include "State.hpp"
 #include "Tools.hpp"
-#include <iostream>
-
 
 class GameState : public State
 {
@@ -30,7 +28,4 @@ private:
     Player                          m_player;
     Hud                             m_hud;
     sf::Music                       m_gameTheme;
-    //
-    sf::Time                        m_duration;
-    std::size_t                     m_frameNumber;
 };
