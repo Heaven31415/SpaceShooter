@@ -35,5 +35,6 @@ private:
 	std::atomic<bool>						m_finished;
 };
 
-using TextureHolder = ResourceHolder<sf::Texture>;
+using FontHolder = ResourceHolder<sf::Font>;
 using SoundHolder = ResourceHolder<sf::SoundBuffer>;
+using TextureHolder = ResourceHolder<sf::Texture>;

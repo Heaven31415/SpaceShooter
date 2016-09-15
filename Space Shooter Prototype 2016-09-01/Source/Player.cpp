@@ -10,7 +10,7 @@ Player::Player(Context* context, CollisionHandler* collision)
 , m_goingDown(false)
 , m_turningLeft(false)
 , m_turningRight(false)
-, m_health(10)
+, m_health(5)
 , m_laserAttack(context->sounds.get("PlayerLaser"))
 , m_damageTaken(context->sounds.get("DamageTaken"))
 {
