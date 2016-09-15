@@ -8,7 +8,6 @@ LoadingState::LoadingState(Context* context)
 , m_loadingBarFill({756.f, 36.f})
 , m_loadingBarBackground({760.f, 40.f})
 , m_resourcesLoaded(false)
-
 , m_loadingTextTimer(sf::Time::Zero)
 {
     // Before loading occurs we need to have access to some special resources
@@ -82,21 +81,10 @@ void LoadingState::handleInput()
 
     while (window.pollEvent(event))
     {
-        switch (event.type)
-        {
-            case sf::Event::KeyPressed:
-            {
-                if (event.key.code == sf::Keyboard::Escape)
-                    m_exitFlag = { true, State::Exit };
-            }  
-            break;
-
-            case sf::Event::Closed:
-            {
-                m_exitFlag = { true, State::Exit };
-            }
-            break;
-        }
+        if (event.type == sf::Event::Closed)
+            m_exitFlag = { true, State::Exit };
+        else if (event.type == sf::Event::KeyPressed && m_resourcesLoaded)
+            m_exitFlag = { true, State::Game };
     }
 }
 
@@ -126,10 +114,13 @@ void LoadingState::update(sf::Time dt)
 
         if (progress == 1.f)
         {
-            m_loadingText.setString("Success!");
-            m_resourcesLoaded = true;
+            m_loadingText.setString("Press any key to continue...");
+            ts::centerOrigin(m_loadingText);
+            auto x = static_cast<float>(m_context->window.getSize().x) / 2.f;
+            auto y = m_loadingText.getPosition().y;
+            m_loadingText.setPosition(x, y);
             m_loadingTheme.stop();
-            m_exitFlag = { true, State::Game };
+            m_resourcesLoaded = true;
         }
     }
 }
