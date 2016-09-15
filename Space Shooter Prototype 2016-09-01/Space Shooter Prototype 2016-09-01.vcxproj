@@ -74,7 +74,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Libs\Thor\Install\include;C:\Libs\SFML (NIC)\Install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Libs\SFML (NIC)\Build\lib\Debug;C:\Libs\Thor\Install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;thor-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -90,10 +95,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Libs\Thor\Install\include;C:\Libs\SFML (NIC)\Install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Libs\SFML (NIC)\Build\lib\Release;C:\Libs\Thor\Install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;thor.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -110,6 +118,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Background.cpp" />
+    <ClCompile Include="Source\CollisionHandler.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\EnemyHandler.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\GameState.cpp" />
+    <ClCompile Include="Source\Hud.cpp" />
+    <ClCompile Include="Source\Laser.cpp" />
+    <ClCompile Include="Source\LaserHandler.cpp" />
+    <ClCompile Include="Source\LoadingState.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Object.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Randomizer.cpp" />
+    <ClCompile Include="Source\ResourceHolder.cpp" />
+    <ClCompile Include="Source\StateManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\Background.hpp" />
+    <ClInclude Include="Include\CollisionHandler.hpp" />
+    <ClInclude Include="Include\Enemy.hpp" />
+    <ClInclude Include="Include\EnemyHandler.hpp" />
+    <ClInclude Include="Include\Game.hpp" />
+    <ClInclude Include="Include\Context.hpp" />
+    <ClInclude Include="Include\GameState.hpp" />
+    <ClInclude Include="Include\Hud.hpp" />
+    <ClInclude Include="Include\Laser.hpp" />
+    <ClInclude Include="Include\LaserHandler.hpp" />
+    <ClInclude Include="Include\LoadingState.hpp" />
+    <ClInclude Include="Include\Object.hpp" />
+    <ClInclude Include="Include\Player.hpp" />
+    <ClInclude Include="Include\Randomizer.hpp" />
+    <ClInclude Include="Include\ResourceHolder.hpp" />
+    <ClInclude Include="Include\State.hpp" />
+    <ClInclude Include="Include\StateManager.hpp" />
+    <ClInclude Include="Include\Tools.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
