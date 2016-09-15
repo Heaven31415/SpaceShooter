@@ -15,16 +15,8 @@ Hud::Hud(Context* context, Player* player)
     setPosition(5.f, 5.f);
 }
 
-void Hud::collision()
-{
-}
-
 void Hud::update(sf::Time dt)
 {
     auto health = m_player->getHealth();
     setTextureRect({ 0, 0, static_cast<int>(health) * m_textureSize.x, m_textureSize.y });
-}
-
-void Hud::monitor()
-{
 }

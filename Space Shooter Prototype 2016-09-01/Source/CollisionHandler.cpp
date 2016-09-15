@@ -4,16 +4,14 @@ CollisionHandler::CollisionHandler()
 : m_permanentObjects()
 , m_temporaryObjects()
 {
-    m_permanentObjects.reserve(128);
-    m_temporaryObjects.reserve(128);
 }
 
-bool CollisionHandler::typeMatch(Object * objectA, Object * objectB)
+bool CollisionHandler::typeMatch(PhysicalObject * objectA, PhysicalObject * objectB)
 {
     return static_cast<int>(objectA->getType()) - static_cast<int>(objectB->getType()) == static_cast<int>(Object::Type::Match);
 }
 
-bool CollisionHandler::collision(Object * objectA, Object * objectB)
+bool CollisionHandler::collision(PhysicalObject * objectA, PhysicalObject * objectB)
 {
     return objectA->getGlobalBounds().intersects(objectB->getGlobalBounds());
 }
@@ -40,12 +38,12 @@ void CollisionHandler::checkCollision()
     m_temporaryObjects.clear();
 }
 
-void CollisionHandler::addPermanent(Object * object)
+void CollisionHandler::addPermanent(PhysicalObject * object)
 {
     m_permanentObjects.push_back(object);
 }
 
-void CollisionHandler::addTemporary(Object * object)
+void CollisionHandler::addTemporary(PhysicalObject * object)
 {
     m_temporaryObjects.push_back(object);
 }

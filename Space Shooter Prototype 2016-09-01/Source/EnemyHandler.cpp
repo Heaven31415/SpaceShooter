@@ -1,7 +1,7 @@
 #include "../Include/EnemyHandler.hpp"
 
 EnemyHandler::EnemyHandler(Context* context, CollisionHandler* collision)
-: Object(Object::Type::Handler)
+: PhysicalObject(Object::Type::Handler)
 , m_context(context)
 , m_collision(collision)
 , m_enemies()

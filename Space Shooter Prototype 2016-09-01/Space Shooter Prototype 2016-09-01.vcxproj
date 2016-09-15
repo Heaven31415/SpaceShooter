@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Include\PhysicalObject.cpp" />
     <ClCompile Include="Source\Background.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
@@ -148,12 +149,16 @@
     <ClInclude Include="Include\LaserHandler.hpp" />
     <ClInclude Include="Include\LoadingState.hpp" />
     <ClInclude Include="Include\Object.hpp" />
+    <ClInclude Include="Include\PhysicalObject.hpp" />
     <ClInclude Include="Include\Player.hpp" />
     <ClInclude Include="Include\Randomizer.hpp" />
     <ClInclude Include="Include\ResourceHolder.hpp" />
     <ClInclude Include="Include\State.hpp" />
     <ClInclude Include="Include\StateManager.hpp" />
     <ClInclude Include="Include\Tools.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

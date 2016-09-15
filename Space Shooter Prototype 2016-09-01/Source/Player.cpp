@@ -1,7 +1,7 @@
 #include "../Include/Player.hpp"
 
 Player::Player(Context* context, CollisionHandler* collision)
-: Object(Object::Type::Player, context->textures.get("Ship"))
+: PhysicalObject(Object::Type::Player, context->textures.get("Ship"))
 , m_status(Player::Status::Alive)
 , m_context(context)
 , m_laserHandler(context, collision, 5)

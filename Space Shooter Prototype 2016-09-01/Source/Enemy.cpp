@@ -1,7 +1,7 @@
 #include "../Include/Enemy.hpp"
 
 Enemy::Enemy(Context* context, CollisionHandler* collision)
-: Object(Object::Type::Enemy, context->textures.get("EnemyShip"))
+: PhysicalObject(Object::Type::Enemy, context->textures.get("EnemyShip"))
 , m_status(Status::Alive)
 , m_context(context)
 , m_laserHandler(context, collision)

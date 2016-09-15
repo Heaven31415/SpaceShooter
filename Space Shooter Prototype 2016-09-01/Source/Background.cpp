@@ -18,10 +18,6 @@ Background::Background(Context* context)
     m_bgExtra.setPosition(0, -static_cast<float>(mapSize.y));
 }
 
-void Background::collision()
-{
-}
-
 void Background::draw(sf::RenderTarget & target) const
 {
     Object::draw(target);
@@ -37,8 +33,4 @@ void Background::update(sf::Time dt)
 
     if (getPosition().y >= mapSize.y) move(0, -2 * mapSize.y);
     if (m_bgExtra.getPosition().y >= mapSize.y) m_bgExtra.move(0, -2 * mapSize.y);
-}
-
-void Background::monitor()
-{
 }

@@ -1,7 +1,7 @@
 #include "../Include/Laser.hpp"
 
 Laser::Laser(Object::Type type, Context* context, const sf::Vector2f & position)
-: Object(type)
+: PhysicalObject(type)
 , m_status(Laser::Status::Alive)
 , m_context(context)
 , m_velocity((type == Object::Type::PlayerWeapon) ? 500.f : -500.f)

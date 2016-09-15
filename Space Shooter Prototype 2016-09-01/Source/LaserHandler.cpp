@@ -1,7 +1,7 @@
 #include "../Include/LaserHandler.hpp"
 
 LaserHandler::LaserHandler(Context* context, CollisionHandler* collision, std::size_t maximum)
-: Object(Object::Type::Handler)
+: PhysicalObject(Object::Type::Handler)
 , m_context(context)
 , m_collision(collision)
 , m_lasers()
