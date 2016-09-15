@@ -12,6 +12,7 @@ Player::Player(Context* context, CollisionHandler* collision)
 , m_turningLeft(false)
 , m_turningRight(false)
 , m_health(5)
+, m_score(0)
 , m_laserAttack(context->sounds.get("PlayerLaser"))
 , m_damageTaken(context->sounds.get("DamageTaken"))
 {
@@ -99,6 +100,11 @@ void Player::handleEvent(const sf::Event & event)
 std::size_t Player::getHealth() const
 {
     return m_health;
+}
+
+std::size_t Player::getScore() const
+{
+    return m_score;
 }
 
 void Player::updateStatus()

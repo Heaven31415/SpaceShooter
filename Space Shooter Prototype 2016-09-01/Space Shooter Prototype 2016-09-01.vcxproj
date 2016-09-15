@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Include\PhysicalObject.cpp" />
+    <ClCompile Include="Include\Score.cpp" />
     <ClCompile Include="Source\Background.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Include\Player.hpp" />
     <ClInclude Include="Include\Randomizer.hpp" />
     <ClInclude Include="Include\ResourceHolder.hpp" />
+    <ClInclude Include="Include\Score.hpp" />
     <ClInclude Include="Include\State.hpp" />
     <ClInclude Include="Include\StateManager.hpp" />
     <ClInclude Include="Include\Tools.hpp" />

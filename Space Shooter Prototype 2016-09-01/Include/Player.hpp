@@ -19,6 +19,7 @@ public:
     void                                handleEvent(const sf::Event& event);
 
     std::size_t                         getHealth() const;
+    std::size_t                         getScore() const;
     void                                updateStatus();
     void                                updatePlayer(sf::Time dt);
 
@@ -36,6 +37,7 @@ private:
     bool                                m_turningLeft;
     bool                                m_turningRight;
     std::size_t                         m_health;
+    std::size_t                         m_score;
     sf::Sound                           m_laserAttack;
     sf::Sound                           m_damageTaken;
 };

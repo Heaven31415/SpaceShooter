@@ -10,6 +10,7 @@ GameState::GameState(Context* context)
 , m_enemies(context, &m_collision)
 , m_player(context, &m_collision)
 , m_hud(context, &m_player)
+, m_score(context, &m_player)
 {
     if (!m_gameTheme.openFromFile("Resources/Music/GameTheme.ogg"))
         throw std::runtime_error("\"Resources/Music/GameTheme.ogg\" is missing!");
@@ -81,6 +82,7 @@ void GameState::update(sf::Time dt)
     m_enemies.update(dt);
     m_player.update(dt);
     m_hud.update(dt);
+    m_score.update(dt);
 }
 
 void GameState::render()
@@ -92,5 +94,6 @@ void GameState::render()
     m_enemies.draw(window);
     m_player.draw(window);
     m_hud.draw(window);
+    m_score.draw(window);
     window.display();
 }

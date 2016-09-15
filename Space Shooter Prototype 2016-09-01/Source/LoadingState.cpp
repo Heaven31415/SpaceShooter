@@ -45,6 +45,7 @@ LoadingState::LoadingState(Context* context)
     // load textures and sounds in diffrent threads
     m_context->textures.load();
     m_context->sounds.load();
+    m_context->fonts.load();
 }
 
 State::Type LoadingState::run()

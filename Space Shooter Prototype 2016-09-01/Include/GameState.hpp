@@ -5,6 +5,7 @@
 #include "EnemyHandler.hpp"
 #include "Hud.hpp"
 #include "Player.hpp"
+#include "Score.hpp"
 #include "State.hpp"
 #include "Tools.hpp"
 
@@ -27,5 +28,6 @@ private:
     EnemyHandler                    m_enemies;
     Player                          m_player;
     Hud                             m_hud;
+    Score                           m_score;
     sf::Music                       m_gameTheme;
 };
