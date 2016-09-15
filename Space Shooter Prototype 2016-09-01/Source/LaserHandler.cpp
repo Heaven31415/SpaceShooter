@@ -28,6 +28,7 @@ void LaserHandler::update(sf::Time dt)
 
 void LaserHandler::monitor()
 {
+    // this need to be reworked, it should be only temporary!
     for (auto& laser : m_lasers) m_collision->addTemporary(&laser);
 }
 

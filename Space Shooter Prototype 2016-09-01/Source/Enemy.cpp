@@ -4,6 +4,7 @@ Enemy::Enemy(Context* context, CollisionHandler* collision)
 : PhysicalObject(Object::Type::Enemy, context->textures.get("EnemyShip"))
 , m_status(Status::Alive)
 , m_context(context)
+, m_collision(collision)
 , m_laserHandler(context, collision)
 , m_velocity({ 150.f, 200.f })
 , m_attackTimer(sf::Time::Zero)
@@ -78,6 +79,7 @@ void Enemy::update(sf::Time dt)
 
 void Enemy::monitor()
 {
+    m_collision->addTemporary(this);
     m_laserHandler.monitor();
 }
 

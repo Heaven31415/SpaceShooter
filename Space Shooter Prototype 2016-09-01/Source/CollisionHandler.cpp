@@ -19,11 +19,7 @@ bool CollisionHandler::collision(PhysicalObject * objectA, PhysicalObject * obje
 void CollisionHandler::checkCollision()
 {
     for (auto& object : m_permanentObjects)
-    {
         object->monitor();
-        if (object->getType() == Object::Type::Player)
-            addTemporary(object);
-    }
         
     for(auto& objectA : m_temporaryObjects)
         for (auto& objectB : m_temporaryObjects)

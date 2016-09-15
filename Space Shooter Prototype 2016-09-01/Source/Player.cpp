@@ -4,6 +4,7 @@ Player::Player(Context* context, CollisionHandler* collision)
 : PhysicalObject(Object::Type::Player, context->textures.get("Ship"))
 , m_status(Player::Status::Alive)
 , m_context(context)
+, m_collision(collision)
 , m_laserHandler(context, collision, 5)
 , m_velocity({250.f, 350.f})
 , m_goingUp(false)
@@ -59,6 +60,7 @@ void Player::update(sf::Time dt)
 
 void Player::monitor()
 {
+    m_collision->addTemporary(this);
     m_laserHandler.monitor();
 }
 

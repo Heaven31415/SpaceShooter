@@ -35,9 +35,5 @@ void EnemyHandler::update(sf::Time dt)
 
 void EnemyHandler::monitor()
 {
-    for (auto& enemy : m_enemies) 
-    {
-        m_collision->addTemporary(&enemy);
-        enemy.monitor();
-    }
+    for (auto& enemy : m_enemies) enemy.monitor();
 }
