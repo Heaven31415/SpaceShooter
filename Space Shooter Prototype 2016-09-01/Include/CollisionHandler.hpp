@@ -1,19 +1,19 @@
 #pragma once
 
 #include <vector>
-#include "Object.hpp"
+#include "PhysicalObject.hpp"
 
 class CollisionHandler
 {
 public:
-                                CollisionHandler();
-    bool                        typeMatch(Object* objectA, Object* objectB);
-    bool                        collision(Object* objectA, Object* objectB);
-    void                        checkCollision();          
-    void                        addPermanent(Object* object);
-    void                        addTemporary(Object* object);
+                                    CollisionHandler();
+    bool                            typeMatch(PhysicalObject* objectA, PhysicalObject* objectB);
+    bool                            collision(PhysicalObject* objectA, PhysicalObject* objectB);
+    void                            checkCollision();          
+    void                            addPermanent(PhysicalObject* object);
+    void                            addTemporary(PhysicalObject* object);
 
 private:
-    std::vector<Object*>        m_permanentObjects;
-    std::vector<Object*>        m_temporaryObjects;
+    std::vector<PhysicalObject*>    m_permanentObjects;
+    std::vector<PhysicalObject*>    m_temporaryObjects;
 };

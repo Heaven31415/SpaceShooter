@@ -2,7 +2,7 @@
 
 #include "Enemy.hpp"
 
-class EnemyHandler : public Object
+class EnemyHandler : public PhysicalObject
 {
 public:
                                 EnemyHandler(Context* context, CollisionHandler* collision);

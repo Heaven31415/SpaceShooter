@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Context.hpp"
-#include "Object.hpp"
+#include "PhysicalObject.hpp"
 
-class Laser : public Object
+class Laser : public PhysicalObject
 {
     enum class Status
     {

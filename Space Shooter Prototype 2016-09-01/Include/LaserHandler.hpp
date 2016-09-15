@@ -4,7 +4,7 @@
 #include "Laser.hpp"
 #include <experimental/vector>
 
-class LaserHandler : public Object
+class LaserHandler : public PhysicalObject
 {
 public:
                            LaserHandler(Context* context, CollisionHandler* collision, std::size_t maximum = 10);

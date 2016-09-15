@@ -2,7 +2,7 @@
 
 #include "LaserHandler.hpp"
 
-class Player : public Object
+class Player : public PhysicalObject
 {
     enum class Status
     {

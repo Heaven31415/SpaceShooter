@@ -3,7 +3,7 @@
 #include "LaserHandler.hpp"
 #include "Randomizer.hpp"
 
-class Enemy : public Object
+class Enemy : public PhysicalObject
 {
     enum class Status
     {
