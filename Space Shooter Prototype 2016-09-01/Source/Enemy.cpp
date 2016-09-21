@@ -5,7 +5,7 @@ Enemy::Enemy(Context* context, CollisionHandler* collision)
 , m_status(Status::Alive)
 , m_context(context)
 , m_collision(collision)
-, m_laserHandler(context, collision)
+, m_laserHandler(context, collision, this)
 , m_velocity({ 150.f, 200.f })
 , m_attackTimer(sf::Time::Zero)
 , m_maneuverTimer(sf::Time::Zero)
@@ -25,7 +25,7 @@ Enemy::Enemy(Context* context, CollisionHandler* collision)
     m_maneuverTimer = sf::seconds(random.getRealNumber(0.3f, 1.0f));
 }
 
-void Enemy::collision()
+void Enemy::collision(PhysicalObject* object)
 {
     destroy();
     m_explosion.play();
@@ -98,7 +98,7 @@ void Enemy::updateEnemy(sf::Time dt)
 
     if (m_attackTimer <= sf::Time::Zero)
     {
-        if (m_laserHandler.push(Object::Type::EnemyWeapon, getPosition()))
+        if (m_laserHandler.push(Object::Type::EnemyWeapon))
             m_laserAttack.play();
         m_attackTimer = sf::seconds(random.getRealNumber(0.5f, 1.0f));
     }

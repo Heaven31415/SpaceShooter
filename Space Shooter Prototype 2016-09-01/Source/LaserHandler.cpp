@@ -1,9 +1,10 @@
 #include "../Include/LaserHandler.hpp"
 
-LaserHandler::LaserHandler(Context* context, CollisionHandler* collision, std::size_t maximum)
+LaserHandler::LaserHandler(Context* context, CollisionHandler* collision, Object* owner, std::size_t maximum)
 : PhysicalObject(Object::Type::Handler)
 , m_context(context)
 , m_collision(collision)
+, m_owner(owner)
 , m_lasers()
 , m_maximum(maximum)
 {
@@ -15,7 +16,7 @@ void LaserHandler::draw(sf::RenderTarget & target) const
     for (auto& laser : m_lasers) laser.draw(target);
 }
 
-void LaserHandler::collision()
+void LaserHandler::collision(PhysicalObject* object)
 {
 }
 
@@ -28,15 +29,14 @@ void LaserHandler::update(sf::Time dt)
 
 void LaserHandler::monitor()
 {
-    // this need to be reworked, it should be only temporary!
-    for (auto& laser : m_lasers) m_collision->addTemporary(&laser);
+    for (auto& laser : m_lasers) laser.monitor();
 }
 
-bool LaserHandler::push(Laser::Type type, sf::Vector2f position)
+bool LaserHandler::push(Object::Type type)
 {
     if (m_lasers.size() < m_maximum) 
     {
-        m_lasers.push_back({ type, m_context, position });
+        m_lasers.push_back({ type, m_context, m_collision, m_owner });
         return true;
     }
     else return false;

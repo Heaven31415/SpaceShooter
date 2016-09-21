@@ -1,9 +1,12 @@
 #include "../Include/Laser.hpp"
+#include "../Include/Player.hpp"
 
-Laser::Laser(Object::Type type, Context* context, const sf::Vector2f & position)
+Laser::Laser(Object::Type type, Context* context, CollisionHandler* collision, Object* owner)
 : PhysicalObject(type)
 , m_status(Laser::Status::Alive)
 , m_context(context)
+, m_collision(collision)
+, m_owner(owner)
 , m_velocity((type == Object::Type::PlayerWeapon) ? 500.f : -500.f)
 , m_exploded(false)
 , m_explosionTimer(sf::Time::Zero)
@@ -17,11 +20,17 @@ Laser::Laser(Object::Type type, Context* context, const sf::Vector2f & position)
     setTextureRect(m_frames["laser"]);
 
     centerOrigin();
-    setPosition(position);
+    setPosition(owner->getPosition());
 }
 
-void Laser::collision()
+void Laser::collision(PhysicalObject* object)
 {
+    if (m_owner->getType() == Object::Type::Player)
+    {
+        auto player = static_cast<Player*>(m_owner);
+        player->enemyKilled();
+    }
+
     setTextureRect(m_frames["explosion"]);
     centerOrigin();
     destroy();
@@ -104,6 +113,7 @@ void Laser::update(sf::Time dt)
 
 void Laser::monitor()
 {
+    m_collision->addTemporary(this);
 }
 
 void Laser::updateStatus()

@@ -13,10 +13,10 @@ EnemyHandler::EnemyHandler(Context* context, CollisionHandler* collision)
 
 void EnemyHandler::draw(sf::RenderTarget& target) const
 {
-    for (auto& enemy : m_enemies) enemy.draw(target);
+    for (auto& enemy : m_enemies) enemy->draw(target);
 }
 
-void EnemyHandler::collision()
+void EnemyHandler::collision(PhysicalObject* object)
 {
 }
 
@@ -25,15 +25,19 @@ void EnemyHandler::update(sf::Time dt)
     m_spawnTimer += dt;
     if (m_spawnTimer >= sf::seconds(1.f))
     {
-        if (m_enemies.size() < m_maximum) m_enemies.push_back({ m_context, m_collision });
+        if (m_enemies.size() < m_maximum)
+        {
+            auto enemy = std::make_unique<Enemy>(m_context, m_collision);
+            m_enemies.push_back(std::move(enemy));
+        }
         m_spawnTimer = sf::Time::Zero;
     }
 
-    std::experimental::erase_if(m_enemies, [](const Enemy& enemy) { return enemy.isDestroyed() && enemy.readyToErase(); });
-    for (auto& enemy : m_enemies) enemy.update(dt);
+    std::experimental::erase_if(m_enemies, [](Enemy::Ptr& enemy) { return enemy->isDestroyed() && enemy->readyToErase(); });
+    for (auto& enemy : m_enemies) enemy->update(dt);
 }
 
 void EnemyHandler::monitor()
 {
-    for (auto& enemy : m_enemies) enemy.monitor();
+    for (auto& enemy : m_enemies) enemy->monitor();
 }

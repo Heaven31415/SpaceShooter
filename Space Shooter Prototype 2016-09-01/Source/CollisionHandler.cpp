@@ -27,8 +27,8 @@ void CollisionHandler::checkCollision()
                       if(typeMatch(objectA, objectB))
                         if (collision(objectA, objectB))
                         {
-                            objectA->collision();
-                            objectB->collision();
+                            objectA->collision(objectB);
+                            objectB->collision(objectA);
                         }
 
     m_temporaryObjects.clear();

@@ -119,7 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Include\PhysicalObject.cpp" />
-    <ClCompile Include="Include\Score.cpp" />
+    <ClCompile Include="Source\Score.cpp" />
     <ClCompile Include="Source\Background.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />

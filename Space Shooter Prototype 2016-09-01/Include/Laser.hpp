@@ -1,7 +1,10 @@
 #pragma once
 
+#include "CollisionHandler.hpp"
 #include "Context.hpp"
 #include "PhysicalObject.hpp"
+
+class Player;
 
 class Laser : public PhysicalObject
 {
@@ -12,9 +15,9 @@ class Laser : public PhysicalObject
         Destroyed,
     };
 public:
-                                        Laser(Object::Type type, Context* context, const sf::Vector2f& position);
-    virtual void                        collision() override;
-    virtual void                        draw(sf::RenderTarget& target) const;
+                                        Laser(Object::Type type, Context* context, CollisionHandler* collision, Object* owner);
+    virtual void                        collision(PhysicalObject* object) override;
+    virtual void                        draw(sf::RenderTarget& target) const override;
     virtual void                        update(sf::Time dt) override;
     virtual void                        monitor() override;
 
@@ -24,6 +27,8 @@ public:
 private:
     Status                              m_status;
     Context*                            m_context;
+    CollisionHandler*                   m_collision;
+    Object*                             m_owner;
     float                               m_velocity;
     bool                                m_exploded;
     std::map<std::string, sf::IntRect>  m_frames;

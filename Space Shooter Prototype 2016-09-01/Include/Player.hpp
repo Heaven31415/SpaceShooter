@@ -12,7 +12,7 @@ class Player : public PhysicalObject
     };
 public:
                                         Player(Context* context, CollisionHandler* collision);
-    virtual void                        collision() override;
+    virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const;
     virtual void                        update(sf::Time dt) override;
     virtual void                        monitor() override;
@@ -20,6 +20,7 @@ public:
 
     std::size_t                         getHealth() const;
     std::size_t                         getScore() const;
+    void                                enemyKilled();
     void                                updateStatus();
     void                                updatePlayer(sf::Time dt);
 

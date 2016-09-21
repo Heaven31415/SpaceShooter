@@ -62,7 +62,7 @@
     <ClCompile Include="Include\PhysicalObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Include\Score.cpp">
+    <ClCompile Include="Source\Score.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

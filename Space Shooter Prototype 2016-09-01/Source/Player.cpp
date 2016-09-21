@@ -5,7 +5,7 @@ Player::Player(Context* context, CollisionHandler* collision)
 , m_status(Player::Status::Alive)
 , m_context(context)
 , m_collision(collision)
-, m_laserHandler(context, collision, 5)
+, m_laserHandler(context, collision, this)
 , m_velocity({250.f, 350.f})
 , m_goingUp(false)
 , m_goingDown(false)
@@ -23,7 +23,7 @@ Player::Player(Context* context, CollisionHandler* collision)
     centerOrigin();
 }
 
-void Player::collision()
+void Player::collision(PhysicalObject* object)
 {
     if (m_health > 0) 
     {
@@ -80,7 +80,7 @@ void Player::handleEvent(const sf::Event & event)
             else if (event.key.code == sf::Keyboard::D)
                 m_turningRight = true;
             else if (event.key.code == sf::Keyboard::Space)
-                if (m_laserHandler.push(Object::Type::PlayerWeapon, getPosition()))
+                if (m_laserHandler.push(Object::Type::PlayerWeapon))
                     m_laserAttack.play();
         }
         else if (event.type == sf::Event::KeyReleased)
@@ -105,6 +105,11 @@ std::size_t Player::getHealth() const
 std::size_t Player::getScore() const
 {
     return m_score;
+}
+
+void Player::enemyKilled()
+{
+    m_score += 10;
 }
 
 void Player::updateStatus()

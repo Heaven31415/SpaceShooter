@@ -5,15 +5,16 @@
 
 class Enemy : public PhysicalObject
 {
+public:
+    typedef std::unique_ptr<Enemy> Ptr;
     enum class Status
     {
         Alive,
         DeadWithLasers,
         DeadWithoutLasers,
     };
-public:
                                         Enemy(Context* context, CollisionHandler* collision);
-    virtual void                        collision() override;
+    virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const override;
     virtual void                        update(sf::Time dt) override;
     virtual void                        monitor() override;

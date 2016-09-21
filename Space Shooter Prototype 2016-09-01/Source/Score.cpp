@@ -1,4 +1,4 @@
-#include "Score.hpp"
+#include "../Include/Score.hpp"
 
 Score::Score(Context * context, Player * player)
 : Object(Object::Type::Special)
