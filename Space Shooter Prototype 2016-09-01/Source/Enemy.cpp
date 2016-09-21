@@ -87,7 +87,9 @@ void Enemy::updateStatus()
 {
     if (!isDestroyed()) m_status = Status::Alive;
     else if (isDestroyed() && !m_laserHandler.empty()) m_status = Status::DeadWithLasers;
+    else if (m_explosion.getStatus() == sf::Sound::Status::Playing) m_status = Status::DeadWithLasers;
     else m_status = Status::DeadWithoutLasers;
+        
 }
 
 void Enemy::updateEnemy(sf::Time dt)
