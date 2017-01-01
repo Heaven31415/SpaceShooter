@@ -11,6 +11,7 @@ LoadingState::LoadingState(Context* context)
 , m_loadingTextTimer(sf::Time::Zero)
 {
     // Before loading occurs we need to have access to some special resources
+    // TODO: Handle it in a different way
     if (!m_backgroundTexture.loadFromFile("Resources/Graphics/Background.png"))
         throw std::runtime_error("\"Resources/Graphics/Background.png\" is missing!");
     m_background.setTexture(m_backgroundTexture);
@@ -85,7 +86,7 @@ void LoadingState::handleInput()
         if (event.type == sf::Event::Closed)
             m_exitFlag = { true, State::Exit };
         else if (event.type == sf::Event::KeyPressed && m_resourcesLoaded)
-            m_exitFlag = { true, State::Game };
+            m_exitFlag = { true, State::Menu };
     }
 }
 
