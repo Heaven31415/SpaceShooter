@@ -1,17 +1,18 @@
 #pragma once
 
-#include "Player.hpp"
+#include "Context.hpp"
+#include "Object.hpp"
 #include "Tools.hpp"
 
 class Score : public Object
 {
 public:
-                            Score(Context* context, Player* player);
+                            Score(Context* context);
     virtual void            draw(sf::RenderTarget& target) const override;
     virtual void            update(sf::Time dt) override;
+    void                    setPoints(std::size_t points);
 
 private:
     Context*                m_context;
-    Player*                 m_player;
     sf::Text                m_text;
 };

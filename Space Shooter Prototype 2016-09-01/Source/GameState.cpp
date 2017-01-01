@@ -8,9 +8,9 @@ GameState::GameState(Context* context)
 , m_collision()
 , m_background(context)
 , m_enemies(context, &m_collision)
-, m_player(context, &m_collision)
+, m_player(context, &m_collision, &m_score)
 , m_hud(context, &m_player)
-, m_score(context, &m_player)
+, m_score(context)
 {
     if (!m_gameTheme.openFromFile("Resources/Music/GameTheme.ogg"))
         throw std::runtime_error("\"Resources/Music/GameTheme.ogg\" is missing!");

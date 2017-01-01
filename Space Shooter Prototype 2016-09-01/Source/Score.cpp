@@ -1,10 +1,9 @@
 #include "../Include/Score.hpp"
 
-Score::Score(Context * context, Player * player)
+Score::Score(Context* context)
 : Object(Object::Type::Special)
 , m_context(context)
-, m_player(player)
-, m_text("Score: " + std::to_string(player->getScore()), context->fonts.get("Candara"), 35)
+, m_text("Score: 0" , context->fonts.get("Candara"), 35)
 {
     ts::rightTopOrigin(m_text);
     auto windowWidth = static_cast<float>(context->window.getSize().x);
@@ -18,6 +17,11 @@ void Score::draw(sf::RenderTarget & target) const
 
 void Score::update(sf::Time dt)
 {
-    m_text.setString("Score: " + std::to_string(m_player->getScore()));
+
+}
+
+void Score::setPoints(std::size_t points)
+{
+    m_text.setString("Score: " + std::to_string(points));
     ts::rightTopOrigin(m_text);
 }

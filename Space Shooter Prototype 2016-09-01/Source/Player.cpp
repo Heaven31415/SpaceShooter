@@ -1,10 +1,11 @@
 #include "../Include/Player.hpp"
 
-Player::Player(Context* context, CollisionHandler* collision)
+Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper)
 : PhysicalObject(Object::Type::Player, context->textures.get("Ship"))
 , m_status(Player::Status::Alive)
 , m_context(context)
 , m_collision(collision)
+, m_scoreKeeper(scoreKeeper)
 , m_laserHandler(context, collision, this)
 , m_velocity({250.f, 350.f})
 , m_goingUp(false)
@@ -110,6 +111,7 @@ std::size_t Player::getScore() const
 void Player::enemyKilled()
 {
     m_score += 10;
+    m_scoreKeeper->setPoints(m_score);
 }
 
 void Player::updateStatus()

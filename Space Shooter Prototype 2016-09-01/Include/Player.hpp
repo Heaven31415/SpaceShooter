@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LaserHandler.hpp"
+#include "Score.hpp"
 
 class Player : public PhysicalObject
 {
@@ -11,7 +12,7 @@ class Player : public PhysicalObject
         DeadWithoutLasers,
     };
 public:
-                                        Player(Context* context, CollisionHandler* collision);
+                                        Player(Context* context, CollisionHandler* collision, Score* scoreKeeper);
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const;
     virtual void                        update(sf::Time dt) override;
@@ -28,6 +29,7 @@ private:
     Status                              m_status;
     Context*                            m_context;
     CollisionHandler*                   m_collision;
+    Score*                              m_scoreKeeper;
     LaserHandler                        m_laserHandler;
 
 private:
