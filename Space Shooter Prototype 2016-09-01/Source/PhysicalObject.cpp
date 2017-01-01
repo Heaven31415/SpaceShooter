@@ -1,4 +1,4 @@
-#include "PhysicalObject.hpp"
+#include "../Include/PhysicalObject.hpp"
 
 PhysicalObject::PhysicalObject(Type type)
 : Object(type)

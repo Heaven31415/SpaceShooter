@@ -59,10 +59,10 @@
     <ClCompile Include="Source\StateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Include\PhysicalObject.cpp">
+    <ClCompile Include="Source\Score.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Score.cpp">
+    <ClCompile Include="Source\PhysicalObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
