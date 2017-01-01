@@ -42,7 +42,7 @@ LoadingState::LoadingState(Context* context)
     m_loadingBarBackground.setPosition(20.f, 540.f);
     m_loadingBarBackground.setFillColor({ 155, 155, 155 });
 
-    // load textures and sounds in diffrent threads
+    // load textures and sounds in different threads
     m_context->textures.load();
     m_context->sounds.load();
     m_context->fonts.load();
@@ -85,7 +85,7 @@ void LoadingState::handleInput()
         if (event.type == sf::Event::Closed)
             m_exitFlag = { true, State::Exit };
         else if (event.type == sf::Event::KeyPressed && m_resourcesLoaded)
-            m_exitFlag = { true, State::Game };
+            m_exitFlag = { true, State::Menu };
     }
 }
 

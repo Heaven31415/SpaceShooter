@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GameConfig.hpp"
 #include "ResourceHolder.hpp"
 #include "StateManager.hpp"
 

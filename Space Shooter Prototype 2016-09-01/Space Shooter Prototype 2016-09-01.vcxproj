@@ -122,6 +122,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\PhysicalObject.cpp" />
     <ClCompile Include="Source\Score.cpp" />
     <ClCompile Include="Source\Background.cpp" />
@@ -148,11 +149,13 @@
     <ClInclude Include="Include\EnemyHandler.hpp" />
     <ClInclude Include="Include\Game.hpp" />
     <ClInclude Include="Include\Context.hpp" />
+    <ClInclude Include="Include\GameConfig.hpp" />
     <ClInclude Include="Include\GameState.hpp" />
     <ClInclude Include="Include\Hud.hpp" />
     <ClInclude Include="Include\Laser.hpp" />
     <ClInclude Include="Include\LaserHandler.hpp" />
     <ClInclude Include="Include\LoadingState.hpp" />
+    <ClInclude Include="Include\MenuState.hpp" />
     <ClInclude Include="Include\Object.hpp" />
     <ClInclude Include="Include\PhysicalObject.hpp" />
     <ClInclude Include="Include\Player.hpp" />
@@ -162,6 +165,33 @@
     <ClInclude Include="Include\State.hpp" />
     <ClInclude Include="Include\StateManager.hpp" />
     <ClInclude Include="Include\Tools.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Graphics\Background.png" />
+    <Image Include="Resources\Graphics\Cursor.png" />
+    <Image Include="Resources\Graphics\EnemyShip.png" />
+    <Image Include="Resources\Graphics\GreenLaser.png" />
+    <Image Include="Resources\Graphics\LaserGreen.png" />
+    <Image Include="Resources\Graphics\LaserRed.png" />
+    <Image Include="Resources\Graphics\Life.png" />
+    <Image Include="Resources\Graphics\Menu.png" />
+    <Image Include="Resources\Graphics\RedLaser.png" />
+    <Image Include="Resources\Graphics\Ship.png" />
+    <Image Include="Resources\Graphics\StarBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\Alger.ttf" />
+    <Font Include="Resources\Fonts\Candara.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Music\GameTheme.ogg" />
+    <None Include="Resources\Music\LoadingTheme.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Sounds\DamageTaken.wav" />
+    <Media Include="Resources\Sounds\EnemyLaser.wav" />
+    <Media Include="Resources\Sounds\Explosion.wav" />
+    <Media Include="Resources\Sounds\PlayerLaser.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

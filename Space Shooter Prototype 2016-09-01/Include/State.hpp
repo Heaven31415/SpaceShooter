@@ -11,6 +11,7 @@ public:
 		Exit,
 		Game,
 		Loading,
+        Menu,
 	};
 	
 	virtual State::Type run() = 0;

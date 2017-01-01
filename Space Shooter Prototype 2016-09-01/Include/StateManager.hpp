@@ -2,6 +2,7 @@
 
 #include "GameState.hpp"
 #include "LoadingState.hpp"
+#include "MenuState.hpp"
 
 class StateManager : private sf::NonCopyable
 {

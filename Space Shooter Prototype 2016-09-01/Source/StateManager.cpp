@@ -27,6 +27,9 @@ State::Ptr StateManager::factory(State::Type type)
             return State::Ptr(new GameState(m_context));
         case State::Loading:
             return State::Ptr(new LoadingState(m_context));
+        case State::Menu:
+            return State::Ptr(new MenuState(m_context));
+
     }
     return nullptr;
 }
