@@ -15,7 +15,7 @@ class Laser : public PhysicalObject
         Destroyed,
     };
 public:
-                                        Laser(Object::Type type, Context* context, CollisionHandler* collision, Object* owner);
+                                        Laser(Type::Type type, Context* context, CollisionHandler* collision, Object* owner);
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const override;
     virtual void                        update(sf::Time dt) override;

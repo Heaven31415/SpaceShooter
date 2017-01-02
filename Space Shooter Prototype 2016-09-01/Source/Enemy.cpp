@@ -1,7 +1,7 @@
 #include "../Include/Enemy.hpp"
 
 Enemy::Enemy(Context* context, CollisionHandler* collision)
-: PhysicalObject(Object::Type::Enemy, context->textures.get("EnemyShip"))
+: PhysicalObject(Type::Enemy, context->textures.get("EnemyShip"))
 , m_status(Status::Alive)
 , m_context(context)
 , m_collision(collision)
@@ -100,7 +100,7 @@ void Enemy::updateEnemy(sf::Time dt)
 
     if (m_attackTimer <= sf::Time::Zero)
     {
-        if (m_laserHandler.push(Object::Type::EnemyWeapon))
+        if (m_laserHandler.push(Type::EnemyWeapon))
             m_laserAttack.play();
         m_attackTimer = sf::seconds(random.getRealNumber(0.5f, 1.0f));
     }

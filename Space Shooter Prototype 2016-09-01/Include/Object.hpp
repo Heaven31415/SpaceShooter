@@ -4,27 +4,32 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
 
+namespace Type
+{
+    enum Type : unsigned
+    {
+        Special = 0,
+        Handler = 0,
+        Player = 1,
+        Enemy = 2,
+        EnemyWeapon = 4,
+        PlayerWeapon = 8,
+    };
+}
+
+
 class Object : public sf::Transformable
 {
 public:
-    enum class Type
-    {
-        Special         = -1,
-        Handler         = -1,
-        Match           = +1,
-        Player          = +3,
-        EnemyWeapon     = +4,
-        Enemy           = +6,
-        PlayerWeapon    = +7,
-    };
-                            Object(Type type);
-                            Object(Type type, const sf::Texture& texture);
-                            Object(Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
+    
+                            Object(Type::Type type);
+                            Object(Type::Type type, const sf::Texture& texture);
+                            Object(Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
     virtual void            draw(sf::RenderTarget& target) const;
     virtual void            update(sf::Time dt) = 0;
 
 public:
-    Object::Type            getType() const;
+    Type::Type              getType() const;
     sf::FloatRect           getLocalBounds() const;
     sf::FloatRect           getGlobalBounds() const;
     void                    setTexture(const sf::Texture& texture);
@@ -33,7 +38,7 @@ public:
     void                    centerOrigin();
 
 protected:
-    Object::Type            m_type;
+    Type::Type              m_type;
 
 private:
     sf::Sprite              m_sprite;

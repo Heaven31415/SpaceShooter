@@ -1,7 +1,7 @@
 #include "../Include/LaserHandler.hpp"
 
 LaserHandler::LaserHandler(Context* context, CollisionHandler* collision, Object* owner, std::size_t maximum)
-: PhysicalObject(Object::Type::Handler)
+: PhysicalObject(Type::Handler)
 , m_context(context)
 , m_collision(collision)
 , m_owner(owner)
@@ -32,7 +32,7 @@ void LaserHandler::monitor()
     for (auto& laser : m_lasers) laser.monitor();
 }
 
-bool LaserHandler::push(Object::Type type)
+bool LaserHandler::push(Type::Type type)
 {
     if (m_lasers.size() < m_maximum) 
     {

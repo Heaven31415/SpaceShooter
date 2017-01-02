@@ -5,25 +5,25 @@ void Object::draw(sf::RenderTarget & target) const
     target.draw(m_sprite, getTransform());
 }
 
-Object::Object(Type type)
+Object::Object(Type::Type type)
 : m_type(type)
 , m_sprite()
 {
 }
 
-Object::Object(Type type, const sf::Texture & texture)
+Object::Object(Type::Type type, const sf::Texture & texture)
 : m_type(type)
 , m_sprite(texture)
 {
 }
 
-Object::Object(Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
+Object::Object(Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
 : m_type(type)
 , m_sprite(texture, rectangle)
 {
 }
 
-Object::Type Object::getType() const
+Type::Type Object::getType() const
 {
     return m_type;
 }

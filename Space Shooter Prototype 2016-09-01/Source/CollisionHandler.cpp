@@ -8,7 +8,7 @@ CollisionHandler::CollisionHandler()
 
 bool CollisionHandler::typeMatch(PhysicalObject * objectA, PhysicalObject * objectB)
 {
-    return static_cast<int>(objectA->getType()) - static_cast<int>(objectB->getType()) == static_cast<int>(Object::Type::Match);
+    return (objectA->getCollisionMatch() & objectB->getType()) != 0;
 }
 
 bool CollisionHandler::collision(PhysicalObject * objectA, PhysicalObject * objectB)

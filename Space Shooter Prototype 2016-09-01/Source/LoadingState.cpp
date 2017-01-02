@@ -86,7 +86,7 @@ void LoadingState::handleInput()
         if (event.type == sf::Event::Closed)
             m_exitFlag = { true, State::Exit };
         else if (event.type == sf::Event::KeyPressed && m_resourcesLoaded)
-            m_exitFlag = { true, State::Menu };
+            m_exitFlag = { true, State::Game };
     }
 }
 

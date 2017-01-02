@@ -1,7 +1,7 @@
 #include "../Include/Background.hpp"
 
 Background::Background(Context* context)
-: Object(Object::Type::Special)
+: Object(Type::Special)
 , m_context(context)
 , m_velocity(100.f)
 {

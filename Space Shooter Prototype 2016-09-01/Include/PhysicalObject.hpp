@@ -5,14 +5,15 @@
 class PhysicalObject : public Object
 {
 public:
-                            PhysicalObject(Type type);
-                            PhysicalObject(Type type, const sf::Texture& texture);
-                            PhysicalObject(Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
+                            PhysicalObject(Type::Type type);
+                            PhysicalObject(Type::Type type, const sf::Texture& texture);
+                            PhysicalObject(Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
     virtual void            collision(PhysicalObject* object) = 0;
     virtual void            monitor() = 0;
 
 public:
     bool                    isDestroyed() const;
+    unsigned                getCollisionMatch();
     void                    destroy();
 
 private:

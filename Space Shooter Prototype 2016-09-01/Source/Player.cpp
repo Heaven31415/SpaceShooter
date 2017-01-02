@@ -1,7 +1,7 @@
 #include "../Include/Player.hpp"
 
 Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper)
-: PhysicalObject(Object::Type::Player, context->textures.get("Ship"))
+: PhysicalObject(Type::Player, context->textures.get("Ship"))
 , m_status(Player::Status::Alive)
 , m_context(context)
 , m_collision(collision)
@@ -81,7 +81,7 @@ void Player::handleEvent(const sf::Event & event)
             else if (event.key.code == sf::Keyboard::D)
                 m_turningRight = true;
             else if (event.key.code == sf::Keyboard::Space)
-                if (m_laserHandler.push(Object::Type::PlayerWeapon))
+                if (m_laserHandler.push(Type::PlayerWeapon))
                     m_laserAttack.play();
         }
         else if (event.type == sf::Event::KeyReleased)

@@ -1,7 +1,7 @@
 #include "../Include/Score.hpp"
 
 Score::Score(Context* context)
-: Object(Object::Type::Special)
+: Object(Type::Special)
 , m_context(context)
 , m_text("Score: 0" , context->fonts.get("Candara"), 35)
 {

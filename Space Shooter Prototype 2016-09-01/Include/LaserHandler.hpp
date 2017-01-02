@@ -7,7 +7,7 @@ class LaserHandler : public PhysicalObject
 {
 public:
                            LaserHandler(Context* context, CollisionHandler* collision, Object* owner = nullptr, std::size_t maximum = 5);
-    bool                   push(Object::Type type);
+    bool                   push(Type::Type type);
     bool                   empty() const;
 
 public:

@@ -1,7 +1,7 @@
 #include "../Include/Hud.hpp"
 
 Hud::Hud(Context* context, Player* player)
-: Object(Object::Type::Special)
+: Object(Type::Special)
 , m_context(context)
 , m_player(player)
 {

@@ -1,17 +1,17 @@
 #include "../Include/Laser.hpp"
 #include "../Include/Player.hpp"
 
-Laser::Laser(Object::Type type, Context* context, CollisionHandler* collision, Object* owner)
+Laser::Laser(Type::Type type, Context* context, CollisionHandler* collision, Object* owner)
 : PhysicalObject(type)
 , m_status(Laser::Status::Alive)
 , m_context(context)
 , m_collision(collision)
 , m_owner(owner)
-, m_velocity((type == Object::Type::PlayerWeapon) ? 500.f : -500.f)
+, m_velocity((type == Type::PlayerWeapon) ? 500.f : -500.f)
 , m_exploded(false)
 , m_explosionTimer(sf::Time::Zero)
 {
-    (type == Object::Type::PlayerWeapon) ? 
+    (type == Type::PlayerWeapon) ? 
         setTexture(context->textures.get("RedLaser")) : 
         setTexture(context->textures.get("GreenLaser"));
 
@@ -25,7 +25,7 @@ Laser::Laser(Object::Type type, Context* context, CollisionHandler* collision, O
 
 void Laser::collision(PhysicalObject* object)
 {
-    if (m_owner->getType() == Object::Type::Player)
+    if (m_owner->getType() == Type::Player)
     {
         auto player = static_cast<Player*>(m_owner);
         player->enemyKilled();
