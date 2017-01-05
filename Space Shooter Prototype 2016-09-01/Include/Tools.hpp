@@ -25,5 +25,3 @@ namespace ts
         text.setOrigin(bounds.left + bounds.width, 0);
     }
 }
-
-

@@ -16,25 +16,25 @@ ResourceHolder<R>::ResourceHolder(std::vector<std::string> extensions, std::stri
 template<typename R>
 R& ResourceHolder<R>::get(const std::string& id)
 {
-	return m_resources[id];
+    return m_resources[id];
 }
 
 template<typename R>
 const R& ResourceHolder<R>::get(const std::string& id) const
 {
-	return m_resources[id];
+    return m_resources[id];
 }
 
 template<typename R>
 void ResourceHolder<R>::load()
 {
-	m_loader.launch();
+    m_loader.launch();
 }
 
 template<typename R>
 bool ResourceHolder<R>::isFinished()
 {
-	return m_finished.load();
+    return m_finished.load();
 }
 
 template<typename R>
@@ -46,47 +46,47 @@ float ResourceHolder<R>::getProgress()
 template<typename R>
 void ResourceHolder<R>::loadResources()
 {
-	// get current path and add m_relativePath to it
-	fs::path path = fs::current_path();
-	path /= m_relativePath;
+    // get current path and add m_relativePath to it
+    fs::path path = fs::current_path();
+    path /= m_relativePath;
 
-	// check whether created path is indeed a directory from which we can load resources
-	if (!fs::is_directory(path))
-		throw std::runtime_error("\"" + path.u8string() + "\" is not a valid directory!");
+    // check whether created path is indeed a directory from which we can load resources
+    if (!fs::is_directory(path))
+        throw std::runtime_error("\"" + path.u8string() + "\" is not a valid directory!");
 
-	// create contaiener with information about resources
-	std::vector <std::pair<std::string, std::string>> resourcesNames;
+    // create contaiener with information about resources
+    std::vector <std::pair<std::string, std::string>> resourcesNames;
 
-	// now we are in directory, let's search for resources
-	for (auto& p : fs::recursive_directory_iterator(path))
-	{
-		// if path contains regular file, analyze it
-		if (fs::is_regular_file(p.path()))
-		{
-			// check whether path is valid using regular expression
-			const std::string& target = p.path().u8string();
-			std::smatch match;
-			std::regex regex(R"(.+\\([\w\(\)\[\] -]+)\.(\w+))");
-			if (!std::regex_search(target, match, regex))
-				throw std::runtime_error("\"" + target + "\" is not a valid filepath!");
+    // now we are in directory, let's search for resources
+    for (auto& p : fs::recursive_directory_iterator(path))
+    {
+        // if path contains regular file, analyze it
+        if (fs::is_regular_file(p.path()))
+        {
+            // check whether path is valid using regular expression
+            const std::string& target = p.path().u8string();
+            std::smatch match;
+            std::regex regex(R"(.+\\([\w\(\)\[\] -]+)\.(\w+))");
+            if (!std::regex_search(target, match, regex))
+                throw std::runtime_error("\"" + target + "\" is not a valid filepath!");
 
-			// create references to filename and extension
-			const std::string& filename = match[1];
-			const std::string& extension = match[2];
+            // create references to filename and extension
+            const std::string& filename = match[1];
+            const std::string& extension = match[2];
 
-			// check whether file extension is supported
-			bool validExtension = false;
-			for (auto& e : m_extensions)
-				if (extension == e) validExtension = true;
+            // check whether file extension is supported
+            bool validExtension = false;
+            for (auto& e : m_extensions)
+                if (extension == e) validExtension = true;
 
-			// if we have file with good extension, let's add it
-			if (validExtension)
-			{
-				resourcesNames.push_back({ filename, p.path().u8string() });
-				m_found++;
-			}
-		}
-	}
+            // if we have file with good extension, let's add it
+            if (validExtension)
+            {
+                resourcesNames.push_back({ filename, p.path().u8string() });
+                m_found++;
+            }
+        }
+    }
 
     // if no resources have been found, let's end the show
     if (m_found.load() == 0)

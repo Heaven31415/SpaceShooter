@@ -8,13 +8,13 @@ StateManager::StateManager(Context* context)
 
 void StateManager::run()
 {
-	while (m_next != State::Exit)
-	{
+    while (m_next != State::Exit)
+    {
         if (m_states[m_next] == nullptr)
             m_states[m_next] = factory(m_next);
         else
-		    m_next = m_states[m_next]->run();
-	}
+            m_next = m_states[m_next]->run();
+    }
 }
 
 State::Ptr StateManager::factory(State::Type type)
