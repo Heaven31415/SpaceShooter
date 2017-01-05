@@ -2,14 +2,15 @@
 
 #include "Object.hpp"
 
+class CollisionHandler;
+
 class PhysicalObject : public Object
 {
 public:
-                            PhysicalObject(Type::Type type);
-                            PhysicalObject(Type::Type type, const sf::Texture& texture);
-                            PhysicalObject(Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
+                            PhysicalObject(CollisionHandler* collision, Type::Type type);
+                            PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture& texture);
+                            PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
     virtual void            collision(PhysicalObject* object) = 0;
-    virtual void            monitor() = 0;
 
 public:
     bool                    isDestroyed() const;

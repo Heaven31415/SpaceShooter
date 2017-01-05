@@ -1,7 +1,7 @@
 #include "../Include/EnemyHandler.hpp"
 
 EnemyHandler::EnemyHandler(Context* context, CollisionHandler* collision)
-: PhysicalObject(Type::Handler)
+: PhysicalObject(collision, Type::Handler)
 , m_context(context)
 , m_collision(collision)
 , m_enemies()
@@ -35,9 +35,4 @@ void EnemyHandler::update(sf::Time dt)
 
     std::experimental::erase_if(m_enemies, [](Enemy::Ptr& enemy) { return enemy->isDestroyed() && enemy->readyToErase(); });
     for (auto& enemy : m_enemies) enemy->update(dt);
-}
-
-void EnemyHandler::monitor()
-{
-    for (auto& enemy : m_enemies) enemy->monitor();
 }

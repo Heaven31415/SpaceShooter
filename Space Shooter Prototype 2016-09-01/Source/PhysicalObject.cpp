@@ -1,21 +1,25 @@
 #include "../Include/PhysicalObject.hpp"
+#include "../Include/CollisionHandler.hpp"
 
-PhysicalObject::PhysicalObject(Type::Type type)
+PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type)
 : Object(type)
 , m_destroyed(false)
 {
+    collision->registerObject(this);
 }
 
-PhysicalObject::PhysicalObject(Type::Type type, const sf::Texture & texture)
+PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture & texture)
 : Object(type, texture)
 , m_destroyed(false)
 {
+    collision->registerObject(this);
 }
 
-PhysicalObject::PhysicalObject(Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
+PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
 : Object(type, texture, rectangle)
 , m_destroyed(false)
 {
+    collision->registerObject(this);
 }
 
 bool PhysicalObject::isDestroyed() const

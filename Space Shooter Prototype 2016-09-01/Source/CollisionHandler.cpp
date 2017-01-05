@@ -1,8 +1,7 @@
 #include "../Include/CollisionHandler.hpp"
 
 CollisionHandler::CollisionHandler()
-: m_permanentObjects()
-, m_temporaryObjects()
+: m_objects()
 {
 }
 
@@ -18,11 +17,8 @@ bool CollisionHandler::collision(PhysicalObject * objectA, PhysicalObject * obje
 
 void CollisionHandler::checkCollision()
 {
-    for (auto& object : m_permanentObjects)
-        object->monitor();
-        
-    for(auto& objectA : m_temporaryObjects)
-        for (auto& objectB : m_temporaryObjects)
+    for(auto& objectA : m_objects)
+        for (auto& objectB : m_objects)
                 if (objectA != objectB && !(objectA->isDestroyed() || objectB->isDestroyed()))
                       if(typeMatch(objectA, objectB))
                         if (collision(objectA, objectB))
@@ -31,15 +27,10 @@ void CollisionHandler::checkCollision()
                             objectB->collision(objectA);
                         }
 
-    m_temporaryObjects.clear();
+    std::experimental::erase_if(m_objects, [](const PhysicalObject* object) { return object->isDestroyed(); }); // lookout
 }
 
-void CollisionHandler::addPermanent(PhysicalObject * object)
+void CollisionHandler::registerObject(PhysicalObject * object)
 {
-    m_permanentObjects.push_back(object);
-}
-
-void CollisionHandler::addTemporary(PhysicalObject * object)
-{
-    m_temporaryObjects.push_back(object);
+    m_objects.push_back(object);
 }

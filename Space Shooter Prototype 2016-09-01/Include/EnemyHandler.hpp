@@ -10,7 +10,6 @@ public:
     virtual void                collision(PhysicalObject* object) override;
     virtual void                draw(sf::RenderTarget& target) const override;
     virtual void                update(sf::Time dt) override;
-    virtual void                monitor() override;
 
 private:
     Context*                    m_context;

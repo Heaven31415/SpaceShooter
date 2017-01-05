@@ -1,12 +1,11 @@
 #include "../Include/Player.hpp"
 
 Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper)
-: PhysicalObject(Type::Player, context->textures.get("Ship"))
+: PhysicalObject(collision, Type::Player, context->textures.get("Ship"))
 , m_status(Player::Status::Alive)
 , m_context(context)
-, m_collision(collision)
 , m_scoreKeeper(scoreKeeper)
-, m_laserHandler(context, collision, this)
+, m_laserHandler()
 , m_velocity({250.f, 350.f})
 , m_goingUp(false)
 , m_goingDown(false)
@@ -17,6 +16,7 @@ Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper
 , m_laserAttack(context->sounds.get("PlayerLaser"))
 , m_damageTaken(context->sounds.get("DamageTaken"))
 {
+    m_laserHandler = std::make_unique<LaserHandler>(context, collision, this);
     m_frames["straight"] = { 0, 0, 100, 80 };
     m_frames["left"] = { 100, 0, 100, 80 };
     m_frames["right"] = { 200, 0, 100, 80 };
@@ -42,13 +42,13 @@ void Player::update(sf::Time dt)
         case Status::Alive:
         {
             updatePlayer(dt);
-            m_laserHandler.update(dt);
+            m_laserHandler->update(dt);
         }
         break;
 
         case Status::DeadWithLasers:
         {
-            m_laserHandler.update(dt);
+            m_laserHandler->update(dt);
         }
         break;
 
@@ -58,12 +58,6 @@ void Player::update(sf::Time dt)
         }
         break;
     }
-}
-
-void Player::monitor()
-{
-    m_collision->addTemporary(this);
-    m_laserHandler.monitor();
 }
 
 void Player::handleEvent(const sf::Event & event)
@@ -81,7 +75,7 @@ void Player::handleEvent(const sf::Event & event)
             else if (event.key.code == sf::Keyboard::D)
                 m_turningRight = true;
             else if (event.key.code == sf::Keyboard::Space)
-                if (m_laserHandler.push(Type::PlayerWeapon))
+                if (m_laserHandler->push(Type::PlayerWeapon))
                     m_laserAttack.play();
         }
         else if (event.type == sf::Event::KeyReleased)
@@ -117,7 +111,7 @@ void Player::enemyKilled()
 void Player::updateStatus()
 {
     if (m_health > 0) m_status = Status::Alive;
-    else if (m_health == 0 && !m_laserHandler.empty()) m_status = Status::DeadWithLasers;
+    else if (m_health == 0 && !m_laserHandler->empty()) m_status = Status::DeadWithLasers;
     else m_status = Status::DeadWithoutLasers;
 }
 
@@ -159,14 +153,14 @@ void Player::draw(sf::RenderTarget & target) const
     {
         case Status::Alive:
         {
-            m_laserHandler.draw(target);
+            m_laserHandler->draw(target);
             Object::draw(target);
         }
         break;
 
         case Status::DeadWithLasers:
         {
-            m_laserHandler.draw(target);
+            m_laserHandler->draw(target);
         }
         break;
     }

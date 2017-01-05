@@ -1,11 +1,10 @@
 #include "../Include/Enemy.hpp"
 
 Enemy::Enemy(Context* context, CollisionHandler* collision)
-: PhysicalObject(Type::Enemy, context->textures.get("EnemyShip"))
+: PhysicalObject(collision, Type::Enemy, context->textures.get("EnemyShip"))
 , m_status(Status::Alive)
 , m_context(context)
-, m_collision(collision)
-, m_laserHandler(context, collision, this)
+, m_laserHandler()
 , m_velocity({ 150.f, 200.f })
 , m_attackTimer(sf::Time::Zero)
 , m_maneuverTimer(sf::Time::Zero)
@@ -14,6 +13,7 @@ Enemy::Enemy(Context* context, CollisionHandler* collision)
 , m_laserAttack(context->sounds.get("EnemyLaser"))
 , m_explosion(context->sounds.get("Explosion"))
 {
+    m_laserHandler = std::make_unique<LaserHandler>(context, collision, this);
     centerOrigin();
 
     Randomizer random;
@@ -37,14 +37,14 @@ void Enemy::draw(sf::RenderTarget & target) const
     {
         case Status::Alive:
         {
-            m_laserHandler.draw(target);
+            m_laserHandler->draw(target);
             Object::draw(target);
         }
         break;
 
         case Status::DeadWithLasers:
         {
-            m_laserHandler.draw(target);
+            m_laserHandler->draw(target);
         }
         break;
     }
@@ -59,13 +59,13 @@ void Enemy::update(sf::Time dt)
         case Status::Alive:
         {
             updateEnemy(dt);
-            m_laserHandler.update(dt);
+            m_laserHandler->update(dt);
         }
         break;
 
         case Status::DeadWithLasers:
         {
-            m_laserHandler.update(dt);
+            m_laserHandler->update(dt);
         }
         break;
 
@@ -77,19 +77,12 @@ void Enemy::update(sf::Time dt)
     }
 }
 
-void Enemy::monitor()
-{
-    m_collision->addTemporary(this);
-    m_laserHandler.monitor();
-}
-
 void Enemy::updateStatus()
 {
     if (!isDestroyed()) m_status = Status::Alive;
-    else if (isDestroyed() && !m_laserHandler.empty()) m_status = Status::DeadWithLasers;
+    else if (isDestroyed() && !m_laserHandler->empty()) m_status = Status::DeadWithLasers;
     else if (m_explosion.getStatus() == sf::Sound::Status::Playing) m_status = Status::DeadWithLasers;
     else m_status = Status::DeadWithoutLasers;
-        
 }
 
 void Enemy::updateEnemy(sf::Time dt)
@@ -100,7 +93,7 @@ void Enemy::updateEnemy(sf::Time dt)
 
     if (m_attackTimer <= sf::Time::Zero)
     {
-        if (m_laserHandler.push(Type::EnemyWeapon))
+        if (m_laserHandler->push(Type::EnemyWeapon))
             m_laserAttack.play();
         m_attackTimer = sf::seconds(random.getRealNumber(0.5f, 1.0f));
     }

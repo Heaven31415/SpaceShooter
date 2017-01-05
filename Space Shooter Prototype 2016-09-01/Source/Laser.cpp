@@ -2,10 +2,9 @@
 #include "../Include/Player.hpp"
 
 Laser::Laser(Type::Type type, Context* context, CollisionHandler* collision, Object* owner)
-: PhysicalObject(type)
+: PhysicalObject(collision, type)
 , m_status(Laser::Status::Alive)
 , m_context(context)
-, m_collision(collision)
 , m_owner(owner)
 , m_velocity((type == Type::PlayerWeapon) ? 500.f : -500.f)
 , m_exploded(false)
@@ -109,11 +108,6 @@ void Laser::update(sf::Time dt)
         }
         break;
     }
-}
-
-void Laser::monitor()
-{
-    m_collision->addTemporary(this);
 }
 
 void Laser::updateStatus()

@@ -16,7 +16,6 @@ public:
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const;
     virtual void                        update(sf::Time dt) override;
-    virtual void                        monitor() override;
     void                                handleEvent(const sf::Event& event);
 
     std::size_t                         getHealth() const;
@@ -28,9 +27,8 @@ public:
 private:
     Status                              m_status;
     Context*                            m_context;
-    CollisionHandler*                   m_collision;
     Score*                              m_scoreKeeper;
-    LaserHandler                        m_laserHandler;
+    LaserHandler::Ptr                   m_laserHandler;
 
 private:
     std::map<std::string, sf::IntRect>  m_frames;

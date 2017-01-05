@@ -17,7 +17,6 @@ public:
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const override;
     virtual void                        update(sf::Time dt) override;
-    virtual void                        monitor() override;
 
     void                                updateStatus();
     void                                updateEnemy(sf::Time dt);
@@ -26,8 +25,7 @@ public:
 private:
     Status                              m_status;
     Context*                            m_context;
-    CollisionHandler*                   m_collision;
-    LaserHandler                        m_laserHandler;
+    LaserHandler::Ptr                   m_laserHandler;
 
 private:
     sf::Vector2f                        m_velocity;

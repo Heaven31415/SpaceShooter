@@ -18,8 +18,6 @@ GameState::GameState(Context* context)
     m_gameTheme.setLoop(true);
 
     m_player.setPosition({ 400.f, 300.f });
-    m_collision.addPermanent(&m_enemies);
-    m_collision.addPermanent(&m_player);
 }
 
 State::Type GameState::run()

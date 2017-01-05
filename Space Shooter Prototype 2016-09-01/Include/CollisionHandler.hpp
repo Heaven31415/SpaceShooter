@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <experimental/vector>
 #include "PhysicalObject.hpp"
 
 class CollisionHandler
@@ -10,10 +11,8 @@ public:
     bool                            typeMatch(PhysicalObject* objectA, PhysicalObject* objectB);
     bool                            collision(PhysicalObject* objectA, PhysicalObject* objectB);
     void                            checkCollision();          
-    void                            addPermanent(PhysicalObject* object);
-    void                            addTemporary(PhysicalObject* object);
+    void                            registerObject(PhysicalObject* object);
 
 private:
-    std::vector<PhysicalObject*>    m_permanentObjects;
-    std::vector<PhysicalObject*>    m_temporaryObjects;
+    std::vector<PhysicalObject*>    m_objects;
 };
