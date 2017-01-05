@@ -1,7 +1,7 @@
 #include "../Include/EnemyHandler.hpp"
 
 EnemyHandler::EnemyHandler(Context* context, CollisionHandler* collision)
-: PhysicalObject(collision, Type::Handler)
+: Object(Type::Handler)
 , m_context(context)
 , m_collision(collision)
 , m_enemies()
@@ -14,10 +14,6 @@ EnemyHandler::EnemyHandler(Context* context, CollisionHandler* collision)
 void EnemyHandler::draw(sf::RenderTarget& target) const
 {
     for (auto& enemy : m_enemies) enemy->draw(target);
-}
-
-void EnemyHandler::collision(PhysicalObject* object)
-{
 }
 
 void EnemyHandler::update(sf::Time dt)

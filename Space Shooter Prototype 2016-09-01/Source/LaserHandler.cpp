@@ -1,7 +1,7 @@
 #include "../Include/LaserHandler.hpp"
 
 LaserHandler::LaserHandler(Context* context, CollisionHandler* collision, Object* owner, std::size_t maximum)
-: PhysicalObject(collision, Type::Handler)
+: Object(Type::Handler)
 , m_context(context)
 , m_collision(collision)
 , m_owner(owner)
@@ -14,10 +14,6 @@ LaserHandler::LaserHandler(Context* context, CollisionHandler* collision, Object
 void LaserHandler::draw(sf::RenderTarget & target) const
 {
     for (auto& laser : m_lasers) laser->draw(target);
-}
-
-void LaserHandler::collision(PhysicalObject* object)
-{
 }
 
 void LaserHandler::update(sf::Time dt)

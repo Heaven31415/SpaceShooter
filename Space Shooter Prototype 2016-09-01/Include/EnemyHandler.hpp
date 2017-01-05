@@ -2,12 +2,11 @@
 
 #include "Enemy.hpp"
 
-class EnemyHandler : public PhysicalObject
+class EnemyHandler : public Object
 {
 public:
                                 EnemyHandler(Context* context, CollisionHandler* collision);
 public:
-    virtual void                collision(PhysicalObject* object) override;
     virtual void                draw(sf::RenderTarget& target) const override;
     virtual void                update(sf::Time dt) override;
 

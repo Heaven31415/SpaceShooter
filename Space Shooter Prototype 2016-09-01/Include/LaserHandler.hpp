@@ -2,7 +2,7 @@
 
 #include "Laser.hpp"
 
-class LaserHandler : public PhysicalObject
+class LaserHandler : public Object
 {
 public:
     typedef std::unique_ptr<LaserHandler> Ptr;
@@ -12,7 +12,6 @@ public:
     bool                   empty() const;
 
 public:
-    virtual void           collision(PhysicalObject* object) override;
     virtual void           draw(sf::RenderTarget& target) const override;
     virtual void           update(sf::Time dt) override;
 
