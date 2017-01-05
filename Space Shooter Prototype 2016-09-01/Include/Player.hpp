@@ -23,6 +23,7 @@ public:
     void                                enemyKilled();
     void                                updateStatus();
     void                                updatePlayer(sf::Time dt);
+    void                                heal(std::size_t amount);
 
 private:
     Status                              m_status;

@@ -14,6 +14,7 @@ namespace Type
         Enemy = 2,
         EnemyWeapon = 4,
         PlayerWeapon = 8,
+        Pickup = 16,
     };
 }
 

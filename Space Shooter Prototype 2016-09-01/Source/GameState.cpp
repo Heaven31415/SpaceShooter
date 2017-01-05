@@ -8,6 +8,7 @@ GameState::GameState(Context* context)
 , m_collision()
 , m_background(context)
 , m_enemies(context, &m_collision)
+, m_pickup(context, &m_collision)
 , m_player(context, &m_collision, &m_score)
 , m_hud(context, &m_player)
 , m_score(context)
@@ -78,6 +79,7 @@ void GameState::update(sf::Time dt)
 {
     m_background.update(dt);
     m_enemies.update(dt);
+    m_pickup.update(dt);
     m_player.update(dt);
     m_hud.update(dt);
     m_score.update(dt);
@@ -89,6 +91,7 @@ void GameState::render()
 
     window.clear();
     m_background.draw(window);
+    m_pickup.draw(window);
     m_enemies.draw(window);
     m_player.draw(window);
     m_hud.draw(window);

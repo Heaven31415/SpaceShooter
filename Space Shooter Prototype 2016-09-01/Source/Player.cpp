@@ -26,6 +26,8 @@ Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper
 
 void Player::collision(PhysicalObject* object)
 {
+    if(object->getType() == Type::Pickup) return;
+
     if (m_health > 0) 
     {
         m_health--;
@@ -145,6 +147,12 @@ void Player::updatePlayer(sf::Time dt)
         move(0, -dy);
     else if (m_goingDown && down < mapSize.y)
         move(0, dy);
+}
+
+void Player::heal(std::size_t amount)
+{
+    m_health += amount;
+    m_health %= (5 + 1);
 }
 
 void Player::draw(sf::RenderTarget & target) const

@@ -4,6 +4,7 @@
 #include "Context.hpp"
 #include "EnemyHandler.hpp"
 #include "Hud.hpp"
+#include "Pickup.hpp"
 #include "Player.hpp"
 #include "Score.hpp"
 #include "State.hpp"
@@ -26,6 +27,7 @@ private:
     CollisionHandler                m_collision;
     Background                      m_background;
     EnemyHandler                    m_enemies;
+    Pickup                          m_pickup;
     Player                          m_player;
     Hud                             m_hud;
     Score                           m_score;

@@ -39,6 +39,8 @@ unsigned PhysicalObject::getCollisionMatch()
             return Type::Player;
         case Type::PlayerWeapon:
             return Type::Enemy;
+        case Type::Pickup:
+            return Type::Player;
         default:
             return 0;
     }
