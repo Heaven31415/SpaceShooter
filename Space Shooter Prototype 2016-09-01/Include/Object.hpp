@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
+#include <memory>
 
 namespace Type
 {
@@ -22,6 +23,7 @@ namespace Type
 class Object : public sf::Transformable
 {
 public:
+    typedef std::unique_ptr<Object> Ptr;
     
                             Object(Type::Type type);
                             Object(Type::Type type, const sf::Texture& texture);

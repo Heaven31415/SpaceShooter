@@ -9,45 +9,36 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{10706ea0-fdb1-4357-9c31-e728708c86c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MenuState">
+      <UniqueIdentifier>{251d7055-9faf-4592-976d-9a7011c03e5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState">
+      <UniqueIdentifier>{33ee588c-b424-4077-afe4-e3779cc0a8fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LoadingState">
+      <UniqueIdentifier>{0f928780-23f9-429b-b2c9-36a69ae6b73e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\Components">
+      <UniqueIdentifier>{09388244-032c-402d-9994-db70985cbdb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\Components\UI">
+      <UniqueIdentifier>{f094564c-5a25-4836-a616-9b90b93e9800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\Components\Handlers">
+      <UniqueIdentifier>{0d2f7921-a0aa-488e-b78b-8add77a8fdc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Background.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CollisionHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\EnemyHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Hud.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Laser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LaserHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Randomizer.cpp">
@@ -59,57 +50,60 @@
     <ClCompile Include="Source\StateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Score.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\PhysicalObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\MenuState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>MenuState</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadingState.cpp">
+      <Filter>LoadingState</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState.cpp">
+      <Filter>GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Background.cpp">
+      <Filter>GameState\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>GameState\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Laser.cpp">
+      <Filter>GameState\Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Pickup.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GameState\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>GameState\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Score.cpp">
+      <Filter>GameState\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Hud.cpp">
+      <Filter>GameState\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CollisionHandler.cpp">
+      <Filter>GameState\Components\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EnemyHandler.cpp">
+      <Filter>GameState\Components\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LaserHandler.cpp">
+      <Filter>GameState\Components\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\World.cpp">
+      <Filter>GameState\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Background.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\CollisionHandler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Context.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Enemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\EnemyHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GameState.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Hud.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Laser.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\LaserHandler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\LoadingState.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Object.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Randomizer.hpp">
@@ -130,44 +124,115 @@
     <ClInclude Include="Include\PhysicalObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Score.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\MenuState.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\GameConfig.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\MenuState.hpp">
+      <Filter>MenuState</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\LoadingState.hpp">
+      <Filter>LoadingState</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameState.hpp">
+      <Filter>GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Background.hpp">
+      <Filter>GameState\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Laser.hpp">
+      <Filter>GameState\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Player.hpp">
+      <Filter>GameState\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Enemy.hpp">
+      <Filter>GameState\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Include\Pickup.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>GameState\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Score.hpp">
+      <Filter>GameState\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Hud.hpp">
+      <Filter>GameState\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\CollisionHandler.hpp">
+      <Filter>GameState\Components\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EnemyHandler.hpp">
+      <Filter>GameState\Components\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\LaserHandler.hpp">
+      <Filter>GameState\Components\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\World.hpp">
+      <Filter>GameState\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Graphics\Menu.png" />
-    <Image Include="Resources\Graphics\Life.png" />
-    <Image Include="Resources\Graphics\LaserRed.png" />
-    <Image Include="Resources\Graphics\Background.png" />
-    <Image Include="Resources\Graphics\Cursor.png" />
-    <Image Include="Resources\Graphics\EnemyShip.png" />
-    <Image Include="Resources\Graphics\GreenLaser.png" />
-    <Image Include="Resources\Graphics\LaserGreen.png" />
-    <Image Include="Resources\Graphics\RedLaser.png" />
-    <Image Include="Resources\Graphics\Ship.png" />
-    <Image Include="Resources\Graphics\StarBackground.png" />
+    <Image Include="Resources\Graphics\Background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\Cursor.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\EnemyShip.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\GreenLaser.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\LaserGreen.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\LaserRed.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\Life.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\Menu.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\RedLaser.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\Ship.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Graphics\StarBackground.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Resources\Fonts\Alger.ttf" />
-    <Font Include="Resources\Fonts\Candara.ttf" />
+    <Font Include="Resources\Fonts\Alger.ttf">
+      <Filter>Resources</Filter>
+    </Font>
+    <Font Include="Resources\Fonts\Candara.ttf">
+      <Filter>Resources</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Music\GameTheme.ogg" />
-    <None Include="Resources\Music\LoadingTheme.ogg" />
+    <None Include="Resources\Music\GameTheme.ogg">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Resources\Music\LoadingTheme.ogg">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Resources\Sounds\DamageTaken.wav" />
-    <Media Include="Resources\Sounds\EnemyLaser.wav" />
-    <Media Include="Resources\Sounds\Explosion.wav" />
-    <Media Include="Resources\Sounds\PlayerLaser.wav" />
+    <Media Include="Resources\Sounds\DamageTaken.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="Resources\Sounds\EnemyLaser.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="Resources\Sounds\Explosion.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="Resources\Sounds\PlayerLaser.wav">
+      <Filter>Resources</Filter>
+    </Media>
   </ItemGroup>
 </Project>

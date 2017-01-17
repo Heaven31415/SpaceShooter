@@ -152,7 +152,7 @@ void Player::updatePlayer(sf::Time dt)
 void Player::heal(std::size_t amount)
 {
     m_health += amount;
-    m_health %= (5 + 1);
+    if (m_health > 5) m_health = 5;
 }
 
 void Player::draw(sf::RenderTarget & target) const

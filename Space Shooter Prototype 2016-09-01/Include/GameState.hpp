@@ -1,14 +1,6 @@
 #pragma once
 
-#include "Background.hpp"
-#include "Context.hpp"
-#include "EnemyHandler.hpp"
-#include "Hud.hpp"
-#include "Pickup.hpp"
-#include "Player.hpp"
-#include "Score.hpp"
-#include "State.hpp"
-#include "Tools.hpp"
+#include "World.hpp"
 
 class GameState : public State
 {
@@ -24,12 +16,6 @@ public:
 private:
     Context*                        m_context;
     std::pair<bool, State::Type>    m_exitFlag;
-    CollisionHandler                m_collision;
-    Background                      m_background;
-    EnemyHandler                    m_enemies;
-    Pickup                          m_pickup;
-    Player                          m_player;
-    Hud                             m_hud;
-    Score                           m_score;
+    World                           m_world;
     sf::Music                       m_gameTheme;
 };

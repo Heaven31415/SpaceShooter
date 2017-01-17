@@ -74,11 +74,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Libs 2017-01-01\SFML\Install\include;C:\Libs 2017-01-01\Thor\Install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Libraries\SFML\Install\include;C:\Libraries\Thor\Install\include;C:\Libraries\TGUI\Install\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Libs 2017-01-01\SFML\Build\lib\Debug;C:\Libs 2017-01-01\Thor\Install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;thor-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Libraries\SFML\Install\lib;C:\Libraries\Thor\Install\lib;C:\Libraries\TGUI\Install\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;thor-d.lib;tgui-d.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <AdditionalOptions>/ENTRY:"mainCRTStartup" %(AdditionalOptions)</AdditionalOptions>
     </Link>
@@ -88,7 +88,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Libraries\SFML\Install\include;C:\Libraries\Thor\Install\include;C:\Libraries\TGUI\Install\include</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Libraries\SFML\Install\lib;C:\Libraries\Thor\Install\lib;C:\Libraries\TGUI\Install\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;thor-d.lib;tgui-d.lib</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -97,13 +102,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Libs 2017-01-01\SFML\Install\include;C:\Libs 2017-01-01\Thor\Install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Libraries\SFML\Install\include;C:\Libraries\Thor\Install\include;C:\Libraries\TGUI\Install\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Libs 2017-01-01\SFML\Build\lib\Release;C:\Libs 2017-01-01\Thor\Install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;thor.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Libraries\SFML\Install\lib;C:\Libraries\Thor\Install\lib;C:\Libraries\TGUI\Install\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-audio.lib;thor.lib;tgui.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <AdditionalOptions>/ENTRY:"mainCRTStartup" %(AdditionalOptions)</AdditionalOptions>
     </Link>
@@ -115,10 +120,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Libraries\SFML\Install\include;C:\Libraries\Thor\Install\include;C:\Libraries\TGUI\Install\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Libraries\SFML\Install\lib;C:\Libraries\Thor\Install\lib;C:\Libraries\TGUI\Install\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-audio.lib;thor.lib;tgui.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -142,6 +150,7 @@
     <ClCompile Include="Source\Randomizer.cpp" />
     <ClCompile Include="Source\ResourceHolder.cpp" />
     <ClCompile Include="Source\StateManager.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Background.hpp" />
@@ -167,6 +176,7 @@
     <ClInclude Include="Include\State.hpp" />
     <ClInclude Include="Include\StateManager.hpp" />
     <ClInclude Include="Include\Tools.hpp" />
+    <ClInclude Include="Include\World.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Graphics\Background.png" />

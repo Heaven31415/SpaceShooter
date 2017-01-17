@@ -1,12 +1,8 @@
 #pragma once
 
-#include "Background.hpp"
+#include <TGUI/TGUI.hpp>
+
 #include "Context.hpp"
-#include "EnemyHandler.hpp"
-#include "GameConfig.hpp"
-#include "Hud.hpp"
-#include "Player.hpp"
-#include "Score.hpp"
 #include "State.hpp"
 #include "Tools.hpp"
 
@@ -22,12 +18,18 @@ public:
     void                            render();
 
 private:
+    ////////////////////////////////////////////////////////////
+    /// \brief Default constructor
+    ///
+    /// Constructs an opaque black color. It is equivalent to
+    /// sf::Color(0, 0, 0, 255).
+    ///
+    ////////////////////////////////////////////////////////////
+    void                            buildGui();
+
+private:
     Context*                        m_context;
     std::pair<bool, State::Type>    m_exitFlag;
-    sf::Sprite                      m_menu;
     sf::Sprite                      m_cursor;
-    sf::Text                        m_titleLabel;
-    sf::Text                        m_newGameLabel;
-    sf::Text                        m_exitLabel;
-    sf::RectangleShape              m_optionsWindow;
+    tgui::Gui                       m_gui;
 };
