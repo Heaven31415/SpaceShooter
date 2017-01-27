@@ -4,10 +4,15 @@
 #include "ResourceHolder.hpp"
 #include "StateManager.hpp"
 
-class Game : private sf::NonCopyable
+class Game
 {
 public:
+    static GameConfig       Config;
+
+public:
                             Game();
+                            Game(const Game&) = delete;
+    Game&                   operator=(const Game&) = delete;
     void                    run();
 
 private:

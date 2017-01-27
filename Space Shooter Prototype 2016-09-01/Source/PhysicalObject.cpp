@@ -3,6 +3,7 @@
 
 PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type)
 : Object(type)
+, m_collision(collision)
 , m_destroyed(false)
 {
     collision->registerObject(this);
@@ -10,6 +11,7 @@ PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type)
 
 PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture & texture)
 : Object(type, texture)
+, m_collision(collision)
 , m_destroyed(false)
 {
     collision->registerObject(this);
@@ -17,9 +19,15 @@ PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type, con
 
 PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
 : Object(type, texture, rectangle)
+, m_collision(collision)
 , m_destroyed(false)
 {
     collision->registerObject(this);
+}
+
+PhysicalObject::~PhysicalObject()
+{
+    m_collision->unregisterObject(this);
 }
 
 bool PhysicalObject::isDestroyed() const

@@ -39,6 +39,7 @@ private:
     bool                                m_turningLeft;
     bool                                m_turningRight;
     std::size_t                         m_health;
+    const std::size_t                   m_maxHealth;
     std::size_t                         m_score;
     sf::Sound                           m_laserAttack;
     sf::Sound                           m_damageTaken;

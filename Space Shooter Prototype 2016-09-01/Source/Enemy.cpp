@@ -1,11 +1,12 @@
 #include "../Include/Enemy.hpp"
+#include "../Include/Game.hpp"
 
 Enemy::Enemy(Context* context, CollisionHandler* collision)
 : PhysicalObject(collision, Type::Enemy, context->textures.get("EnemyShip"))
 , m_status(Status::Alive)
 , m_context(context)
-, m_laserHandler()
-, m_velocity({ 150.f, 200.f })
+, m_laserHandler(std::make_unique<LaserHandler>(context, collision, this, Game::Config.enemyMaxLaser))
+, m_velocity(Game::Config.enemySpeed)
 , m_attackTimer(sf::Time::Zero)
 , m_maneuverTimer(sf::Time::Zero)
 , m_turningLeft(false)
@@ -13,12 +14,11 @@ Enemy::Enemy(Context* context, CollisionHandler* collision)
 , m_laserAttack(context->sounds.get("EnemyLaser"))
 , m_explosion(context->sounds.get("Explosion"))
 {
-    m_laserHandler = std::make_unique<LaserHandler>(context, collision, this);
     centerOrigin();
 
     Randomizer random;
-    sf::Vector2f mapSize = static_cast<sf::Vector2f>(context->window.getSize());
-    sf::Vector2f position = { random.getRealNumber(50.f, mapSize.x-50.f), random.getRealNumber(-mapSize.y / 4.f, 0.f) };
+    sf::Vector2f mapSize = static_cast<sf::Vector2f>(Game::Config.windowSize);
+    sf::Vector2f position = { random.getRealNumber(1.f/10.f * mapSize.x, 9.f/10.f * mapSize.x), random.getRealNumber(-mapSize.y / 10, 0.f) };
     setPosition(position);
 
     m_attackTimer = sf::seconds(random.getRealNumber(0.5f, 1.0f));
@@ -111,7 +111,7 @@ void Enemy::updateEnemy(sf::Time dt)
 
     auto position = getPosition();
     auto bounds = getLocalBounds();
-    auto mapSize = m_context->window.getSize();
+    auto mapSize = Game::Config.windowSize;
 
     auto up = position.y - bounds.height / 2.f;
     auto down = position.y + bounds.height / 2.f;

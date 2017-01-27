@@ -1,11 +1,12 @@
+#include "../Include/Game.hpp"
 #include "../Include/Background.hpp"
 
 Background::Background(Context* context)
 : Object(Type::Special)
 , m_context(context)
-, m_velocity(100.f)
+, m_velocity(Game::Config.backgroundSpeed)
 {
-    auto mapSize = static_cast<sf::Vector2i>(context->window.getSize());
+    auto mapSize = static_cast<sf::Vector2i>(Game::Config.windowSize);
     auto& texture = context->textures.get("StarBackground");
     texture.setRepeated(true);
 
@@ -26,7 +27,7 @@ void Background::draw(sf::RenderTarget & target) const
 
 void Background::update(sf::Time dt)
 {
-    auto mapSize = static_cast<sf::Vector2f>(m_context->window.getSize());
+    auto mapSize = static_cast<sf::Vector2f>(Game::Config.windowSize);
     auto dy = m_velocity * dt.asSeconds();
     move(0, dy);
     m_bgExtra.move(0, dy);

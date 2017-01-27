@@ -4,10 +4,14 @@
 #include "LoadingState.hpp"
 #include "MenuState.hpp"
 
-class StateManager : private sf::NonCopyable
+class StateManager
 {
 public:
                                         StateManager(Context* context);
+                                        StateManager(const StateManager&) = delete;
+    StateManager&                       operator=(const StateManager&) = delete;
+
+public:
     void                                run();
     State::Ptr                          factory(State::Type type);
 

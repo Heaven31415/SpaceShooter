@@ -1,3 +1,4 @@
+#include "../Include/Game.hpp"
 #include "../Include/Laser.hpp"
 #include "../Include/Player.hpp"
 
@@ -6,7 +7,7 @@ Laser::Laser(Type::Type type, Context* context, CollisionHandler* collision, Obj
 , m_status(Laser::Status::Alive)
 , m_context(context)
 , m_owner(owner)
-, m_velocity((type == Type::PlayerWeapon) ? 500.f : -500.f)
+, m_velocity((type == Type::PlayerWeapon) ? Game::Config.laserSpeed : -Game::Config.laserSpeed)
 , m_exploded(false)
 , m_explosionTimer(sf::Time::Zero)
 {
@@ -33,6 +34,7 @@ void Laser::collision(PhysicalObject* object)
     setTextureRect(m_frames["explosion"]);
     centerOrigin();
     destroy();
+    m_velocity /= 5.f;
 }
 
 void Laser::draw(sf::RenderTarget & target) const
@@ -69,7 +71,7 @@ void Laser::update(sf::Time dt)
         {
             auto position = getPosition();
             auto bounds = getLocalBounds();
-            auto mapSize = static_cast<sf::Vector2f>(m_context->window.getSize());
+            auto mapSize = static_cast<sf::Vector2f>(Game::Config.windowSize);
 
             auto up = position.y - bounds.height / 2.f;
             auto down = position.y + bounds.height / 2.f;
@@ -98,6 +100,7 @@ void Laser::update(sf::Time dt)
 
                 setColor({ 255, 255, 255, alpha });
                 setScale(scale, scale);
+                move(0, -m_velocity * dt.asSeconds());
             }
         }
         break;

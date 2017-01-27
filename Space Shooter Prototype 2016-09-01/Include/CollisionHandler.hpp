@@ -12,6 +12,7 @@ public:
     bool                            collision(PhysicalObject* objectA, PhysicalObject* objectB);
     void                            checkCollision();          
     void                            registerObject(PhysicalObject* object);
+    void                            unregisterObject(PhysicalObject* object);
 
 private:
     std::vector<PhysicalObject*>    m_objects;

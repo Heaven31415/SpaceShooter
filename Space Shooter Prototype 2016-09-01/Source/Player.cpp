@@ -1,3 +1,4 @@
+#include "../Include/Game.hpp"
 #include "../Include/Player.hpp"
 
 Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper)
@@ -5,18 +6,18 @@ Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper
 , m_status(Player::Status::Alive)
 , m_context(context)
 , m_scoreKeeper(scoreKeeper)
-, m_laserHandler()
-, m_velocity({250.f, 350.f})
+, m_laserHandler(std::make_unique<LaserHandler>(context, collision, this, Game::Config.playerMaxLaser))
+, m_velocity(Game::Config.playerSpeed)
 , m_goingUp(false)
 , m_goingDown(false)
 , m_turningLeft(false)
 , m_turningRight(false)
-, m_health(5)
+, m_health(Game::Config.playerHealth)
+, m_maxHealth(m_health)
 , m_score(0)
 , m_laserAttack(context->sounds.get("PlayerLaser"))
 , m_damageTaken(context->sounds.get("DamageTaken"))
 {
-    m_laserHandler = std::make_unique<LaserHandler>(context, collision, this);
     m_frames["straight"] = { 0, 0, 100, 80 };
     m_frames["left"] = { 100, 0, 100, 80 };
     m_frames["right"] = { 200, 0, 100, 80 };
@@ -121,7 +122,7 @@ void Player::updatePlayer(sf::Time dt)
 {
     auto position = getPosition();
     auto bounds = getLocalBounds();
-    auto mapSize = m_context->window.getSize();
+    auto mapSize = Game::Config.windowSize;
 
     auto up = position.y - bounds.height / 2.f;
     auto down = position.y + bounds.height / 2.f;
@@ -152,7 +153,7 @@ void Player::updatePlayer(sf::Time dt)
 void Player::heal(std::size_t amount)
 {
     m_health += amount;
-    if (m_health > 5) m_health = 5;
+    if (m_health > m_maxHealth) m_health = m_maxHealth;
 }
 
 void Player::draw(sf::RenderTarget & target) const

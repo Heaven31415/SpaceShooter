@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\GameConfig.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\PhysicalObject.cpp" />
     <ClCompile Include="Source\Pickup.cpp" />

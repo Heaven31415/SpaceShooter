@@ -95,6 +95,9 @@
     <ClCompile Include="Source\World.cpp">
       <Filter>GameState\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Context.hpp">

@@ -10,12 +10,16 @@ public:
                             PhysicalObject(CollisionHandler* collision, Type::Type type);
                             PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture& texture);
                             PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
+                            ~PhysicalObject();
     virtual void            collision(PhysicalObject* object) = 0;
 
 public:
     bool                    isDestroyed() const;
     unsigned                getCollisionMatch();
     void                    destroy();
+
+protected:
+    CollisionHandler*       m_collision;
 
 private:
     bool                    m_destroyed;

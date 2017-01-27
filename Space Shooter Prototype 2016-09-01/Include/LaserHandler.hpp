@@ -7,7 +7,7 @@ class LaserHandler : public Object
 public:
     typedef std::unique_ptr<LaserHandler> Ptr;
 
-                           LaserHandler(Context* context, CollisionHandler* collision, Object* owner = nullptr, std::size_t maximum = 5);
+                           LaserHandler(Context* context, CollisionHandler* collision, Object* owner, std::size_t maximum);
     bool                   push(Type::Type type);
     bool                   empty() const;
 
