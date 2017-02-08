@@ -1,4 +1,5 @@
 #include "../Include/MenuState.hpp"
+#include "../Include/Game.hpp"
 
 const sf::Time MenuState::TimePerFrame = sf::seconds(1.f / 60.f);
 
@@ -7,11 +8,9 @@ MenuState::MenuState(Context * context)
 , m_exitFlag({ false, State::Exit })
 , m_cursor(context->textures.get("Cursor"))
 , m_gui(context->window)
-, m_particleSystem()
 {
     m_cursor.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(context->window)));
     buildGui();
-    buildParticleSystem();
 }
 
 State::Type MenuState::run()
@@ -48,6 +47,7 @@ void MenuState::handleInput()
 
     while (window.pollEvent(event))
     {
+        m_gui.handleEvent(event);
         switch (event.type)
         {
             case sf::Event::KeyPressed:
@@ -74,8 +74,6 @@ void MenuState::handleInput()
                 m_cursor.setColor({ 255,255,255,255 });
             }
             break;
-
-            m_gui.handleEvent(event);
         }
     }
 }
@@ -83,7 +81,6 @@ void MenuState::handleInput()
 void MenuState::update(sf::Time dt)
 {
     m_cursor.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_context->window)));
-    m_particleSystem.update(dt);
 }
 
 void MenuState::render()
@@ -93,7 +90,6 @@ void MenuState::render()
     window.clear();
     m_gui.draw();
     window.draw(m_cursor);
-    window.draw(m_particleSystem);
     window.display();
 }
 
@@ -136,17 +132,42 @@ void MenuState::buildGui()
     m_gui.add(label);
 }
 
-void MenuState::buildParticleSystem()
+void MenuState::buildOptions()
 {
-    thor::UniversalEmitter emitter;
-    emitter.setParticleRotation(thor::Distributions::uniform(0.f, 360.f));
-    emitter.setEmissionRate(10.f);
-    emitter.setParticleScale([]() {return sf::Vector2f(thor::random(0.05f, 0.1f), thor::random(0.05f, 0.1f)); });
-    emitter.setParticleLifetime(thor::Distributions::uniform(sf::seconds(1.f), sf::seconds(5.f)));
-    emitter.setParticlePosition(thor::Distributions::circle({ 400.f, 320.f }, 50.f));
+    auto& videoMode = sf::VideoMode::getFullscreenModes()[0];
 
-    thor::ForceAffector affector{ { 0.f, 10.0f } };
-    m_particleSystem.setTexture(m_context->textures.get("Particle"));
-    m_particleSystem.addAffector(affector);
-    m_particleSystem.addEmitter(emitter);
+    auto widthLabel = tgui::Label::create("Width: " + std::to_string(videoMode.width));
+    widthLabel->setPosition("(parent.width - width) / 2", "0.2 * parent.height");
+
+    auto heightLabel = tgui::Label::create("Height: " + std::to_string(videoMode.height));
+    heightLabel->setPosition("(parent.width - width) / 2", "0.3 * parent.height");
+
+    auto bppLabel = tgui::Label::create("BPP: " + std::to_string(videoMode.bitsPerPixel));
+    bppLabel->setPosition("(parent.width - width) / 2", "0.4 * parent.height");
+
+    auto slider = tgui::Slider::create(0, sf::VideoMode::getFullscreenModes().size() - 1);
+    slider->setPosition("(parent.width - width) / 2", "0.1 * parent.height");
+    slider->connect("valueChanged", 
+        [=](int value) {
+        auto& videoMode = sf::VideoMode::getFullscreenModes()[value];
+        widthLabel->setText("Width: " + std::to_string(videoMode.width));
+        heightLabel->setText("Height: " + std::to_string(videoMode.height));
+        bppLabel->setText("BPP: " + std::to_string(videoMode.bitsPerPixel));
+        });
+
+    auto& window = m_context->window;
+    auto applyButton = tgui::Button::create("Apply");
+    applyButton->setPosition("(parent.width - width) / 2", "0.5 * parent.height");
+    applyButton->connect("pressed", [&window,slider]() {
+        window.create(sf::VideoMode::getFullscreenModes()[slider->getValue()], Game::Config.windowTitle);
+        window.setMouseCursorVisible(false);
+        window.setKeyRepeatEnabled(Game::Config.keyRepeatEnabled);
+        window.setVerticalSyncEnabled(Game::Config.verticalSyncEnabled);
+    });
+
+    m_gui.add(widthLabel);
+    m_gui.add(heightLabel);
+    m_gui.add(bppLabel);
+    m_gui.add(slider);
+    m_gui.add(applyButton);
 }

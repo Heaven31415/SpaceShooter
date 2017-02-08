@@ -21,12 +21,11 @@ public:
 
 private:
     void                            buildGui();
-    void                            buildParticleSystem();
+    void                            buildOptions();
 
 private:
     Context*                        m_context;
     std::pair<bool, State::Type>    m_exitFlag;
     sf::Sprite                      m_cursor;
     tgui::Gui                       m_gui;
-    thor::ParticleSystem            m_particleSystem;
 };
