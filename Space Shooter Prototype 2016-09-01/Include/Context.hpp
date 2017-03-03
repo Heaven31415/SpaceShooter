@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ResourceHolder.hpp"
+#include "SoundSystem.hpp"
 
 struct Context
 {
@@ -9,6 +10,7 @@ struct Context
     , textures(_textures)
     , sounds(_sounds)
     , fonts(_fonts)
+    , soundSystem{_sounds}
     {
     }
 
@@ -16,4 +18,5 @@ struct Context
     TextureHolder&          textures;
     SoundHolder&            sounds;
     FontHolder&             fonts;
+    SoundSystem             soundSystem;
 };

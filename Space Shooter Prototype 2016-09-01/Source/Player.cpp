@@ -15,8 +15,6 @@ Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper
 , m_health(Game::Config.playerHealth)
 , m_maxHealth(m_health)
 , m_score(0)
-, m_laserAttack(context->sounds.get("PlayerLaser"))
-, m_damageTaken(context->sounds.get("DamageTaken"))
 {
     m_frames["straight"] = { 0, 0, 100, 80 };
     m_frames["left"] = { 100, 0, 100, 80 };
@@ -32,7 +30,7 @@ void Player::collision(PhysicalObject* object)
     if (m_health > 0) 
     {
         m_health--;
-        m_damageTaken.play();
+        m_context->soundSystem.playSound("DamageTaken");
     }
 }
 
@@ -79,7 +77,7 @@ void Player::handleEvent(const sf::Event & event)
                 m_turningRight = true;
             else if (event.key.code == sf::Keyboard::Space)
                 if (m_laserHandler->push(Type::PlayerWeapon))
-                    m_laserAttack.play();
+                    m_context->soundSystem.playSound("PlayerLaser");
         }
         else if (event.type == sf::Event::KeyReleased)
         {

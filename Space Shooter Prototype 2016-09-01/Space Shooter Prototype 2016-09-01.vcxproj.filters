@@ -30,6 +30,9 @@
     <Filter Include="GameState\Components\Handlers">
       <UniqueIdentifier>{0d2f7921-a0aa-488e-b78b-8add77a8fdc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WIP">
+      <UniqueIdentifier>{584da3bf-fb34-4558-812c-10973e3f9429}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="Source\GameConfig.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SoundSystem.cpp">
+      <Filter>WIP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +177,9 @@
     </ClInclude>
     <ClInclude Include="Include\World.hpp">
       <Filter>GameState\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SoundSystem.hpp">
+      <Filter>WIP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

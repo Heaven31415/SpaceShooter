@@ -150,6 +150,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Randomizer.cpp" />
     <ClCompile Include="Source\ResourceHolder.cpp" />
+    <ClCompile Include="Source\SoundSystem.cpp" />
     <ClCompile Include="Source\StateManager.cpp" />
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
@@ -174,6 +175,7 @@
     <ClInclude Include="Include\Randomizer.hpp" />
     <ClInclude Include="Include\ResourceHolder.hpp" />
     <ClInclude Include="Include\Score.hpp" />
+    <ClInclude Include="Include\SoundSystem.hpp" />
     <ClInclude Include="Include\State.hpp" />
     <ClInclude Include="Include\StateManager.hpp" />
     <ClInclude Include="Include\Tools.hpp" />

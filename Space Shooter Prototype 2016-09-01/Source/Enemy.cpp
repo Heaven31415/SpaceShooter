@@ -11,8 +11,6 @@ Enemy::Enemy(Context* context, CollisionHandler* collision)
 , m_maneuverTimer(sf::Time::Zero)
 , m_turningLeft(false)
 , m_turningRight(false)
-, m_laserAttack(context->sounds.get("EnemyLaser"))
-, m_explosion(context->sounds.get("Explosion"))
 {
     centerOrigin();
 
@@ -28,7 +26,7 @@ Enemy::Enemy(Context* context, CollisionHandler* collision)
 void Enemy::collision(PhysicalObject* object)
 {
     destroy();
-    m_explosion.play();
+    m_context->soundSystem.playSound("Explosion");
 }
 
 void Enemy::draw(sf::RenderTarget & target) const
@@ -81,7 +79,7 @@ void Enemy::updateStatus()
 {
     if (!isDestroyed()) m_status = Status::Alive;
     else if (isDestroyed() && !m_laserHandler->empty()) m_status = Status::DeadWithLasers;
-    else if (m_explosion.getStatus() == sf::Sound::Status::Playing) m_status = Status::DeadWithLasers;
+    //else if (m_explosion.getStatus() == sf::Sound::Status::Playing) m_status = Status::DeadWithLasers;
     else m_status = Status::DeadWithoutLasers;
 }
 
@@ -94,7 +92,7 @@ void Enemy::updateEnemy(sf::Time dt)
     if (m_attackTimer <= sf::Time::Zero)
     {
         if (m_laserHandler->push(Type::EnemyWeapon))
-            m_laserAttack.play();
+            m_context->soundSystem.playSound("EnemyLaser");
         m_attackTimer = sf::seconds(random.getRealNumber(0.5f, 1.0f));
     }
 

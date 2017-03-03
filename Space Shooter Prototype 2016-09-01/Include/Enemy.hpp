@@ -33,6 +33,4 @@ private:
     sf::Time                            m_maneuverTimer;
     bool                                m_turningLeft;
     bool                                m_turningRight;
-    sf::Sound                           m_laserAttack;
-    sf::Sound                           m_explosion;
 };
