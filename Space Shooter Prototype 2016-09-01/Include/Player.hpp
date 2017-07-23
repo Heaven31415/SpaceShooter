@@ -7,7 +7,10 @@ namespace Event
 {
     enum Type
     {
-        EnemyKilled
+        EnemyKilled,
+        LaserWeaponFired,
+        PickupTaken,
+        PlayerHit,
     };
 }
 

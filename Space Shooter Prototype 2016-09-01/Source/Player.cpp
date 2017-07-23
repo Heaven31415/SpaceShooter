@@ -23,12 +23,13 @@ Player::Player(Context* context, CollisionHandler* collision)
 
 void Player::collision(PhysicalObject* object)
 {
-    if(object->getType() == Type::Pickup)
-        m_context->soundSystem.playSound("PlayerHeal");
+    if (object->getType() == Type::Pickup)
+        notify(this, Event::PickupTaken);
+        
     else if (m_health > 0) 
     {
         m_health--;
-        m_context->soundSystem.playSound("DamageTaken");
+        notify(this, Event::PlayerHit);
     }
 }
 
@@ -75,7 +76,7 @@ void Player::handleEvent(const sf::Event & event)
                 m_turningRight = true;
             else if (event.key.code == sf::Keyboard::Space)
                 if (m_laserHandler->push(Type::PlayerWeapon))
-                    m_context->soundSystem.playSound("PlayerLaser");
+                    notify(this, Event::LaserWeaponFired);
         }
         else if (event.type == sf::Event::KeyReleased)
         {

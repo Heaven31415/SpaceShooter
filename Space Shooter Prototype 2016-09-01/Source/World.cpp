@@ -12,6 +12,7 @@ World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
 , m_score(context)
 {
     m_player.setPosition({ 400.f, 300.f });
+    m_player.add(&m_context->soundSystem);
     m_player.add(&m_score);
 }
 

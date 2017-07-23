@@ -1,10 +1,11 @@
 #pragma once
 
+#include "Observer.hpp"
 #include "ResourceHolder.hpp"
 
 using MusicHolder = std::map<std::string, std::string>;
 
-class SoundSystem
+class SoundSystem : public Observer
 {
 public:
                                     SoundSystem(SoundHolder& soundHolder);
@@ -18,6 +19,7 @@ public:
     void                            playMusic(const std::string& name, float volume, float pitch);
 
     void                            recycleSounds();
+    virtual void                    onNotify(Object* obj, unsigned int code);
 
 private:
     SoundHolder&                    m_soundHolder;
