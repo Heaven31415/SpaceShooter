@@ -19,7 +19,6 @@ namespace Type
     };
 }
 
-
 class Object : public sf::Transformable
 {
 public:
