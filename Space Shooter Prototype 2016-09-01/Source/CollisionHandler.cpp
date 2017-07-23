@@ -27,7 +27,8 @@ void CollisionHandler::checkCollision()
                             objectB->collision(objectA);
                         }
 
-    std::experimental::erase_if(m_objects, [](const PhysicalObject* object) { return object->isDestroyed(); }); // lookout
+    // delete "reference" pointers to destroyed objects, but don't delete them (World is their sole owner)
+    std::experimental::erase_if(m_objects, [](const PhysicalObject* object) { return object->isDestroyed(); });
 }
 
 void CollisionHandler::registerObject(PhysicalObject * object)

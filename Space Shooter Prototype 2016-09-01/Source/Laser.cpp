@@ -11,9 +11,15 @@ Laser::Laser(Type::Type type, Context* context, CollisionHandler* collision, Obj
 , m_exploded(false)
 , m_explosionTimer(sf::Time::Zero)
 {
-    (type == Type::PlayerWeapon) ? 
-        setTexture(context->textures.get("RedLaser")) : 
+    if (type == Type::PlayerWeapon)
+    {
+        auto player = static_cast<Player*>(owner);
+        player->increaseLaserCount();
+        setTexture(context->textures.get("RedLaser"));
+    }
+    else
         setTexture(context->textures.get("GreenLaser"));
+    
 
     m_frames["laser"] = { 0, 0, 9, 33 };
     m_frames["explosion"] = { 9, 0, 56, 54 };
@@ -21,6 +27,15 @@ Laser::Laser(Type::Type type, Context* context, CollisionHandler* collision, Obj
 
     centerOrigin();
     setPosition(owner->getPosition());
+}
+
+Laser::~Laser()
+{
+     if (getType() == Type::PlayerWeapon)
+    {
+        auto player = static_cast<Player*>(m_owner);
+        player->decreaseLaserCount();
+    }
 }
 
 void Laser::collision(PhysicalObject* object)

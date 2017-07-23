@@ -17,6 +17,7 @@ public:
         Destroyed,
     };
                                         Laser(Type::Type type, Context* context, CollisionHandler* collision, Object* owner);
+                                        ~Laser();
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const override;
     virtual void                        update(sf::Time dt) override;

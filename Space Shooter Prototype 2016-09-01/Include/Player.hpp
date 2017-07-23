@@ -1,7 +1,10 @@
 #pragma once
 
-#include "LaserHandler.hpp"
+#include "Context.hpp"
 #include "Observer.hpp"
+#include "PhysicalObject.hpp"
+
+class World;
 
 namespace Event
 {
@@ -16,29 +19,25 @@ namespace Event
 
 class Player : public PhysicalObject, public Subject
 {
-    enum class Status
-    {
-        Alive,
-        DeadWithLasers,
-        DeadWithoutLasers,
-    };
 public:
-                                        Player(Context* context, CollisionHandler* collision);
+                                        Player(Context* context, World* world);
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const;
     virtual void                        update(sf::Time dt) override;
     void                                handleEvent(const sf::Event& event);
 
+    void                                increaseLaserCount();
+    void                                decreaseLaserCount();
+
     std::size_t                         getHealth() const;
     void                                enemyKilled();
-    void                                updateStatus();
     void                                updatePlayer(sf::Time dt);
     void                                heal(std::size_t amount);
+    void                                takeDamage(std::size_t amount);
 
 private:
-    Status                              m_status;
     Context*                            m_context;
-    LaserHandler::Ptr                   m_laserHandler;
+    World*                              m_world;
 
 private:
     std::map<std::string, sf::IntRect>  m_frames;
@@ -49,4 +48,6 @@ private:
     bool                                m_turningRight;
     std::size_t                         m_health;
     const std::size_t                   m_maxHealth;
+    std::size_t                         m_lasers;
+    const std::size_t                   m_maxLasers;
 };

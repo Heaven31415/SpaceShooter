@@ -1,11 +1,10 @@
 #include "../Include/Game.hpp"
 #include "../Include/Player.hpp"
 
-Player::Player(Context* context, CollisionHandler* collision)
-: PhysicalObject(collision, Type::Player, context->textures.get("Ship"))
-, m_status(Player::Status::Alive)
+Player::Player(Context* context, World* world)
+: PhysicalObject(world->getCollision(), Type::Player, context->textures.get("Ship"))
 , m_context(context)
-, m_laserHandler(std::make_unique<LaserHandler>(context, collision, this, Game::Config.playerMaxLaser))
+, m_world(world)
 , m_velocity(Game::Config.playerSpeed)
 , m_goingUp(false)
 , m_goingDown(false)
@@ -13,6 +12,8 @@ Player::Player(Context* context, CollisionHandler* collision)
 , m_turningRight(false)
 , m_health(Game::Config.playerHealth)
 , m_maxHealth(m_health)
+, m_lasers(0)
+, m_maxLasers(Game::Config.playerMaxLaser)
 {
     m_frames["straight"] = { 0, 0, 100, 80 };
     m_frames["left"] = { 100, 0, 100, 80 };
@@ -25,44 +26,19 @@ void Player::collision(PhysicalObject* object)
 {
     if (object->getType() == Type::Pickup)
         notify(this, Event::PickupTaken);
-        
-    else if (m_health > 0) 
-    {
-        m_health--;
-        notify(this, Event::PlayerHit);
-    }
+    else
+        takeDamage(1);  
 }
 
 void Player::update(sf::Time dt)
 {
-    updateStatus();
-
-    switch (m_status)
-    {
-        case Status::Alive:
-        {
-            updatePlayer(dt);
-            m_laserHandler->update(dt);
-        }
-        break;
-
-        case Status::DeadWithLasers:
-        {
-            m_laserHandler->update(dt);
-        }
-        break;
-
-        case Status::DeadWithoutLasers:
-        {
-            if (!isDestroyed()) destroy();
-        }
-        break;
-    }
+    if (m_health > 0)
+        updatePlayer(dt);
 }
 
 void Player::handleEvent(const sf::Event & event)
 {
-    if (m_status == Status::Alive)
+    if (m_health > 0)
     {
         if (event.type == sf::Event::KeyPressed)
         {
@@ -75,8 +51,13 @@ void Player::handleEvent(const sf::Event & event)
             else if (event.key.code == sf::Keyboard::D)
                 m_turningRight = true;
             else if (event.key.code == sf::Keyboard::Space)
-                if (m_laserHandler->push(Type::PlayerWeapon))
+            {
+                if (m_lasers < m_maxLasers)
+                {
+                    m_world->add(std::make_unique<Laser>(Type::PlayerWeapon, m_context, m_collision, this));
                     notify(this, Event::LaserWeaponFired);
+                }
+            }                   
         }
         else if (event.type == sf::Event::KeyReleased)
         {
@@ -92,6 +73,16 @@ void Player::handleEvent(const sf::Event & event)
     }
 }
 
+void Player::increaseLaserCount()
+{
+    m_lasers++;
+}
+
+void Player::decreaseLaserCount()
+{
+    m_lasers--;
+}
+
 std::size_t Player::getHealth() const
 {
     return m_health;
@@ -100,13 +91,6 @@ std::size_t Player::getHealth() const
 void Player::enemyKilled()
 {
     notify(this, Event::EnemyKilled);
-}
-
-void Player::updateStatus()
-{
-    if (m_health > 0) m_status = Status::Alive;
-    else if (m_health == 0 && !m_laserHandler->empty()) m_status = Status::DeadWithLasers;
-    else m_status = Status::DeadWithoutLasers;
 }
 
 void Player::updatePlayer(sf::Time dt)
@@ -147,21 +131,20 @@ void Player::heal(std::size_t amount)
     if (m_health > m_maxHealth) m_health = m_maxHealth;
 }
 
+void Player::takeDamage(std::size_t amount)
+{
+    if (m_health > amount)
+        m_health -= amount;
+    else
+    {
+        m_health = 0;
+        destroy();
+    }
+    notify(this, Event::PlayerHit);
+}
+
 void Player::draw(sf::RenderTarget & target) const
 {
-    switch (m_status)
-    {
-        case Status::Alive:
-        {
-            m_laserHandler->draw(target);
-            Object::draw(target);
-        }
-        break;
-
-        case Status::DeadWithLasers:
-        {
-            m_laserHandler->draw(target);
-        }
-        break;
-    }
+    if (m_health > 0)
+        Object::draw(target);
 }

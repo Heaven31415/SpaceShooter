@@ -18,8 +18,7 @@ void LaserHandler::draw(sf::RenderTarget & target) const
 
 void LaserHandler::update(sf::Time dt)
 {
-    auto mapSize = static_cast<sf::Vector2f>(m_context->window.getSize());
-    std::experimental::erase_if(m_lasers, [](const Laser::Ptr& laser) { return laser->isDestroyed() && laser->readyToErase(); });
+    std::experimental::erase_if(m_lasers, [](const Laser::Ptr& laser) { return laser->isDestroyed() /*&& laser->readyToErase()*/; });
     for (auto& laser : m_lasers) laser->update(dt);
 }
 
