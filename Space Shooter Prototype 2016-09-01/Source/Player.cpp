@@ -1,11 +1,10 @@
 #include "../Include/Game.hpp"
 #include "../Include/Player.hpp"
 
-Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper)
+Player::Player(Context* context, CollisionHandler* collision)
 : PhysicalObject(collision, Type::Player, context->textures.get("Ship"))
 , m_status(Player::Status::Alive)
 , m_context(context)
-, m_scoreKeeper(scoreKeeper)
 , m_laserHandler(std::make_unique<LaserHandler>(context, collision, this, Game::Config.playerMaxLaser))
 , m_velocity(Game::Config.playerSpeed)
 , m_goingUp(false)
@@ -14,7 +13,6 @@ Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper
 , m_turningRight(false)
 , m_health(Game::Config.playerHealth)
 , m_maxHealth(m_health)
-, m_score(0)
 {
     m_frames["straight"] = { 0, 0, 100, 80 };
     m_frames["left"] = { 100, 0, 100, 80 };
@@ -25,9 +23,9 @@ Player::Player(Context* context, CollisionHandler* collision, Score* scoreKeeper
 
 void Player::collision(PhysicalObject* object)
 {
-    if(object->getType() == Type::Pickup) return;
-
-    if (m_health > 0) 
+    if(object->getType() == Type::Pickup)
+        m_context->soundSystem.playSound("PlayerHeal");
+    else if (m_health > 0) 
     {
         m_health--;
         m_context->soundSystem.playSound("DamageTaken");
@@ -98,15 +96,9 @@ std::size_t Player::getHealth() const
     return m_health;
 }
 
-std::size_t Player::getScore() const
-{
-    return m_score;
-}
-
 void Player::enemyKilled()
 {
-    m_score += 10;
-    m_scoreKeeper->setPoints(m_score);
+    notify(this, Event::EnemyKilled);
 }
 
 void Player::updateStatus()

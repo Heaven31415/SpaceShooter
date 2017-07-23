@@ -1,9 +1,17 @@
 #pragma once
 
 #include "LaserHandler.hpp"
-#include "Score.hpp"
+#include "Observer.hpp"
 
-class Player : public PhysicalObject
+namespace Event
+{
+    enum Type
+    {
+        EnemyKilled
+    };
+}
+
+class Player : public PhysicalObject, public Subject
 {
     enum class Status
     {
@@ -12,14 +20,13 @@ class Player : public PhysicalObject
         DeadWithoutLasers,
     };
 public:
-                                        Player(Context* context, CollisionHandler* collision, Score* scoreKeeper);
+                                        Player(Context* context, CollisionHandler* collision);
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const;
     virtual void                        update(sf::Time dt) override;
     void                                handleEvent(const sf::Event& event);
 
     std::size_t                         getHealth() const;
-    std::size_t                         getScore() const;
     void                                enemyKilled();
     void                                updateStatus();
     void                                updatePlayer(sf::Time dt);
@@ -28,7 +35,6 @@ public:
 private:
     Status                              m_status;
     Context*                            m_context;
-    Score*                              m_scoreKeeper;
     LaserHandler::Ptr                   m_laserHandler;
 
 private:
@@ -40,5 +46,4 @@ private:
     bool                                m_turningRight;
     std::size_t                         m_health;
     const std::size_t                   m_maxHealth;
-    std::size_t                         m_score;
 };

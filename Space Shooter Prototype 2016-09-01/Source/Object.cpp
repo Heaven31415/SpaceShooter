@@ -5,6 +5,10 @@ void Object::draw(sf::RenderTarget & target) const
     target.draw(m_sprite, getTransform());
 }
 
+void Object::update(sf::Time dt)
+{
+}
+
 Object::Object(Type::Type type)
 : m_type(type)
 , m_sprite()

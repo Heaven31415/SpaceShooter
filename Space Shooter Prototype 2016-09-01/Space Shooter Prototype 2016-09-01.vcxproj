@@ -169,6 +169,7 @@
     <ClInclude Include="Include\LoadingState.hpp" />
     <ClInclude Include="Include\MenuState.hpp" />
     <ClInclude Include="Include\Object.hpp" />
+    <ClInclude Include="Include\Observer.hpp" />
     <ClInclude Include="Include\PhysicalObject.hpp" />
     <ClInclude Include="Include\Pickup.hpp" />
     <ClInclude Include="Include\Player.hpp" />

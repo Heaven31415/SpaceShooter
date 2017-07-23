@@ -1,18 +1,18 @@
 #pragma once
 
 #include "Context.hpp"
-#include "Object.hpp"
+#include "Observer.hpp"
 #include "Tools.hpp"
 
-class Score : public Object
+class Score : public Object, public Observer
 {
 public:
                             Score(Context* context);
     virtual void            draw(sf::RenderTarget& target) const override;
-    virtual void            update(sf::Time dt) override;
-    void                    setPoints(std::size_t points);
+    virtual void            onNotify(Object* obj, unsigned int code) override;
 
 private:
     Context*                m_context;
+    unsigned int            m_enemyKilled;
     sf::Text                m_text;
 };

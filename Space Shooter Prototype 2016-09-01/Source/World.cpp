@@ -7,11 +7,12 @@ World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
 , m_background(context)
 , m_enemies(context, &m_collision)
 , m_pickup(context, &m_collision)
-, m_player(context, &m_collision, &m_score)
+, m_player(context, &m_collision)
 , m_hud(context, &m_player)
 , m_score(context)
 {
     m_player.setPosition({ 400.f, 300.f });
+    m_player.add(&m_score);
 }
 
 void World::handleInput()

@@ -181,6 +181,9 @@
     <ClInclude Include="Include\SoundSystem.hpp">
       <Filter>WIP</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Observer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Graphics\Background.png">

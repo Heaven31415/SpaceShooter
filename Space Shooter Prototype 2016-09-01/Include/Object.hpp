@@ -28,7 +28,7 @@ public:
                             Object(Type::Type type, const sf::Texture& texture);
                             Object(Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
     virtual void            draw(sf::RenderTarget& target) const;
-    virtual void            update(sf::Time dt) = 0;
+    virtual void            update(sf::Time dt);
 
 public:
     Type::Type              getType() const;
