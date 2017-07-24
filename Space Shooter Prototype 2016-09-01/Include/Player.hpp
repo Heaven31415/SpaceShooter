@@ -3,6 +3,7 @@
 #include "Context.hpp"
 #include "Observer.hpp"
 #include "PhysicalObject.hpp"
+#include "Laser.hpp"
 
 class World;
 

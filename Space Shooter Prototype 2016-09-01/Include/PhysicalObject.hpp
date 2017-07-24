@@ -17,12 +17,15 @@ public:
 
 public:
     bool                    isDestroyed() const;
+    bool                    isErasable() const;
     unsigned                getCollisionMatch();
     void                    destroy();
+    void                    erase();
 
 protected:
     CollisionHandler*       m_collision;
 
 private:
     bool                    m_destroyed;
+    bool                    m_erasable;
 };

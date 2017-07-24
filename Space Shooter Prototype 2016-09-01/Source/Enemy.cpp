@@ -1,16 +1,19 @@
 #include "../Include/Enemy.hpp"
 #include "../Include/Game.hpp"
 
-Enemy::Enemy(Context* context, CollisionHandler* collision)
-: PhysicalObject(collision, Type::Enemy, context->textures.get("EnemyShip"))
-, m_status(Status::Alive)
+Enemy::Enemy(Context* context, World* world)
+: PhysicalObject(world->getCollision(), Type::Enemy, context->textures.get("EnemyShip"))
 , m_context(context)
-, m_laserHandler(std::make_unique<LaserHandler>(context, collision, this, Game::Config.enemyMaxLaser))
+, m_world(world)
 , m_velocity(Game::Config.enemySpeed)
 , m_attackTimer(sf::Time::Zero)
 , m_maneuverTimer(sf::Time::Zero)
 , m_turningLeft(false)
 , m_turningRight(false)
+, m_health(1)
+, m_maxHealth(1)
+, m_lasers(0)
+, m_maxLasers(Game::Config.enemyMaxLaser)
 {
     centerOrigin();
 
@@ -25,62 +28,20 @@ Enemy::Enemy(Context* context, CollisionHandler* collision)
 
 void Enemy::collision(PhysicalObject* object)
 {
-    destroy();
+    if (m_health > 0) m_health -= 1;
     m_context->soundSystem.playSound("Explosion");
 }
 
 void Enemy::draw(sf::RenderTarget & target) const
 {
-    switch (m_status)
-    {
-        case Status::Alive:
-        {
-            m_laserHandler->draw(target);
-            Object::draw(target);
-        }
-        break;
-
-        case Status::DeadWithLasers:
-        {
-            m_laserHandler->draw(target);
-        }
-        break;
-    }
+    if (!isDestroyed())
+        Object::draw(target);
 }
 
 void Enemy::update(sf::Time dt)
 {
-    updateStatus();
-
-    switch (m_status)
-    {
-        case Status::Alive:
-        {
-            updateEnemy(dt);
-            m_laserHandler->update(dt);
-        }
-        break;
-
-        case Status::DeadWithLasers:
-        {
-            m_laserHandler->update(dt);
-        }
-        break;
-
-        case Status::DeadWithoutLasers:
-        {
-            if (!isDestroyed()) destroy();
-        }
-        break;
-    }
-}
-
-void Enemy::updateStatus()
-{
-    if (!isDestroyed()) m_status = Status::Alive;
-    else if (isDestroyed() && !m_laserHandler->empty()) m_status = Status::DeadWithLasers;
-    //else if (m_explosion.getStatus() == sf::Sound::Status::Playing) m_status = Status::DeadWithLasers;
-    else m_status = Status::DeadWithoutLasers;
+    if (!isDestroyed())
+        updateEnemy(dt);
 }
 
 void Enemy::updateEnemy(sf::Time dt)
@@ -91,9 +52,12 @@ void Enemy::updateEnemy(sf::Time dt)
 
     if (m_attackTimer <= sf::Time::Zero)
     {
-        if (m_laserHandler->push(Type::EnemyWeapon))
+        if (m_lasers < m_maxLasers)
+        {
+            m_world->add(std::make_unique<Laser>(Type::PlayerWeapon, m_context, m_collision, this));
             m_context->soundSystem.playSound("EnemyLaser");
-        m_attackTimer = sf::seconds(random.getRealNumber(0.5f, 1.0f));
+            m_attackTimer = sf::seconds(random.getRealNumber(0.5f, 1.0f));
+        }
     }
 
     if (m_maneuverTimer <= sf::Time::Zero)
@@ -124,9 +88,4 @@ void Enemy::updateEnemy(sf::Time dt)
     else move(0, dy);
 
     if (up >= mapSize.y) destroy();
-}
-
-bool Enemy::readyToErase() const
-{
-    return m_status == Status::DeadWithoutLasers;
 }

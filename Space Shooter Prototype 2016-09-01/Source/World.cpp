@@ -5,7 +5,6 @@ World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
 , m_exitFlag(exitFlag)
 , m_collision()
 , m_background(context)
-, m_enemies(context, &m_collision)
 , m_pickup(context, &m_collision)
 , m_player(context, this)
 , m_hud(context, &m_player)
@@ -53,7 +52,6 @@ void World::update(sf::Time dt)
 
     std::experimental::erase_if(m_physicalObjects, [](const PhysicalObject::Ptr& obj) { return obj->isDestroyed(); });
     for (auto& obj : m_physicalObjects) obj->update(dt);
-    m_enemies.update(dt);
     m_pickup.update(dt);
     m_player.update(dt);
     m_hud.update(dt);
@@ -72,7 +70,6 @@ void World::render()
     // second layer
     for (auto& obj : m_physicalObjects) obj->draw(window);
     m_pickup.draw(window);
-    m_enemies.draw(window);
     m_player.draw(window);
     // third layer
     m_hud.draw(window);

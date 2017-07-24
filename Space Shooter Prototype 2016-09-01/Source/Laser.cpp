@@ -31,7 +31,7 @@ Laser::Laser(Type::Type type, Context* context, CollisionHandler* collision, Obj
 
 Laser::~Laser()
 {
-     if (getType() == Type::PlayerWeapon)
+    if (getType() == Type::PlayerWeapon)
     {
         auto player = static_cast<Player*>(m_owner);
         player->decreaseLaserCount();

@@ -2,7 +2,6 @@
 
 #include "Background.hpp"
 #include "Context.hpp"
-#include "EnemyHandler.hpp"
 #include "Hud.hpp"
 #include "Pickup.hpp"
 #include "Player.hpp"
@@ -27,7 +26,6 @@ private:
     CollisionHandler                    m_collision;
     std::vector<PhysicalObject::Ptr>    m_physicalObjects;
     Background                          m_background;
-    EnemyHandler                        m_enemies;
     Pickup                              m_pickup;
     Player                              m_player;
     Hud                                 m_hud;

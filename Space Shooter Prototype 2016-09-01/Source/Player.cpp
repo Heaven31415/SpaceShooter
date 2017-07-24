@@ -32,13 +32,13 @@ void Player::collision(PhysicalObject* object)
 
 void Player::update(sf::Time dt)
 {
-    if (m_health > 0)
+    if (!isDestroyed())
         updatePlayer(dt);
 }
 
 void Player::handleEvent(const sf::Event & event)
 {
-    if (m_health > 0)
+    if (!isDestroyed())
     {
         if (event.type == sf::Event::KeyPressed)
         {
@@ -80,6 +80,12 @@ void Player::increaseLaserCount()
 
 void Player::decreaseLaserCount()
 {
+    // if this object and last laser is destroyed
+    // we can safely erase this object from the world
+    // because nobody is having any reference/pointer to it
+    if (isDestroyed() && m_lasers == 1)
+        erase();
+
     m_lasers--;
 }
 
@@ -133,18 +139,23 @@ void Player::heal(std::size_t amount)
 
 void Player::takeDamage(std::size_t amount)
 {
-    if (m_health > amount)
-        m_health -= amount;
+    if (m_health > amount) m_health -= amount;
     else
     {
+        // Object is destroyed when health is equal to 0, but it may not be erasable.
+        // For example lasers of this object may still exist in the world and we
+        // must wait until they are cleaned before we can erase this object.
         m_health = 0;
         destroy();
+        // destroying this object implies removing it from collision system,
+        // however this object will still remain in world
     }
+        
     notify(this, Event::PlayerHit);
 }
 
 void Player::draw(sf::RenderTarget & target) const
 {
-    if (m_health > 0)
+    if (!isDestroyed())
         Object::draw(target);
 }

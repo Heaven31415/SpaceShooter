@@ -5,6 +5,7 @@ PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type)
 : Object(type)
 , m_collision(collision)
 , m_destroyed(false)
+, m_erasable(false)
 {
     collision->registerObject(this);
 }
@@ -35,6 +36,11 @@ bool PhysicalObject::isDestroyed() const
     return m_destroyed;
 }
 
+bool PhysicalObject::isErasable() const
+{
+    return m_erasable;
+}
+
 unsigned PhysicalObject::getCollisionMatch()
 {
     switch (m_type)
@@ -58,4 +64,9 @@ unsigned PhysicalObject::getCollisionMatch()
 void PhysicalObject::destroy()
 {
     m_destroyed = true;
+}
+
+void PhysicalObject::erase()
+{
+    m_erasable = true;
 }
