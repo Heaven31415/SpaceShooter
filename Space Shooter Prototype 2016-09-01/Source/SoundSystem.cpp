@@ -78,13 +78,13 @@ void SoundSystem::onNotify(Object * obj, unsigned int code)
         auto event = static_cast<Event::Type>(code);
         switch (event)
         {
-            case Event::LaserWeaponFired:
+            case Event::WeaponFired:
                 playSound("PlayerLaser");
                 break;
             case Event::PickupTaken:
                 playSound("PlayerHeal");
                 break;
-            case Event::PlayerHit:
+            case Event::TakenDamage:
                 playSound("DamageTaken");
                 break;
             default:

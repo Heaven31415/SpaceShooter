@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Context.hpp"
+#include "Laser.hpp"
 #include "PhysicalObject.hpp"
 #include "Randomizer.hpp"
-#include "Laser.hpp"
 
 class World;
 
@@ -24,13 +24,13 @@ private:
     World*                              m_world;
 
 private:
-    sf::Vector2f                        m_velocity;
+    void                                addLaser();
+    std::size_t                         countLasers();
+
+private:
     sf::Time                            m_attackTimer;
     sf::Time                            m_maneuverTimer;
     bool                                m_turningLeft;
     bool                                m_turningRight;
-    std::size_t                         m_health;
-    const std::size_t                   m_maxHealth;
-    std::size_t                         m_lasers;
     const std::size_t                   m_maxLasers;
 };

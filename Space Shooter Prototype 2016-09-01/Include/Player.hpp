@@ -7,48 +7,31 @@
 
 class World;
 
-namespace Event
-{
-    enum Type
-    {
-        EnemyKilled,
-        LaserWeaponFired,
-        PickupTaken,
-        PlayerHit,
-    };
-}
-
-class Player : public PhysicalObject, public Subject
+class Player : public PhysicalObject
 {
 public:
                                         Player(Context* context, World* world);
     virtual void                        collision(PhysicalObject* object) override;
-    virtual void                        draw(sf::RenderTarget& target) const;
+    virtual void                        draw(sf::RenderTarget& target) const override;
     virtual void                        update(sf::Time dt) override;
     void                                handleEvent(const sf::Event& event);
 
-    void                                increaseLaserCount();
-    void                                decreaseLaserCount();
+public:
+    void                                onEnemyKilled(PhysicalObject* object); // callback
 
-    std::size_t                         getHealth() const;
-    void                                enemyKilled();
+private:
+    void                                addLaser();
     void                                updatePlayer(sf::Time dt);
-    void                                heal(std::size_t amount);
-    void                                takeDamage(std::size_t amount);
+    std::size_t                         countLasers();
 
 private:
     Context*                            m_context;
-    World*                              m_world;
 
 private:
     std::map<std::string, sf::IntRect>  m_frames;
-    sf::Vector2f                        m_velocity;
     bool                                m_goingUp;
     bool                                m_goingDown;
     bool                                m_turningLeft;
     bool                                m_turningRight;
-    std::size_t                         m_health;
-    const std::size_t                   m_maxHealth;
-    std::size_t                         m_lasers;
     const std::size_t                   m_maxLasers;
 };

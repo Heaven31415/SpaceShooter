@@ -1,48 +1,60 @@
 #include "../Include/PhysicalObject.hpp"
-#include "../Include/CollisionHandler.hpp"
+#include "../Include/World.hpp"
 
-PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type)
+PhysicalObject::PhysicalObject(World* world, Type::Type type)
 : Object(type)
-, m_collision(collision)
+, m_world(world)
+, m_velocity()
+, m_health(1)
+, m_maxHealth(1)
 , m_destroyed(false)
 , m_erasable(false)
 {
-    collision->registerObject(this);
+    world->getCollision()->registerObject(this);
 }
 
-PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture & texture)
+PhysicalObject::PhysicalObject(World* world, Type::Type type, const sf::Texture & texture)
 : Object(type, texture)
-, m_collision(collision)
+, m_world(world)
 , m_destroyed(false)
 {
-    collision->registerObject(this);
+    world->getCollision()->registerObject(this);
 }
 
-PhysicalObject::PhysicalObject(CollisionHandler* collision, Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
+PhysicalObject::PhysicalObject(World* world, Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
 : Object(type, texture, rectangle)
-, m_collision(collision)
+, m_world(world)
 , m_destroyed(false)
 {
-    collision->registerObject(this);
+    world->getCollision()->registerObject(this);
 }
 
 PhysicalObject::~PhysicalObject()
 {
-    m_collision->unregisterObject(this);
+    // automatically remove object from collision system at it's destruction
+    m_world->getCollision()->unregisterObject(this);
+}
+
+void PhysicalObject::collision(PhysicalObject * object)
+{
+    notify(this, Event::Collided);
 }
 
 bool PhysicalObject::isDestroyed() const
 {
+    // does object exist in the game world
     return m_destroyed;
 }
 
 bool PhysicalObject::isErasable() const
 {
+    // does object exist in the program
     return m_erasable;
 }
 
 unsigned PhysicalObject::getCollisionMatch()
 {
+    // check whether two kinds of objects should collide
     switch (m_type)
     {
         case Type::Player:
@@ -64,9 +76,91 @@ unsigned PhysicalObject::getCollisionMatch()
 void PhysicalObject::destroy()
 {
     m_destroyed = true;
+    // if this object is destroyed, let us check whether
+    // it has any children, if no, we can safely erase it
+    if (m_children.empty()) erase();
 }
 
 void PhysicalObject::erase()
 {
     m_erasable = true;
+}
+
+void PhysicalObject::setVelocity(sf::Vector2f velocity)
+{
+    m_velocity = velocity;
+}
+
+sf::Vector2f PhysicalObject::getVelocity() const
+{
+    return m_velocity;
+}
+
+void PhysicalObject::setHealth(std::size_t health)
+{
+    if (health > m_maxHealth) m_health = m_maxHealth;
+    else m_health = health;
+}
+
+std::size_t PhysicalObject::getHealth() const
+{
+    return m_health;
+}
+
+void PhysicalObject::setMaxHealth(std::size_t health)
+{
+    m_maxHealth = health;
+    if (m_health > m_maxHealth) m_health = m_maxHealth;
+}
+
+std::size_t PhysicalObject::getMaxHealth() const
+{
+    return m_maxHealth;
+}
+
+void PhysicalObject::heal(std::size_t amount)
+{
+    m_health += amount;
+    // Quicker than using modulo to cut health 'overflow'?
+    if (m_health > m_maxHealth) m_health = m_maxHealth;
+
+    notify(this, Event::Healed);
+}
+
+void PhysicalObject::takeDamage(std::size_t amount)
+{
+    if (m_health > amount)
+        m_health -= amount;
+    else
+    {
+        // this object will be destroyed, meaning nobody will have
+        // a chance to see it or interact with it
+        m_health = 0;
+        destroy();
+    }
+
+    notify(this, Event::TakenDamage);
+}
+
+void PhysicalObject::addChild(PhysicalObject* child)
+{
+    // add a reference pointer to children container
+    m_children.push_back(child);
+}
+
+void PhysicalObject::removeChild(PhysicalObject* child)
+{
+    // search for a reference pointer
+    // and delete it if it was found
+    for (std::size_t i = 0; i < m_children.size(); i++)
+        if (m_children[i] == child)
+        {
+            m_children.erase(m_children.begin() + i);
+            break;
+        }
+
+    // if this object is destroyed and it has no children, 
+    // we can erase it (delete from program memory)
+    if (isDestroyed() && m_children.empty())
+        erase(); 
 }

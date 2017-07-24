@@ -2,19 +2,20 @@
 #include "../Include/Game.hpp"
 
 Enemy::Enemy(Context* context, World* world)
-: PhysicalObject(world->getCollision(), Type::Enemy, context->textures.get("EnemyShip"))
+: PhysicalObject(world, Type::Enemy, context->textures.get("EnemyShip"))
 , m_context(context)
 , m_world(world)
-, m_velocity(Game::Config.enemySpeed)
 , m_attackTimer(sf::Time::Zero)
 , m_maneuverTimer(sf::Time::Zero)
 , m_turningLeft(false)
 , m_turningRight(false)
-, m_health(1)
-, m_maxHealth(1)
-, m_lasers(0)
 , m_maxLasers(Game::Config.enemyMaxLaser)
 {
+    setVelocity(Game::Config.enemySpeed);
+    /* for now, they doesn't use configuration for their health
+    setMaxHealth(Game::Config.enemyHealth);
+    setHealth(getMaxHealth());
+    */
     centerOrigin();
 
     Randomizer random;
@@ -28,7 +29,11 @@ Enemy::Enemy(Context* context, World* world)
 
 void Enemy::collision(PhysicalObject* object)
 {
-    if (m_health > 0) m_health -= 1;
+    if (object->getType() == Type::Player)
+    {
+        object->takeDamage(1);
+        takeDamage(1);
+    }
     m_context->soundSystem.playSound("Explosion");
 }
 
@@ -52,9 +57,9 @@ void Enemy::updateEnemy(sf::Time dt)
 
     if (m_attackTimer <= sf::Time::Zero)
     {
-        if (m_lasers < m_maxLasers)
+        if (countLasers() < m_maxLasers)
         {
-            m_world->add(std::make_unique<Laser>(Type::PlayerWeapon, m_context, m_collision, this));
+            addLaser();
             m_context->soundSystem.playSound("EnemyLaser");
             m_attackTimer = sf::seconds(random.getRealNumber(0.5f, 1.0f));
         }
@@ -71,6 +76,7 @@ void Enemy::updateEnemy(sf::Time dt)
         m_maneuverTimer = sf::seconds(random.getRealNumber(0.3f, 1.0f));
     }
 
+    auto velocity = getVelocity();
     auto position = getPosition();
     auto bounds = getLocalBounds();
     auto mapSize = Game::Config.windowSize;
@@ -80,12 +86,30 @@ void Enemy::updateEnemy(sf::Time dt)
     auto left = position.x - bounds.width / 2.f;
     auto right = position.x + bounds.width / 2.f;
 
-    auto dx = m_velocity.x * dt.asSeconds();
-    auto dy = m_velocity.y * dt.asSeconds();
+    auto dx = velocity.x * dt.asSeconds();
+    auto dy = velocity.y * dt.asSeconds();
 
     if (m_turningLeft && left > 0.f) move(-dx, dy);
     else if (m_turningRight && right < mapSize.x) move(dx, dy);
     else move(0, dy);
 
     if (up >= mapSize.y) destroy();
+}
+
+void Enemy::addLaser()
+{
+    auto laser = std::make_unique<Laser>(Type::EnemyWeapon, m_context, m_world, this);
+    // create a 'reference' pointer in children container
+    addChild(laser.get());
+    // move ownership of this laser to world
+    m_world->add(std::move(laser));
+}
+
+std::size_t Enemy::countLasers()
+{
+    std::size_t count = 0;
+    for (auto& child : m_children)
+        if (child->getType() == Type::EnemyWeapon)
+            count++;
+    return count;
 }

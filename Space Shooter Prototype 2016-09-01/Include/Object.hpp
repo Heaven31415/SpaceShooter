@@ -9,13 +9,12 @@ namespace Type
 {
     enum Type : unsigned
     {
-        Special = 0,
-        Handler = 0,
-        Player = 1,
-        Enemy = 2,
-        EnemyWeapon = 4,
-        PlayerWeapon = 8,
-        Pickup = 16,
+        Special         = 0,
+        Player          = 1,
+        Enemy           = 2,
+        EnemyWeapon     = 4,
+        PlayerWeapon    = 8,
+        Pickup          = 16,
     };
 }
 

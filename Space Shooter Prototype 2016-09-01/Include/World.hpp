@@ -2,6 +2,7 @@
 
 #include "Background.hpp"
 #include "Context.hpp"
+#include "Enemy.hpp"
 #include "Hud.hpp"
 #include "Pickup.hpp"
 #include "Player.hpp"
@@ -21,6 +22,9 @@ public:
     CollisionHandler*                   getCollision();
 
 private:
+    void                                spawn();
+
+private:
     Context*                            m_context;
     std::pair<bool, State::Type>&       m_exitFlag;
     CollisionHandler                    m_collision;
@@ -30,4 +34,6 @@ private:
     Player                              m_player;
     Hud                                 m_hud;
     Score                               m_score;
+
+    sf::Time                            m_spawnerTimer;
 };

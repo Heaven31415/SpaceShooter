@@ -89,9 +89,6 @@
     <ClCompile Include="Source\CollisionHandler.cpp">
       <Filter>GameState\Components\Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\LaserHandler.cpp">
-      <Filter>GameState\Components\Handlers</Filter>
-    </ClCompile>
     <ClCompile Include="Source\World.cpp">
       <Filter>GameState\Components</Filter>
     </ClCompile>
@@ -164,9 +161,6 @@
       <Filter>GameState\Components\UI</Filter>
     </ClInclude>
     <ClInclude Include="Include\CollisionHandler.hpp">
-      <Filter>GameState\Components\Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\LaserHandler.hpp">
       <Filter>GameState\Components\Handlers</Filter>
     </ClInclude>
     <ClInclude Include="Include\World.hpp">

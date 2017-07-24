@@ -5,10 +5,11 @@ World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
 , m_exitFlag(exitFlag)
 , m_collision()
 , m_background(context)
-, m_pickup(context, &m_collision)
+, m_pickup(context, this)
 , m_player(context, this)
 , m_hud(context, &m_player)
 , m_score(context)
+, m_spawnerTimer(sf::seconds(1.f))
 {
     m_player.setPosition({ 400.f, 300.f });
     m_player.add(&m_context->soundSystem); // let soundSystem observe Player
@@ -50,12 +51,26 @@ void World::update(sf::Time dt)
 {
     m_background.update(dt);
 
-    std::experimental::erase_if(m_physicalObjects, [](const PhysicalObject::Ptr& obj) { return obj->isDestroyed(); });
-    for (auto& obj : m_physicalObjects) obj->update(dt);
+    // if object is destroyed and has no children, get rid of it
+    std::experimental::erase_if(m_physicalObjects, [](const PhysicalObject::Ptr& obj) { return obj->isErasable(); });
+
+    // use this instead of range based for loop because update may invalidate iterators
+    for (std::size_t i = 0; i < m_physicalObjects.size(); i++)
+        m_physicalObjects[i]->update(dt);
+
     m_pickup.update(dt);
     m_player.update(dt);
     m_hud.update(dt);
     m_score.update(dt);
+
+    // temporary spawner
+    if (m_spawnerTimer > dt)
+        m_spawnerTimer -= dt;
+    else
+    {
+        spawn();
+        m_spawnerTimer = sf::seconds(1.f);
+    }
 
     m_collision.checkCollision();
 }
@@ -67,10 +82,12 @@ void World::render()
 
     // first layer
     m_background.draw(window);
+
     // second layer
     for (auto& obj : m_physicalObjects) obj->draw(window);
     m_pickup.draw(window);
     m_player.draw(window);
+
     // third layer
     m_hud.draw(window);
     m_score.draw(window);
@@ -81,4 +98,13 @@ void World::render()
 CollisionHandler * World::getCollision()
 {
     return &m_collision;
+}
+
+void World::spawn()
+{
+    Randomizer random;
+    if (random.getIntNumber(0, 100) > 80)
+        add(std::make_unique<Pickup>(m_context, this));
+    else
+        add(std::make_unique<Enemy>(m_context, this));
 }

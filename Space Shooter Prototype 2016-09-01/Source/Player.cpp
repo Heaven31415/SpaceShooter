@@ -2,19 +2,18 @@
 #include "../Include/Player.hpp"
 
 Player::Player(Context* context, World* world)
-: PhysicalObject(world->getCollision(), Type::Player, context->textures.get("Ship"))
+: PhysicalObject(world, Type::Player, context->textures.get("Ship"))
 , m_context(context)
-, m_world(world)
-, m_velocity(Game::Config.playerSpeed)
 , m_goingUp(false)
 , m_goingDown(false)
 , m_turningLeft(false)
 , m_turningRight(false)
-, m_health(Game::Config.playerHealth)
-, m_maxHealth(m_health)
-, m_lasers(0)
 , m_maxLasers(Game::Config.playerMaxLaser)
 {
+    setVelocity(Game::Config.playerSpeed);
+    setMaxHealth(Game::Config.playerHealth);
+    setHealth(getMaxHealth());
+
     m_frames["straight"] = { 0, 0, 100, 80 };
     m_frames["left"] = { 100, 0, 100, 80 };
     m_frames["right"] = { 200, 0, 100, 80 };
@@ -24,10 +23,11 @@ Player::Player(Context* context, World* world)
 
 void Player::collision(PhysicalObject* object)
 {
+    // if it's not pickup, we must have collided with something 'unhealthy'
     if (object->getType() == Type::Pickup)
         notify(this, Event::PickupTaken);
     else
-        takeDamage(1);  
+        notify(this, Event::TakenDamage);
 }
 
 void Player::update(sf::Time dt)
@@ -42,65 +42,56 @@ void Player::handleEvent(const sf::Event & event)
     {
         if (event.type == sf::Event::KeyPressed)
         {
-            if (event.key.code == sf::Keyboard::W)
-                m_goingUp = true;
-            else if (event.key.code == sf::Keyboard::S)
-                m_goingDown = true;
-            else if (event.key.code == sf::Keyboard::A)
-                m_turningLeft = true;
-            else if (event.key.code == sf::Keyboard::D)
-                m_turningRight = true;
-            else if (event.key.code == sf::Keyboard::Space)
+            switch (event.key.code)
             {
-                if (m_lasers < m_maxLasers)
-                {
-                    m_world->add(std::make_unique<Laser>(Type::PlayerWeapon, m_context, m_collision, this));
-                    notify(this, Event::LaserWeaponFired);
-                }
-            }                   
+                case sf::Keyboard::W: m_goingUp = true;         break;
+                case sf::Keyboard::S: m_goingDown = true;       break;
+                case sf::Keyboard::A: m_turningLeft = true;     break;
+                case sf::Keyboard::D: m_turningRight = true;    break;
+                case sf::Keyboard::Space:
+                    if (countLasers() < m_maxLasers)
+                    {
+                        addLaser();
+                        notify(this, Event::WeaponFired);
+                    }
+                    break;
+                default:
+                    break;
+            }            
         }
         else if (event.type == sf::Event::KeyReleased)
         {
-            if (event.key.code == sf::Keyboard::W)
-                m_goingUp = false;
-            else if (event.key.code == sf::Keyboard::S)
-                m_goingDown = false;
-            else if (event.key.code == sf::Keyboard::A)
-                m_turningLeft = false;
-            else if (event.key.code == sf::Keyboard::D)
-                m_turningRight = false;
+            switch (event.key.code)
+            {
+                case sf::Keyboard::W: m_goingUp = false;         break;
+                case sf::Keyboard::S: m_goingDown = false;       break;
+                case sf::Keyboard::A: m_turningLeft = false;     break;
+                case sf::Keyboard::D: m_turningRight = false;    break;
+                default:
+                    break;
+            }
         }
     }
 }
 
-void Player::increaseLaserCount()
+void Player::onEnemyKilled(PhysicalObject * object)
 {
-    m_lasers++;
+    if (object->getType() == Type::Enemy)
+        notify(this, Event::EnemyKilled);
 }
 
-void Player::decreaseLaserCount()
+void Player::addLaser()
 {
-    // if this object and last laser is destroyed
-    // we can safely erase this object from the world
-    // because nobody is having any reference/pointer to it
-    if (isDestroyed() && m_lasers == 1)
-        erase();
-
-    m_lasers--;
-}
-
-std::size_t Player::getHealth() const
-{
-    return m_health;
-}
-
-void Player::enemyKilled()
-{
-    notify(this, Event::EnemyKilled);
+    auto laser = std::make_unique<Laser>(Type::PlayerWeapon, m_context, m_world, this);
+    // create a 'reference' pointer in children container
+    addChild(laser.get());
+    // move ownership of this laser to world
+    m_world->add(std::move(laser));
 }
 
 void Player::updatePlayer(sf::Time dt)
 {
+    auto velocity = getVelocity();
     auto position = getPosition();
     auto bounds = getLocalBounds();
     auto mapSize = Game::Config.windowSize;
@@ -110,8 +101,8 @@ void Player::updatePlayer(sf::Time dt)
     auto left = position.x - bounds.width / 2.f;
     auto right = position.x + bounds.width / 2.f;
 
-    auto dx = m_velocity.x * dt.asSeconds();
-    auto dy = m_velocity.y * dt.asSeconds();
+    auto dx = velocity.x * dt.asSeconds();
+    auto dy = velocity.y * dt.asSeconds();
 
     if (m_turningLeft)
     {
@@ -131,27 +122,13 @@ void Player::updatePlayer(sf::Time dt)
         move(0, dy);
 }
 
-void Player::heal(std::size_t amount)
+std::size_t Player::countLasers()
 {
-    m_health += amount;
-    if (m_health > m_maxHealth) m_health = m_maxHealth;
-}
-
-void Player::takeDamage(std::size_t amount)
-{
-    if (m_health > amount) m_health -= amount;
-    else
-    {
-        // Object is destroyed when health is equal to 0, but it may not be erasable.
-        // For example lasers of this object may still exist in the world and we
-        // must wait until they are cleaned before we can erase this object.
-        m_health = 0;
-        destroy();
-        // destroying this object implies removing it from collision system,
-        // however this object will still remain in world
-    }
-        
-    notify(this, Event::PlayerHit);
+    std::size_t count = 0;
+    for (auto& child : m_children)
+        if (child->getType() == Type::PlayerWeapon)
+            count++;
+    return count;
 }
 
 void Player::draw(sf::RenderTarget & target) const
