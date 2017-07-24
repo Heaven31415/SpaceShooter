@@ -27,6 +27,10 @@ Object::Object(Type::Type type, const sf::Texture & texture, const sf::IntRect &
 {
 }
 
+Object::~Object()
+{
+}
+
 Type::Type Object::getType() const
 {
     return m_type;

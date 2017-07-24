@@ -2,12 +2,14 @@
 #include "../Include/Pickup.hpp"
 #include "../Include/Player.hpp"
 
-Pickup::Pickup(Context * context, World * world)
-: PhysicalObject(world, Type::Pickup, context->textures.get("Pickup"))
+Pickup::Pickup(Context * context, World * world, PickupData data)
+: PhysicalObject(world, Type::Pickup, context->textures.get(data.textureName))
 , m_context(context)
 , m_respawnTimer(sf::Time::Zero)
+, m_onCollision(data.onCollision)
 {
-    setVelocity({ 0, Game::Config.pickupSpeed });
+    //setVelocity({ 0, Game::Config.pickupSpeed });
+    setVelocity({ 0, data.speed });
     centerOrigin();
 
     Randomizer random;
@@ -18,11 +20,13 @@ Pickup::Pickup(Context * context, World * world)
 
 void Pickup::collision(PhysicalObject * object)
 {
-    if (object->getType() == Type::Player)
+    /*if (object->getType() == Type::Player)
     {
         static_cast<Player*>(object)->heal(1);
         destroy();
-    }
+    }*/
+
+    m_onCollision(this, object);
 }
 
 void Pickup::draw(sf::RenderTarget & target) const

@@ -5,7 +5,7 @@ World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
 , m_exitFlag(exitFlag)
 , m_collision()
 , m_background(context)
-, m_pickup(context, this)
+, m_pickupFactory(context, this)
 , m_player(context, this)
 , m_hud(context, &m_player)
 , m_score(context)
@@ -58,7 +58,6 @@ void World::update(sf::Time dt)
     for (std::size_t i = 0; i < m_physicalObjects.size(); i++)
         m_physicalObjects[i]->update(dt);
 
-    m_pickup.update(dt);
     m_player.update(dt);
     m_hud.update(dt);
     m_score.update(dt);
@@ -85,7 +84,6 @@ void World::render()
 
     // second layer
     for (auto& obj : m_physicalObjects) obj->draw(window);
-    m_pickup.draw(window);
     m_player.draw(window);
 
     // third layer
@@ -104,7 +102,7 @@ void World::spawn()
 {
     Randomizer random;
     if (random.getIntNumber(0, 100) > 80)
-        add(std::make_unique<Pickup>(m_context, this));
+        add(m_pickupFactory.build("heal"));
     else
         add(std::make_unique<Enemy>(m_context, this));
 }

@@ -4,7 +4,7 @@
 #include "Context.hpp"
 #include "Enemy.hpp"
 #include "Hud.hpp"
-#include "Pickup.hpp"
+#include "PickupFactory.hpp"
 #include "Player.hpp"
 #include "Score.hpp"
 #include "State.hpp"
@@ -30,7 +30,7 @@ private:
     CollisionHandler                    m_collision;
     std::vector<PhysicalObject::Ptr>    m_physicalObjects;
     Background                          m_background;
-    Pickup                              m_pickup;
+    PickupFactory                       m_pickupFactory;
     Player                              m_player;
     Hud                                 m_hud;
     Score                               m_score;

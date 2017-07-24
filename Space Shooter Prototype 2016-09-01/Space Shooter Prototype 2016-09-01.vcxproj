@@ -134,6 +134,7 @@
     <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\PhysicalObject.cpp" />
     <ClCompile Include="Source\Pickup.cpp" />
+    <ClCompile Include="Source\PickupFactory.cpp" />
     <ClCompile Include="Source\Score.cpp" />
     <ClCompile Include="Source\Background.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Include\Observer.hpp" />
     <ClInclude Include="Include\PhysicalObject.hpp" />
     <ClInclude Include="Include\Pickup.hpp" />
+    <ClInclude Include="Include\PickupFactory.hpp" />
     <ClInclude Include="Include\Player.hpp" />
     <ClInclude Include="Include\Randomizer.hpp" />
     <ClInclude Include="Include\ResourceHolder.hpp" />

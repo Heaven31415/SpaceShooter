@@ -98,6 +98,9 @@
     <ClCompile Include="Source\SoundSystem.cpp">
       <Filter>WIP</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PickupFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Context.hpp">
@@ -170,6 +173,9 @@
       <Filter>WIP</Filter>
     </ClInclude>
     <ClInclude Include="Include\Observer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\PickupFactory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

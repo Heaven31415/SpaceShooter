@@ -26,6 +26,7 @@ public:
                             Object(Type::Type type);
                             Object(Type::Type type, const sf::Texture& texture);
                             Object(Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
+    virtual                ~Object();
     virtual void            draw(sf::RenderTarget& target) const;
     virtual void            update(sf::Time dt);
 
