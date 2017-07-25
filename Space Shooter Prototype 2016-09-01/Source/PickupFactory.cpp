@@ -1,17 +1,24 @@
 #include "..\Include\PickupFactory.hpp"
+#include "..\Include\World.hpp"
 
 PickupFactory::PickupFactory(Context * context, World * world)
 : m_context(context)
 , m_world(world)
 {
     // define your pickups templates here
-    m_data["heal"] = PickupData(100.f, "Pickup", [](PhysicalObject* pickup, PhysicalObject* collider) {
+    m_data["heal"] = PickupData(100.f, "PickupGreen", [](PhysicalObject* pickup, PhysicalObject* collider) {
         if (collider->getType() == Type::Player)
         {
             collider->heal(1);
             pickup->destroy();
         }
-            
+    });
+
+    m_data["death"] = PickupData(200.f, "PickupRed", [world](PhysicalObject* pickup, PhysicalObject* collider) {
+        auto enemies = world->getNearestpObjectsWithType(pickup->getPosition(), 1000.f, Type::Enemy);
+        for (auto& enemyPtr : enemies)
+            enemyPtr->destroy();
+        pickup->destroy();
     });
 }
 

@@ -10,6 +10,8 @@
 #include "State.hpp"
 #include "Tools.hpp"
 
+typedef std::vector<PhysicalObject*> pObjectContainer;
+
 class World
 {
 public:
@@ -20,6 +22,10 @@ public:
     void                                render();
 
     CollisionHandler*                   getCollision();
+
+public:
+    // utility functions
+    pObjectContainer                    getNearestpObjectsWithType(sf::Vector2f center, float distance, Type::Type type = Type::None);
 
 private:
     void                                spawn();

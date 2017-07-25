@@ -98,10 +98,32 @@ CollisionHandler * World::getCollision()
     return &m_collision;
 }
 
+pObjectContainer World::getNearestpObjectsWithType(sf::Vector2f center, float distance, Type::Type type)
+{
+    pObjectContainer container;
+    for (auto& pObjectPtr : m_physicalObjects)
+    {
+        if (type == Type::None)
+        {
+            if (ts::calculateDistance(pObjectPtr->getPosition(), center) < distance)
+                container.push_back(pObjectPtr.get());
+        }
+        else
+        {
+            if (pObjectPtr->getType() == type && ts::calculateDistance(pObjectPtr->getPosition(), center) < distance)
+                container.push_back(pObjectPtr.get());
+        }
+    }
+    return container;
+}
+
 void World::spawn()
 {
     Randomizer random;
-    if (random.getIntNumber(0, 100) > 80)
+    int number = random.getIntNumber(0, 100);
+    if (number > 90)
+        add(m_pickupFactory.build("death"));
+    else if(number > 80)
         add(m_pickupFactory.build("heal"));
     else
         add(std::make_unique<Enemy>(m_context, this));
