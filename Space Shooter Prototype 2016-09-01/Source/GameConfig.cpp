@@ -13,7 +13,7 @@ GameConfig::GameConfig()
 , fontsPath{ "Resources/Fonts" }
 , laserSpeed{500.f}
 , backgroundSpeed{100.f}
-, enemySpeed{150.f, 200.f}
+, enemySpeed{250.f, 300.f}
 , enemyMaxLaser{5}
 , playerSpeed{250.f, 350.f}
 , playerHealth{5}

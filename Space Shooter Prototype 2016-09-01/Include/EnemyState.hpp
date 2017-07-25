@@ -29,7 +29,7 @@ public:
     virtual void update(Enemy* enemy, sf::Time dt);
 
 private:
-    const float m_distance;
+    float m_distance;
 };
 
 class EnemyHorizontalPositioning : public EnemyState
@@ -39,7 +39,7 @@ public:
     virtual void update(Enemy* enemy, sf::Time dt);
 
 private:
-    const float m_distance;
+    float m_distance;
 };
 
 class EnemyShooting : public EnemyState
@@ -50,6 +50,7 @@ public:
 
 private:
     std::size_t m_fired;
+    sf::Time m_cooldown;
 };
 
 class EnemyEvading : public EnemyState
