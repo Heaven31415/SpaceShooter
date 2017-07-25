@@ -26,6 +26,8 @@ public:
 public:
     // utility functions
     pObjectContainer                    getNearestpObjectsWithType(sf::Vector2f center, float distance, Type::Type type = Type::None);
+    Player*                             getNearestPlayer();
+    Player*                             getPlayer();
 
 private:
     void                                spawn();
@@ -37,7 +39,6 @@ private:
     std::vector<PhysicalObject::Ptr>    m_physicalObjects;
     Background                          m_background;
     PickupFactory                       m_pickupFactory;
-    Player                              m_player;
     Hud                                 m_hud;
     Score                               m_score;
 

@@ -34,6 +34,7 @@ public:
     bool                    isDestroyed() const;
     bool                    isErasable() const;
     unsigned                getCollisionMatch();
+    World*                  getWorld();
     void                    destroy();
     void                    erase();
 

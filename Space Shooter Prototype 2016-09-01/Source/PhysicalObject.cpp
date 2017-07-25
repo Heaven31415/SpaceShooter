@@ -73,6 +73,11 @@ unsigned PhysicalObject::getCollisionMatch()
     return 0;
 }
 
+World * PhysicalObject::getWorld()
+{
+    return m_world;
+}
+
 void PhysicalObject::destroy()
 {
     m_destroyed = true;

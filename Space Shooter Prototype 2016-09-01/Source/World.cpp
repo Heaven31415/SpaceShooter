@@ -6,14 +6,16 @@ World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
 , m_collision()
 , m_background(context)
 , m_pickupFactory(context, this)
-, m_player(context, this)
-, m_hud(context, &m_player)
+, m_hud(context, this)
 , m_score(context)
 , m_spawnerTimer(sf::seconds(1.f))
 {
-    m_player.setPosition({ 400.f, 300.f });
-    m_player.add(&m_context->soundSystem); // let soundSystem observe Player
-    m_player.add(&m_score); // same for scoreKeeper
+    auto player = std::make_unique<Player>(context, this);
+    player->setPosition({ 400.f, 300.f });
+    player->add(&m_context->soundSystem); // let soundSystem observe Player
+    player->add(&m_hud);
+    player->add(&m_score); // same for scoreKeeper
+    add(std::move(player));
 }
 
 void World::add(PhysicalObject::Ptr obj)
@@ -43,7 +45,11 @@ void World::handleInput()
             }
             break;
         }
-        m_player.handleEvent(event);
+
+        // is there a better way to handle this?
+        for (std::size_t i = 0; i < m_physicalObjects.size(); i++)
+            if (m_physicalObjects[i]->getType() == Type::Player)
+                static_cast<Player*>(m_physicalObjects[i].get())->handleEvent(event);
     }
 }
 
@@ -58,7 +64,6 @@ void World::update(sf::Time dt)
     for (std::size_t i = 0; i < m_physicalObjects.size(); i++)
         m_physicalObjects[i]->update(dt);
 
-    m_player.update(dt);
     m_hud.update(dt);
     m_score.update(dt);
 
@@ -84,7 +89,6 @@ void World::render()
 
     // second layer
     for (auto& obj : m_physicalObjects) obj->draw(window);
-    m_player.draw(window);
 
     // third layer
     m_hud.draw(window);
@@ -115,6 +119,23 @@ pObjectContainer World::getNearestpObjectsWithType(sf::Vector2f center, float di
         }
     }
     return container;
+}
+
+Player * World::getNearestPlayer()
+{
+    for (auto& pObjectPtr : m_physicalObjects)
+        if (pObjectPtr->getType() == Type::Player)
+            // should it be a dynamic_cast?
+            return static_cast<Player*>(pObjectPtr.get());
+    return nullptr;
+}
+
+Player * World::getPlayer()
+{
+    for (auto& pObjectPtr : m_physicalObjects)
+        if (pObjectPtr->getType() == Type::Player)
+            return static_cast<Player*>(pObjectPtr.get());
+    return nullptr;
 }
 
 void World::spawn()

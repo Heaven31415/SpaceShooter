@@ -1,22 +1,33 @@
+#include "../Include/Game.hpp"
 #include "../Include/Hud.hpp"
+#include "../Include/World.hpp"
 
-Hud::Hud(Context* context, Player* player)
+Hud::Hud(Context* context, World* world)
 : Object(Type::Special)
 , m_context(context)
-, m_player(player)
+, m_world(world)
+, m_actualHealth(Game::Config.playerHealth)
 {
     auto& texture = context->textures.get("Life");
     texture.setRepeated(true);
     m_textureSize = static_cast<sf::Vector2i>(texture.getSize());
 
     setTexture(texture);
-    update(sf::Time::Zero);
+    setTextureRect({ 0, 0, static_cast<int>(m_actualHealth) * m_textureSize.x, m_textureSize.y });
 
     setPosition(5.f, 5.f);
 }
 
-void Hud::update(sf::Time dt)
+void Hud::onNotify(Object * obj, unsigned int code)
 {
-    auto health = m_player->getHealth();
-    setTextureRect({ 0, 0, static_cast<int>(health) * m_textureSize.x, m_textureSize.y });
+    if (obj->getType() == Type::Player)
+    {
+        auto event = static_cast<Event::Type>(code);
+        if (event == Event::TakenDamage || event == Event::Healed)
+        {
+            auto* player = m_world->getPlayer();
+            if (player) m_actualHealth = player->getHealth();
+            setTextureRect({ 0, 0, static_cast<int>(m_actualHealth) * m_textureSize.x, m_textureSize.y });
+        }
+    }
 }
