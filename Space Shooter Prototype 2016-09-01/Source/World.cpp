@@ -1,7 +1,7 @@
 #include "..\Include\World.hpp"
 
-World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
-: m_commands()
+World::World(CommandQueue & commands, Context * context, std::pair<bool, State::Type> & exitFlag)
+: m_commands(commands)
 , m_context(context)
 , m_exitFlag(exitFlag)
 , m_collision()
@@ -10,7 +10,6 @@ World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
 , m_controller(context, this)
 , m_hud(context, this)
 , m_score(context)
-, m_spawnerTimer(sf::seconds(1.f))
 {
     auto player = std::make_unique<Player>(context, this);
     player->setPosition({ 400.f, 300.f });
@@ -48,17 +47,14 @@ void World::handleInput()
             }
             break;
         }
-
         m_controller.handleEventInput(event);
     }
-
     m_controller.handleRealTimeInput();
 }
 
 void World::update(sf::Time dt)
 {
     handleCommands(dt);
-
     m_background.update(dt);
 
     // if object is destroyed and has no children, get rid of it
@@ -70,16 +66,6 @@ void World::update(sf::Time dt)
 
     m_hud.update(dt);
     m_score.update(dt);
-
-    // temporary spawner
-    if (m_spawnerTimer > dt)
-        m_spawnerTimer -= dt;
-    else
-    {
-        spawn();
-        m_spawnerTimer = sf::seconds(1.2f);
-    }
-
     m_collision.checkCollision();
 }
 
@@ -109,9 +95,6 @@ void World::handleCommands(sf::Time dt)
         for (std::size_t i = 0; i < m_physicalObjects.size(); i++)
             if (command.who & m_physicalObjects[i]->getType())
                 command.action(m_physicalObjects[i].get(), dt);
-        /*for (auto& objectPtr : m_physicalObjects)
-            if (command.who & objectPtr->getType())
-                command.action(objectPtr.get(), dt);*/
     }
 }
 
@@ -159,16 +142,4 @@ Player * World::getPlayer()
         if (pObjectPtr->getType() == Type::Player)
             return static_cast<Player*>(pObjectPtr.get());
     return nullptr;
-}
-
-void World::spawn()
-{
-    Randomizer random;
-    int number = random.getIntNumber(0, 100);
-    if (number > 95)
-        add(m_pickupFactory.build("death"));
-    else if(number > 90)
-        add(m_pickupFactory.build("heal"));
-    else
-        add(std::make_unique<Enemy>(m_context, this));
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Background.hpp"
-#include "CommandQueue.hpp"
 #include "Context.hpp"
 #include "Enemy.hpp"
 #include "Hud.hpp"
@@ -17,7 +16,7 @@ typedef std::vector<PhysicalObject*> pObjectContainer;
 class World
 {
 public:
-                                        World(Context* context, std::pair<bool, State::Type>& exitFlag);
+                                        World(CommandQueue& commands, Context* context, std::pair<bool, State::Type>& exitFlag);
     void                                add(PhysicalObject::Ptr obj);
     void                                handleInput();
     void                                update(sf::Time dt);
@@ -34,10 +33,7 @@ public:
     Player*                             getPlayer();
 
 private:
-    void                                spawn();
-
-private:
-    CommandQueue                        m_commands;
+    CommandQueue&                       m_commands;
     Context*                            m_context;
     std::pair<bool, State::Type>&       m_exitFlag;
     CollisionHandler                    m_collision;
@@ -47,5 +43,4 @@ private:
     PlayerController                    m_controller;
     Hud                                 m_hud;
     Score                               m_score;
-    sf::Time                            m_spawnerTimer;
 };

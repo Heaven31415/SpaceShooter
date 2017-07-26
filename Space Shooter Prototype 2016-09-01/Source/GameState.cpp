@@ -3,12 +3,13 @@
 const sf::Time GameState::TimePerFrame = sf::seconds(1.f / 60.f);
 
 GameState::GameState(Context* context)
-: m_context(context)
+: m_commands()
+, m_context(context)
 , m_exitFlag({ false, State::Exit })
-, m_world(context, m_exitFlag)
+, m_world(m_commands, context, m_exitFlag)
 {
     if (!m_gameTheme.openFromFile("Resources/Music/GameTheme.ogg"))
-        throw std::runtime_error("\"Resources/Music/GameTheme.ogg\" is missing!");
+        throw std::runtime_error("File \"Resources/Music/GameTheme.ogg\" is missing!");
     m_gameTheme.play();
     m_gameTheme.setLoop(true);
 }

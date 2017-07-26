@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CommandQueue.hpp"
 #include "World.hpp"
 
 class GameState : public State
@@ -14,9 +15,9 @@ public:
     void                            render();
 
 private:
-    // @todo: move CommandQueue here
+    CommandQueue                    m_commands;
     Context*                        m_context;
     std::pair<bool, State::Type>    m_exitFlag;
     World                           m_world;
-    sf::Music                       m_gameTheme;
+    sf::Music                       m_gameTheme; // @todo: move into SoundSystem
 };
