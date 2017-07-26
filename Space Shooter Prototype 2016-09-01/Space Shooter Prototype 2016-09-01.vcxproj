@@ -79,7 +79,7 @@
     <Link>
       <AdditionalLibraryDirectories>C:\Libraries\SFML\Install\lib;C:\Libraries\Thor\Install\lib;C:\Libraries\TGUI\Install\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;thor-d.lib;tgui-d.lib</AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <AdditionalOptions>/ENTRY:"mainCRTStartup" %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -93,6 +93,7 @@
     <Link>
       <AdditionalLibraryDirectories>C:\Libraries\SFML\Install\lib;C:\Libraries\Thor\Install\lib;C:\Libraries\TGUI\Install\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;thor-d.lib;tgui-d.lib</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -130,12 +131,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CommandQueue.cpp" />
     <ClCompile Include="Source\EnemyState.cpp" />
     <ClCompile Include="Source\GameConfig.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\PhysicalObject.cpp" />
     <ClCompile Include="Source\Pickup.cpp" />
     <ClCompile Include="Source\PickupFactory.cpp" />
+    <ClCompile Include="Source\PlayerController.cpp" />
     <ClCompile Include="Source\Score.cpp" />
     <ClCompile Include="Source\Background.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
@@ -157,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Background.hpp" />
     <ClInclude Include="Include\CollisionHandler.hpp" />
+    <ClInclude Include="Include\CommandQueue.hpp" />
     <ClInclude Include="Include\Enemy.hpp" />
     <ClInclude Include="Include\EnemyState.hpp" />
     <ClInclude Include="Include\Game.hpp" />
@@ -173,6 +177,7 @@
     <ClInclude Include="Include\Pickup.hpp" />
     <ClInclude Include="Include\PickupFactory.hpp" />
     <ClInclude Include="Include\Player.hpp" />
+    <ClInclude Include="Include\PlayerController.hpp" />
     <ClInclude Include="Include\Randomizer.hpp" />
     <ClInclude Include="Include\ResourceHolder.hpp" />
     <ClInclude Include="Include\Score.hpp" />

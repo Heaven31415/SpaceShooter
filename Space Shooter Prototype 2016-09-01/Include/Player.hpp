@@ -10,28 +10,33 @@ class World;
 class Player : public PhysicalObject
 {
 public:
+    enum class Frame
+    {
+        Straight,
+        Left,
+        Right
+    };
+
+    enum class Weapon
+    {
+        Laser,
+    };
                                         Player(Context* context, World* world);
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        draw(sf::RenderTarget& target) const override;
-    virtual void                        update(sf::Time dt) override;
-    void                                handleEvent(const sf::Event& event);
 
-public:
     void                                onEnemyKilled(PhysicalObject* object); // callback
 
-private:
-    void                                addLaser();
-    void                                updatePlayer(sf::Time dt);
-    std::size_t                         countLasers();
+    void                                setGraphicsFrame(Player::Frame frame);
+    void                                addWeapon(Player::Weapon weapon);
+    std::size_t                         getWeaponCount();
+    bool                                canAddWeapon();
 
 private:
     Context*                            m_context;
+    World*                              m_world;
 
 private:
     std::map<std::string, sf::IntRect>  m_frames;
-    bool                                m_goingUp;
-    bool                                m_goingDown;
-    bool                                m_turningLeft;
-    bool                                m_turningRight;
-    const std::size_t                   m_maxLasers;
+    const std::size_t                   m_maxWeaponCount;
 };

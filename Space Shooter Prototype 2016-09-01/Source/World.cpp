@@ -1,20 +1,23 @@
 #include "..\Include\World.hpp"
 
 World::World(Context * context, std::pair<bool, State::Type>& exitFlag)
-: m_context(context)
+: m_commands()
+, m_context(context)
 , m_exitFlag(exitFlag)
 , m_collision()
 , m_background(context)
 , m_pickupFactory(context, this)
+, m_controller(context, this)
 , m_hud(context, this)
 , m_score(context)
 , m_spawnerTimer(sf::seconds(1.f))
 {
     auto player = std::make_unique<Player>(context, this);
     player->setPosition({ 400.f, 300.f });
-    player->add(&m_context->soundSystem); // let soundSystem observe Player
+    // let those objects 'listen' to player 
+    // player->add(&m_context->soundSystem); 
     player->add(&m_hud);
-    player->add(&m_score); // same for scoreKeeper
+    player->add(&m_score); 
     add(std::move(player));
 }
 
@@ -46,15 +49,16 @@ void World::handleInput()
             break;
         }
 
-        // is there a better way to handle this?
-        for (std::size_t i = 0; i < m_physicalObjects.size(); i++)
-            if (m_physicalObjects[i]->getType() == Type::Player)
-                static_cast<Player*>(m_physicalObjects[i].get())->handleEvent(event);
+        m_controller.handleEventInput(event);
     }
+
+    m_controller.handleRealTimeInput();
 }
 
 void World::update(sf::Time dt)
 {
+    handleCommands(dt);
+
     m_background.update(dt);
 
     // if object is destroyed and has no children, get rid of it
@@ -73,7 +77,7 @@ void World::update(sf::Time dt)
     else
     {
         spawn();
-        m_spawnerTimer = sf::seconds(1.f);
+        m_spawnerTimer = sf::seconds(1.2f);
     }
 
     m_collision.checkCollision();
@@ -95,6 +99,25 @@ void World::render()
     m_score.draw(window);
 
     window.display();
+}
+
+void World::handleCommands(sf::Time dt)
+{
+    while (!m_commands.isEmpty())
+    {
+        auto command = m_commands.pop();
+        for (std::size_t i = 0; i < m_physicalObjects.size(); i++)
+            if (command.who & m_physicalObjects[i]->getType())
+                command.action(m_physicalObjects[i].get(), dt);
+        /*for (auto& objectPtr : m_physicalObjects)
+            if (command.who & objectPtr->getType())
+                command.action(objectPtr.get(), dt);*/
+    }
+}
+
+CommandQueue & World::getCommandQueue()
+{
+    return m_commands;
 }
 
 CollisionHandler * World::getCollision()
@@ -142,9 +165,9 @@ void World::spawn()
 {
     Randomizer random;
     int number = random.getIntNumber(0, 100);
-    if (number > 90)
+    if (number > 95)
         add(m_pickupFactory.build("death"));
-    else if(number > 80)
+    else if(number > 90)
         add(m_pickupFactory.build("heal"));
     else
         add(std::make_unique<Enemy>(m_context, this));

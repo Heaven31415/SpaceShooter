@@ -14,6 +14,7 @@ public:
     void                            render();
 
 private:
+    // @todo: move CommandQueue here
     Context*                        m_context;
     std::pair<bool, State::Type>    m_exitFlag;
     World                           m_world;

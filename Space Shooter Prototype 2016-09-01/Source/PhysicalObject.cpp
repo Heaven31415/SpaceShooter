@@ -4,12 +4,13 @@
 PhysicalObject::PhysicalObject(World* world, Type::Type type)
 : Object(type)
 , m_world(world)
-, m_velocity()
 , m_health(1)
 , m_maxHealth(1)
 , m_destroyed(false)
-, m_erasable(false)
 {
+    #ifdef _DEBUG
+        std::cout << "Physical Object created " << this << '\n';
+    #endif
     world->getCollision()->registerObject(this);
 }
 
@@ -18,6 +19,9 @@ PhysicalObject::PhysicalObject(World* world, Type::Type type, const sf::Texture 
 , m_world(world)
 , m_destroyed(false)
 {
+    #ifdef _DEBUG
+        std::cout << "Physical Object created " << this << '\n';
+    #endif
     world->getCollision()->registerObject(this);
 }
 
@@ -26,11 +30,17 @@ PhysicalObject::PhysicalObject(World* world, Type::Type type, const sf::Texture 
 , m_world(world)
 , m_destroyed(false)
 {
+    #ifdef _DEBUG
+        std::cout << "Physical Object created " << this << '\n';
+    #endif
     world->getCollision()->registerObject(this);
 }
 
 PhysicalObject::~PhysicalObject()
 {
+    #ifdef _DEBUG
+        std::cout << "Physical Object destroyed " << this << '\n';
+    #endif
     // automatically remove object from collision system at it's destruction
     m_world->getCollision()->unregisterObject(this);
 }
@@ -44,12 +54,6 @@ bool PhysicalObject::isDestroyed() const
 {
     // does object exist in the game world
     return m_destroyed;
-}
-
-bool PhysicalObject::isErasable() const
-{
-    // does object exist in the program
-    return m_erasable;
 }
 
 unsigned PhysicalObject::getCollisionMatch()
@@ -84,21 +88,6 @@ void PhysicalObject::destroy()
     // if this object is destroyed, let us check whether
     // it has any children, if no, we can safely erase it
     if (m_children.empty()) erase();
-}
-
-void PhysicalObject::erase()
-{
-    m_erasable = true;
-}
-
-void PhysicalObject::setVelocity(sf::Vector2f velocity)
-{
-    m_velocity = velocity;
-}
-
-sf::Vector2f PhysicalObject::getVelocity() const
-{
-    return m_velocity;
 }
 
 void PhysicalObject::setHealth(std::size_t health)

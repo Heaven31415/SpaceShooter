@@ -3,6 +3,10 @@
 #include "Object.hpp"
 #include "Observer.hpp"
 
+#ifdef _DEBUG
+#include <iostream>
+#endif // _DEBUG
+
 class World;
 
 namespace Event
@@ -32,14 +36,10 @@ public:
 
 public:
     bool                    isDestroyed() const;
-    bool                    isErasable() const;
     unsigned                getCollisionMatch();
     World*                  getWorld();
     void                    destroy();
-    void                    erase();
 
-    void                    setVelocity(sf::Vector2f velocity);
-    sf::Vector2f            getVelocity() const;
     void                    setHealth(std::size_t health);
     std::size_t             getHealth() const;
     void                    setMaxHealth(std::size_t health);
@@ -48,19 +48,17 @@ public:
     void                    heal(std::size_t amount);
     void                    takeDamage(std::size_t amount);
 
-    void                    addChild(PhysicalObject* child);
-    void                    removeChild(PhysicalObject* child);
+    void                    addChild(PhysicalObject* child); // @todo: move to object
+    void                    removeChild(PhysicalObject* child); // @todo: move to object
 
 protected:
     World*                  m_world;
-    Children                m_children;
+    Children                m_children; // @todo: move to object
 
 private:
-    sf::Vector2f            m_velocity;
     std::size_t             m_health;
     std::size_t             m_maxHealth;
 
 private:
     bool                    m_destroyed;
-    bool                    m_erasable;
 };

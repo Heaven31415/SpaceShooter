@@ -40,9 +40,17 @@ public:
     void                    setColor(const sf::Color& color);
     void                    centerOrigin();
 
+    void                    setVelocity(sf::Vector2f velocity);
+    sf::Vector2f            getVelocity() const;
+
+    void                    erase();
+    bool                    isErasable() const;
+
 protected:
+    sf::Vector2f            m_velocity;
     Type::Type              m_type;
 
 private:
     sf::Sprite              m_sprite;
+    bool                    m_erasable;
 };

@@ -14,6 +14,7 @@ Enemy::Enemy(Context* context, World* world)
     */
     centerOrigin();
 
+    // this shouldn't be here
     Randomizer random;
     sf::Vector2f mapSize = static_cast<sf::Vector2f>(Game::Config.windowSize);
     sf::Vector2f position = { random.getRealNumber(1.f/10.f * mapSize.x, 9.f/10.f * mapSize.x), random.getRealNumber(-mapSize.y / 10, 0.f) };

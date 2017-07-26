@@ -4,11 +4,8 @@
 Player::Player(Context* context, World* world)
 : PhysicalObject(world, Type::Player, context->textures.get("Ship"))
 , m_context(context)
-, m_goingUp(false)
-, m_goingDown(false)
-, m_turningLeft(false)
-, m_turningRight(false)
-, m_maxLasers(Game::Config.playerMaxLaser)
+, m_world(world)
+, m_maxWeaponCount(Game::Config.playerMaxLaser)
 {
     setVelocity(Game::Config.playerSpeed);
     setMaxHealth(Game::Config.playerHealth);
@@ -30,105 +27,63 @@ void Player::collision(PhysicalObject* object)
         notify(this, Event::TakenDamage);
 }
 
-void Player::update(sf::Time dt)
-{
-    if (!isDestroyed())
-        updatePlayer(dt);
-}
-
-void Player::handleEvent(const sf::Event & event)
-{
-    if (!isDestroyed())
-    {
-        if (event.type == sf::Event::KeyPressed)
-        {
-            switch (event.key.code)
-            {
-                case sf::Keyboard::W: m_goingUp = true;         break;
-                case sf::Keyboard::S: m_goingDown = true;       break;
-                case sf::Keyboard::A: m_turningLeft = true;     break;
-                case sf::Keyboard::D: m_turningRight = true;    break;
-                case sf::Keyboard::Space:
-                    if (countLasers() < m_maxLasers)
-                    {
-                        addLaser();
-                        notify(this, Event::WeaponFired);
-                    }
-                    break;
-                default:
-                    break;
-            }            
-        }
-        else if (event.type == sf::Event::KeyReleased)
-        {
-            switch (event.key.code)
-            {
-                case sf::Keyboard::W: m_goingUp = false;         break;
-                case sf::Keyboard::S: m_goingDown = false;       break;
-                case sf::Keyboard::A: m_turningLeft = false;     break;
-                case sf::Keyboard::D: m_turningRight = false;    break;
-                default:
-                    break;
-            }
-        }
-    }
-}
-
 void Player::onEnemyKilled(PhysicalObject * object)
 {
     if (object->getType() == Type::Enemy)
         notify(this, Event::EnemyKilled);
 }
 
-void Player::addLaser()
+void Player::setGraphicsFrame(Player::Frame frame)
 {
-    auto laser = std::make_unique<Laser>(Type::PlayerWeapon, m_context, m_world, this);
-    // create a 'reference' pointer in children container
-    addChild(laser.get());
-    // move ownership of this laser to world
-    m_world->add(std::move(laser));
+    switch (frame)
+    {
+        case Player::Frame::Straight:
+            setTextureRect(m_frames["straight"]);
+            centerOrigin();
+            break;
+        case Player::Frame::Left:
+            setTextureRect(m_frames["left"]);
+            centerOrigin();
+            break;
+        case Player::Frame::Right:
+            setTextureRect(m_frames["right"]);
+            centerOrigin();
+            break;
+        default:
+            break;
+    }
 }
 
-void Player::updatePlayer(sf::Time dt)
+void Player::addWeapon(Player::Weapon weapon)
 {
-    auto velocity = getVelocity();
-    auto position = getPosition();
-    auto bounds = getLocalBounds();
-    auto mapSize = Game::Config.windowSize;
-
-    auto up = position.y - bounds.height / 2.f;
-    auto down = position.y + bounds.height / 2.f;
-    auto left = position.x - bounds.width / 2.f;
-    auto right = position.x + bounds.width / 2.f;
-
-    auto dx = velocity.x * dt.asSeconds();
-    auto dy = velocity.y * dt.asSeconds();
-
-    if (m_turningLeft)
+    switch (weapon)
     {
-        setTextureRect(m_frames["left"]);
-        if (left > 0.f) move(-dx, 0);
+        case Player::Weapon::Laser:
+        {
+            auto laser = std::make_unique<Laser>(Type::PlayerWeapon, m_context, m_world, this);
+            addChild(laser.get());
+            m_world->add(std::move(laser));
+            m_context->soundSystem.playSound("PlayerLaser");
+            break;
+        }
+        default:
+            break;
     }
-    else if (m_turningRight)
-    {
-        setTextureRect(m_frames["right"]);
-        if (right < mapSize.x) move(dx, 0);
-    }
-    else setTextureRect(m_frames["straight"]);
-
-    if (m_goingUp && up > 0.f)
-        move(0, -dy);
-    else if (m_goingDown && down < mapSize.y)
-        move(0, dy);
 }
 
-std::size_t Player::countLasers()
+std::size_t Player::getWeaponCount()
 {
     std::size_t count = 0;
     for (auto& child : m_children)
         if (child->getType() == Type::PlayerWeapon)
             count++;
     return count;
+}
+
+bool Player::canAddWeapon()
+{
+    if (getWeaponCount() < m_maxWeaponCount) return true;
+    else return false;
 }
 
 void Player::draw(sf::RenderTarget & target) const

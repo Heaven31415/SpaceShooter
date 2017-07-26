@@ -10,20 +10,26 @@ void Object::update(sf::Time dt)
 }
 
 Object::Object(Type::Type type)
-: m_type(type)
+: m_velocity()
+, m_type(type)
 , m_sprite()
+, m_erasable(false)
 {
 }
 
 Object::Object(Type::Type type, const sf::Texture & texture)
-: m_type(type)
+: m_velocity()
+, m_type(type)
 , m_sprite(texture)
+, m_erasable(false)
 {
 }
 
 Object::Object(Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
-: m_type(type)
+: m_velocity()
+, m_type(type)
 , m_sprite(texture, rectangle)
+, m_erasable(false)
 {
 }
 
@@ -65,4 +71,24 @@ void Object::centerOrigin()
 {
     auto bounds = m_sprite.getLocalBounds();
     setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+}
+
+void Object::setVelocity(sf::Vector2f velocity)
+{
+    m_velocity = velocity;
+}
+
+sf::Vector2f Object::getVelocity() const
+{
+    return m_velocity;
+}
+
+void Object::erase()
+{
+    m_erasable = true;
+}
+
+bool Object::isErasable() const
+{
+    return m_erasable;
 }
