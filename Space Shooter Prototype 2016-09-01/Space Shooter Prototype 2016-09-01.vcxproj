@@ -132,6 +132,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\CommandQueue.cpp" />
+    <ClCompile Include="Source\Common\GameConfig.cpp" />
+    <ClCompile Include="Source\Common\Randomizer.cpp" />
+    <ClCompile Include="Source\Common\ResourceHolder.cpp" />
     <ClCompile Include="Source\EnemyState.cpp" />
     <ClCompile Include="Source\GameConfig.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
@@ -188,6 +191,10 @@
     <ClInclude Include="Include\StateManager.hpp" />
     <ClInclude Include="Include\Tools.hpp" />
     <ClInclude Include="Include\World.hpp" />
+    <ClInclude Include="Source\Common\Context.hpp" />
+    <ClInclude Include="Source\Common\GameConfig.hpp" />
+    <ClInclude Include="Source\Common\Randomizer.hpp" />
+    <ClInclude Include="Source\Common\ResourceHolder.hpp" />
     <ClInclude Include="Source\Game.hpp" />
     <ClInclude Include="Source\State.hpp" />
     <ClInclude Include="Source\StateManager.hpp" />
