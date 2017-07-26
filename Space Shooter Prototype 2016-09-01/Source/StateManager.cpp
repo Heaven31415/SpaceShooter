@@ -1,4 +1,4 @@
-#include "../Include/StateManager.hpp"
+#include "StateManager.hpp"
 
 StateManager::StateManager(Context* context)
 : m_context(context)

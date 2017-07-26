@@ -1,5 +1,5 @@
-#include "..\Include\EnemyState.hpp"
-#include "..\Include\World.hpp"
+#include "EnemyState.hpp"
+#include "../World.hpp"
 
 EnemyChasing::EnemyChasing()
 : m_distance(0.f)

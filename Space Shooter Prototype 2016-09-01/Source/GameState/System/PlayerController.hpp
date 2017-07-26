@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Player.hpp"
 #include "CommandQueue.hpp"
+#include "../PhysicalObject/Player.hpp"
 
 typedef std::pair<sf::Keyboard::Key, bool> KeyState;
 

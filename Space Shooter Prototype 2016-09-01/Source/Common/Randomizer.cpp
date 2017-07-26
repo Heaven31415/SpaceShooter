@@ -1,4 +1,4 @@
-#include "../Include/Randomizer.hpp"
+#include "Randomizer.hpp"
 
 Randomizer::Randomizer()
 : randomDevice()

@@ -1,6 +1,6 @@
-#include "..\Include\Game.hpp"
-#include "..\Include\PlayerController.hpp"
-#include "..\Include\World.hpp"
+#include "PlayerController.hpp"
+#include "..\World.hpp"
+#include "..\..\Game.hpp"
 
 PlayerController::PlayerController(Context * context, World * world)
 : m_context(context)

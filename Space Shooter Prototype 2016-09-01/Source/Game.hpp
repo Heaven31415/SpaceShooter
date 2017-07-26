@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GameConfig.hpp"
-#include "ResourceHolder.hpp"
+#include "Common\GameConfig.hpp"
+#include "Common\ResourceHolder.hpp"
 #include "StateManager.hpp"
 
 class Game

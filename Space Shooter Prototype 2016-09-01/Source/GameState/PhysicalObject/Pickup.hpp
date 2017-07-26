@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Context.hpp"
-#include "PhysicalObject.hpp"
-#include "Randomizer.hpp"
+#include "../PhysicalObject.hpp"
+#include "../../Common/Context.hpp"
+#include "../../Common/Randomizer.hpp"
 
 class World;
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "CollisionHandler.hpp"
-#include "Context.hpp"
-#include "PhysicalObject.hpp"
+#include "../PhysicalObject.hpp"
+#include "../System/CollisionHandler.hpp"
+#include "../../Common/Context.hpp"
 
 class Player;
 

@@ -1,6 +1,6 @@
-#include "../Include/Game.hpp"
-#include "../Include/Player.hpp"
-#include "../Include/Score.hpp"
+#include "Score.hpp"
+#include "../PhysicalObject/Player.hpp"
+#include "../../Game.hpp"
 
 Score::Score(Context* context)
 : Object(Type::Special)

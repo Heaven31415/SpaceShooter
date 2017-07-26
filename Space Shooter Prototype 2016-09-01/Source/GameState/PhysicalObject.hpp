@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Object.hpp"
-#include "Observer.hpp"
+#include "../Common/Observer.hpp"
 
 #ifdef _DEBUG
 #include <iostream>

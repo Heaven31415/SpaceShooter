@@ -1,5 +1,5 @@
-#include "../Include/Game.hpp"
-#include "../Include/Background.hpp"
+#include "Background.hpp"
+#include "../../Game.hpp"
 
 Background::Background(Context* context)
 : Object(Type::Special)

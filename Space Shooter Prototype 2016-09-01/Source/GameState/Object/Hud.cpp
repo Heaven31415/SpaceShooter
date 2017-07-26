@@ -1,6 +1,6 @@
-#include "../Include/Game.hpp"
-#include "../Include/Hud.hpp"
-#include "../Include/World.hpp"
+#include "Hud.hpp"
+#include "../World.hpp"
+#include "../../Game.hpp"
 
 Hud::Hud(Context* context, World* world)
 : Object(Type::Special)

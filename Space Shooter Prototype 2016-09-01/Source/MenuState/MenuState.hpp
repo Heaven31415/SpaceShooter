@@ -4,9 +4,9 @@
 #include <Thor/Particles.hpp>
 #include <Thor/Math.hpp>
 
-#include "Context.hpp"
-#include "State.hpp"
-#include "Tools.hpp"
+#include "../State.hpp"
+#include "../Common/Context.hpp"
+#include "../Common/Tools.hpp"
 
 class MenuState : public State
 {

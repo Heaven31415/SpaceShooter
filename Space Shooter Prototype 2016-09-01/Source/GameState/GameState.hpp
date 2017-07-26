@@ -1,7 +1,7 @@
 #pragma once
 
-#include "CommandQueue.hpp"
 #include "World.hpp"
+#include "System\CommandQueue.hpp"
 
 class GameState : public State
 {

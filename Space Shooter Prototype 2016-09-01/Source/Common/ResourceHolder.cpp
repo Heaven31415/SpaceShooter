@@ -1,4 +1,4 @@
-#include "../Include/ResourceHolder.hpp"
+#include "ResourceHolder.hpp"
 
 template<typename R>
 ResourceHolder<R>::ResourceHolder(std::vector<std::string> extensions, std::string relativePath)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GameState.hpp"
-#include "LoadingState.hpp"
-#include "MenuState.hpp"
+#include "GameState\GameState.hpp"
+#include "LoadingState\LoadingState.hpp"
+#include "MenuState\MenuState.hpp"
 
 class StateManager
 {

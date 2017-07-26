@@ -1,5 +1,4 @@
-#include "..\Include\SoundSystem.hpp"
-#include "..\Include\Player.hpp"
+#include "SoundSystem.hpp"
 
 SoundSystem::SoundSystem(SoundHolder & soundHolder)
 : m_soundHolder{soundHolder}
@@ -69,26 +68,4 @@ void SoundSystem::recycleSounds()
 {
     if (m_sounds.size() >= 16)
         m_sounds.remove_if([](const sf::Sound& sound){ return sound.getStatus() != sf::Sound::Playing; });
-}
-
-void SoundSystem::onNotify(Object * obj, unsigned int code)
-{
-    if (obj->getType() == Type::Player)
-    {
-        auto event = static_cast<Event::Type>(code);
-        switch (event)
-        {
-            case Event::WeaponFired:
-                playSound("PlayerLaser");
-                break;
-            case Event::PickupTaken:
-                playSound("PlayerHeal");
-                break;
-            case Event::TakenDamage:
-                playSound("DamageTaken");
-                break;
-            default:
-                break;
-        }
-    }
 }

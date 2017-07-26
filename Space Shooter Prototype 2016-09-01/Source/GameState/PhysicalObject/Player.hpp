@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Context.hpp"
-#include "Observer.hpp"
-#include "PhysicalObject.hpp"
 #include "Laser.hpp"
+#include "../PhysicalObject.hpp"
+#include "../../Common/Context.hpp"
+#include "../../Common/Observer.hpp"
 
 class World;
 

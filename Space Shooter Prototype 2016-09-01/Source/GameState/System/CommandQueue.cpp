@@ -1,4 +1,4 @@
-#include "..\Include\CommandQueue.hpp"
+#include "CommandQueue.hpp"
 
 void CommandQueue::push(Command command)
 {

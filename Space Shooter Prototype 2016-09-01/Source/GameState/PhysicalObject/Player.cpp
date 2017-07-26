@@ -1,5 +1,5 @@
-#include "../Include/Game.hpp"
-#include "../Include/Player.hpp"
+#include "Player.hpp"
+#include "../../Game.hpp"
 
 Player::Player(Context* context, World* world)
 : PhysicalObject(world, Type::Player, context->textures.get("Ship"))

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Context.hpp"
-#include "State.hpp"
-#include "Tools.hpp"
+#include "../Common/Context.hpp"
+#include "../State.hpp"
+#include "../Common/Tools.hpp"
 
 class LoadingState : public State
 {

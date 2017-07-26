@@ -1,4 +1,4 @@
-#include "../Include/LoadingState.hpp"
+#include "LoadingState.hpp"
 
 const sf::Time LoadingState::TimePerFrame = sf::seconds(1.f / 30.f);
 

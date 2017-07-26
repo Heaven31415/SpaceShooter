@@ -1,6 +1,6 @@
-#include "../Include/Game.hpp"
-#include "../Include/Laser.hpp"
-#include "../Include/Player.hpp"
+#include "Laser.hpp"
+#include "../../Game.hpp"
+#include "../PhysicalObject/Player.hpp"
 
 Laser::Laser(Type::Type type, Context * context, World * world, Object * owner)
 : PhysicalObject(world, type)

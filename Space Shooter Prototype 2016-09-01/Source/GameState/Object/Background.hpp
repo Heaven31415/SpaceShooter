@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Context.hpp"
-#include "Object.hpp"
+#include "../Object.hpp"
+#include "../../Common/Context.hpp"
 
 class Background : public Object
 {

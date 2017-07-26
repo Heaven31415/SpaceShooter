@@ -1,4 +1,4 @@
-#include "../Include/GameConfig.hpp"
+#include "GameConfig.hpp"
 
 GameConfig::GameConfig()
 : keyRepeatEnabled{false}

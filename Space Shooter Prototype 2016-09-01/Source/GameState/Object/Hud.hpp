@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Context.hpp"
-#include "Observer.hpp"
-#include "Player.hpp"
+#include "../PhysicalObject/Player.hpp"
+#include "../../Common/Context.hpp"
+#include "../../Common/Observer.hpp"
 
 class Hud : public Object, public Observer
 {

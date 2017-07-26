@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Context.hpp"
-#include "EnemyState.hpp"
 #include "Laser.hpp"
-#include "PhysicalObject.hpp"
-#include "Randomizer.hpp"
+#include "../PhysicalObject.hpp"
+#include "../AI/EnemyState.hpp"
+#include "../../Common/Context.hpp"
+#include "../../Common/Randomizer.hpp"
 
 class EnemyState;
 class World;

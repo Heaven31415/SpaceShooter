@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Context.hpp"
-#include "Observer.hpp"
-#include "Tools.hpp"
+#include "../../Common/Context.hpp"
+#include "../../Common/Observer.hpp"
+#include "../../Common/Tools.hpp"
 
 class Score : public Object, public Observer
 {

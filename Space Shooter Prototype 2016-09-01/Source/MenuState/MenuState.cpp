@@ -1,5 +1,5 @@
-#include "../Include/MenuState.hpp"
-#include "../Include/Game.hpp"
+#include "MenuState.hpp"
+#include "../Game.hpp"
 
 const sf::Time MenuState::TimePerFrame = sf::seconds(1.f / 60.f);
 

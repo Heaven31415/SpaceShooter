@@ -1,4 +1,4 @@
-#include "..\Include\World.hpp"
+#include "World.hpp"
 
 World::World(CommandQueue & commands, Context * context, std::pair<bool, State::Type> & exitFlag)
 : m_commands(commands)

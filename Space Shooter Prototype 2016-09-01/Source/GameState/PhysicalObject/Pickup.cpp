@@ -1,6 +1,6 @@
-#include "../Include/Game.hpp"
-#include "../Include/Pickup.hpp"
-#include "../Include/Player.hpp"
+#include "Pickup.hpp"
+#include "../../Game.hpp"
+#include "../PhysicalObject/Player.hpp"
 
 Pickup::Pickup(Context * context, World * world, PickupData data)
 : PhysicalObject(world, Type::Pickup, context->textures.get(data.textureName))

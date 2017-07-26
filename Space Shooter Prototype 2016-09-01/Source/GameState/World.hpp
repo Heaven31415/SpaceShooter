@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Background.hpp"
-#include "Context.hpp"
-#include "Enemy.hpp"
-#include "Hud.hpp"
-#include "PickupFactory.hpp"
-#include "Player.hpp"
-#include "PlayerController.hpp"
-#include "Score.hpp"
-#include "State.hpp"
-#include "Tools.hpp"
+#include "Object\Background.hpp"
+#include "Object\Hud.hpp"
+#include "Object\Score.hpp"
+#include "PhysicalObject\Enemy.hpp"
+#include "PhysicalObject\PickupFactory.hpp"
+#include "PhysicalObject\Player.hpp"
+#include "System\PlayerController.hpp"
+#include "../State.hpp"
+#include "../Common/Context.hpp"
+#include "../Common/Tools.hpp"
 
 typedef std::vector<PhysicalObject*> pObjectContainer;
 

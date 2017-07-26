@@ -1,5 +1,5 @@
-#include "../Include/PhysicalObject.hpp"
-#include "../Include/World.hpp"
+#include "PhysicalObject.hpp"
+#include "World.hpp"
 
 PhysicalObject::PhysicalObject(World* world, Type::Type type)
 : Object(type)

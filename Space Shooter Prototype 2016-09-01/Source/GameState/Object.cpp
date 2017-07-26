@@ -1,4 +1,4 @@
-#include "../Include/Object.hpp"
+#include "Object.hpp"
 
 void Object::draw(sf::RenderTarget & target) const
 {

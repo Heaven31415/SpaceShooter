@@ -1,4 +1,4 @@
-#include "../Include/CollisionHandler.hpp"
+#include "CollisionHandler.hpp"
 
 CollisionHandler::CollisionHandler()
 : m_objects()

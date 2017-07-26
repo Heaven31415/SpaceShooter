@@ -1,4 +1,4 @@
-#include "../Include/GameState.hpp"
+#include "GameState.hpp"
 
 const sf::Time GameState::TimePerFrame = sf::seconds(1.f / 60.f);
 
