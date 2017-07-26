@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Object.hpp"
 #include <vector>
+
+class Object;
 
 class Observer
 {

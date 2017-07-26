@@ -41,76 +41,7 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Randomizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ResourceHolder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\StateManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PhysicalObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MenuState.cpp">
-      <Filter>MenuState</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadingState.cpp">
-      <Filter>LoadingState</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameState.cpp">
-      <Filter>GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Background.cpp">
-      <Filter>GameState\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>GameState\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Laser.cpp">
-      <Filter>GameState\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Pickup.cpp">
-      <Filter>GameState\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
-      <Filter>GameState\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Score.cpp">
-      <Filter>GameState\Components\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Hud.cpp">
-      <Filter>GameState\Components\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CollisionHandler.cpp">
-      <Filter>GameState\Components\Handlers</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\World.cpp">
-      <Filter>GameState\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SoundSystem.cpp">
-      <Filter>WIP</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PickupFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\EnemyState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PlayerController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CommandQueue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Spawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Common\GameConfig.cpp">
@@ -155,16 +86,16 @@
     <ClCompile Include="Source\GameState\System\Spawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameState\PhysicalObject\Enemy.cpp">
+    <ClCompile Include="Source\GameState\PhysicalObject\Enemies\Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameState\PhysicalObject\Laser.cpp">
+    <ClCompile Include="Source\GameState\PhysicalObject\Weapons\Laser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameState\PhysicalObject\Pickup.cpp">
+    <ClCompile Include="Source\GameState\PhysicalObject\Pickups\Pickup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameState\PhysicalObject\PickupFactory.cpp">
+    <ClCompile Include="Source\GameState\PhysicalObject\Pickups\PickupFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameState\PhysicalObject\Player.cpp">
@@ -179,98 +110,11 @@
     <ClCompile Include="Source\GameState\Object\Score.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameState\AI\EnemyState.cpp">
+    <ClCompile Include="Source\GameState\AI\Enemy\EnemyState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Context.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Game.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Object.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Randomizer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ResourceHolder.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\StateManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Tools.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\State.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\PhysicalObject.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\GameConfig.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\MenuState.hpp">
-      <Filter>MenuState</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\LoadingState.hpp">
-      <Filter>LoadingState</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\GameState.hpp">
-      <Filter>GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Background.hpp">
-      <Filter>GameState\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Laser.hpp">
-      <Filter>GameState\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Player.hpp">
-      <Filter>GameState\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Enemy.hpp">
-      <Filter>GameState\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Pickup.hpp">
-      <Filter>GameState\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Score.hpp">
-      <Filter>GameState\Components\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Hud.hpp">
-      <Filter>GameState\Components\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\CollisionHandler.hpp">
-      <Filter>GameState\Components\Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\World.hpp">
-      <Filter>GameState\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\SoundSystem.hpp">
-      <Filter>WIP</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Observer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\PickupFactory.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\EnemyState.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\PlayerController.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\CommandQueue.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Spawner.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -353,6 +197,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameState\AI\EnemyState.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Common\Observer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
 #include "Enemy.hpp"
-#include "../../Game.hpp"
+#include "../../../Game.hpp"
 
 Enemy::Enemy(Context* context, World* world)
 : PhysicalObject(world, Type::Enemy, context->textures.get("EnemyShip"))

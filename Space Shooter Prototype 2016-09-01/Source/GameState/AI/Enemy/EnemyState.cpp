@@ -1,5 +1,6 @@
 #include "EnemyState.hpp"
-#include "../World.hpp"
+#include "../../World.hpp"
+#include "../../PhysicalObject/Enemies/Enemy.hpp"
 
 EnemyChasing::EnemyChasing()
 : m_distance(0.f)

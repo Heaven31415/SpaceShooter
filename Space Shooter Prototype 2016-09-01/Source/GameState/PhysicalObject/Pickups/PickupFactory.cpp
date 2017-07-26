@@ -1,5 +1,5 @@
 #include "PickupFactory.hpp"
-#include "..\World.hpp"
+#include "../../World.hpp"
 
 PickupFactory::PickupFactory(Context * context, World * world)
 : m_context(context)

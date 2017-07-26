@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Object.hpp"
 #include "../../Common/Context.hpp"
 #include "../../Common/Observer.hpp"
 #include "../../Common/Tools.hpp"

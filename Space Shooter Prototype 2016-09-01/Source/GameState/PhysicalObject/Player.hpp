@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Laser.hpp"
+#include "Weapons/Laser.hpp"
 #include "../PhysicalObject.hpp"
 #include "../../Common/Context.hpp"
 #include "../../Common/Observer.hpp"
