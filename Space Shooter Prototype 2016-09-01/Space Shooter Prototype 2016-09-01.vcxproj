@@ -188,6 +188,9 @@
     <ClInclude Include="Include\StateManager.hpp" />
     <ClInclude Include="Include\Tools.hpp" />
     <ClInclude Include="Include\World.hpp" />
+    <ClInclude Include="Source\Game.hpp" />
+    <ClInclude Include="Source\State.hpp" />
+    <ClInclude Include="Source\StateManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Graphics\Background.png" />
