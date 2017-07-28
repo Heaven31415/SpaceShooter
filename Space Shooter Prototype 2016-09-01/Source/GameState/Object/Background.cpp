@@ -4,19 +4,21 @@
 Background::Background(Context* context)
 : Object(Type::Special)
 , m_context(context)
+, m_mapSize(static_cast<sf::Vector2f>(Game::Config.windowSize))
 , m_velocity(Game::Config.backgroundSpeed)
 {
-    auto mapSize = static_cast<sf::Vector2i>(Game::Config.windowSize);
     auto& texture = context->textures.get("StarBackground");
     texture.setRepeated(true);
 
     setTexture(texture);
-    setTextureRect({ 0, 0, mapSize.x, mapSize.y });
-    setPosition(0, 0);
-
     m_bgExtra.setTexture(texture);
-    m_bgExtra.setTextureRect({ 0, 0, mapSize.x, mapSize.y });
-    m_bgExtra.setPosition(0, -static_cast<float>(mapSize.y));
+
+    sf::IntRect rectangle{ {0,0}, static_cast<sf::Vector2i>(m_mapSize) };
+    setTextureRect(rectangle);
+    m_bgExtra.setTextureRect(rectangle);
+
+    setPosition(0, 0);
+    m_bgExtra.setPosition({ 0, m_mapSize.y });
 }
 
 void Background::draw(sf::RenderTarget & target) const
@@ -27,11 +29,12 @@ void Background::draw(sf::RenderTarget & target) const
 
 void Background::update(sf::Time dt)
 {
-    auto mapSize = static_cast<sf::Vector2f>(Game::Config.windowSize);
     auto dy = m_velocity * dt.asSeconds();
     move(0, dy);
     m_bgExtra.move(0, dy);
 
-    if (getPosition().y >= mapSize.y) move(0, -2 * mapSize.y);
-    if (m_bgExtra.getPosition().y >= mapSize.y) m_bgExtra.move(0, -2 * mapSize.y);
+    if (getPosition().y >= m_mapSize.y)
+        move(0, -2 * m_mapSize.y);
+    if (m_bgExtra.getPosition().y >= m_mapSize.y) 
+        m_bgExtra.move(0, -2 * m_mapSize.y);
 }

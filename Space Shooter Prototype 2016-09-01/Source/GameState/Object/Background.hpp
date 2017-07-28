@@ -6,14 +6,15 @@
 class Background : public Object
 {
 public:
-                            Background(Context* context);
+                                Background(Context* context);
 
 public:
-    virtual void            draw(sf::RenderTarget& target) const override;
-    virtual void            update(sf::Time dt) override;
+    virtual void                draw(sf::RenderTarget& target) const override;
+    virtual void                update(sf::Time dt) override;
 
 private:
-    Context*                m_context;
-    sf::Sprite              m_bgExtra;
-    float                   m_velocity;
+    Context*                    m_context;
+    sf::Sprite                  m_bgExtra;
+    const sf::Vector2f          m_mapSize;
+    const float                 m_velocity;
 };
