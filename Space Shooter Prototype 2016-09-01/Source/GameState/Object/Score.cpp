@@ -18,6 +18,8 @@ void Score::draw(sf::RenderTarget & target) const
     target.draw(m_text);
 }
 
+// @todo: this won't do any good when we will have multiple enemies and objectives
+// with various score rewards, it should be handled via command system, not observer
 void Score::onNotify(Object * obj, unsigned int code)
 {
     if (obj->getType() == Type::Player && static_cast<Event::Type>(code) == Event::EnemyKilled)
