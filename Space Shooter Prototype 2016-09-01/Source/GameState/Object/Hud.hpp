@@ -8,11 +8,13 @@ class Hud : public Object, public Observer
 {
 public:
                             Hud(Context* context, World* world);
-    virtual void            onNotify(Object* obj, unsigned int code) override;
+    virtual void            onNotify(Object* object, unsigned int code) override;
+
+private:
+    void                    updateHealthFrame(std::size_t health);
 
 private:
     Context*                m_context;
     World*                  m_world;
-    std::size_t             m_actualHealth;
-    sf::Vector2i            m_textureSize;
+    sf::Texture&            m_texture;
 };

@@ -23,11 +23,10 @@ struct GameConfig
     const float                 laserSpeed;
     const float                 backgroundSpeed;
     const sf::Vector2f          enemySpeed;
-    const std::size_t           enemyMaxLaser;
     const sf::Vector2f          playerSpeed;
     const std::size_t           playerHealth;
-    const std::size_t           playerMaxLaser;
+    const std::size_t           playerMaxWeaponCount;
     const float                 pickupSpeed;
-    const std::size_t           enemyMaxNumber;
-    const sf::Time              enemySpawnTimer;
+    const float                 objectScale;
+    const sf::Vector2f          hudPosition;
 };

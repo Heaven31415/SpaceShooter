@@ -14,12 +14,11 @@ GameConfig::GameConfig()
 , laserSpeed{500.f}
 , backgroundSpeed{100.f}
 , enemySpeed{250.f, 300.f}
-, enemyMaxLaser{5}
 , playerSpeed{250.f, 350.f}
 , playerHealth{5}
-, playerMaxLaser{5}
+, playerMaxWeaponCount{5}
 , pickupSpeed{100.f}
-, enemyMaxNumber{10}
-, enemySpawnTimer{sf::seconds(1.f)}
+, objectScale(0.5f)
+, hudPosition{5.f, 5.f}
 {
 }
