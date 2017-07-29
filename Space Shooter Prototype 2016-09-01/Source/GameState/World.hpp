@@ -11,13 +11,16 @@
 #include "../Common/Context.hpp"
 #include "../Common/Tools.hpp"
 
+#include "AI\Enemy\EnemyAggressor.hpp"
+#include "AI\Enemy\EnemyMaster.hpp"
+
 typedef std::vector<PhysicalObject*> pObjectContainer;
 
 class World
 {
 public:
                                         World(CommandQueue& commands, Context* context, std::pair<bool, State::Type>& exitFlag);
-    void                                add(PhysicalObject::Ptr obj);
+    void                                add(Object::Ptr obj);
     void                                handleInput();
     void                                update(sf::Time dt);
     void                                render();
@@ -27,9 +30,6 @@ public:
     CollisionHandler*                   getCollision();
     
 public:
-    // utility functions
-    pObjectContainer                    getNearestpObjectsWithType(sf::Vector2f center, float distance, Type::Type type = Type::None);
-    Player*                             getNearestPlayer();
     Player*                             getPlayer();
 
 private:
@@ -37,8 +37,8 @@ private:
     Context*                            m_context;
     std::pair<bool, State::Type>&       m_exitFlag;
     CollisionHandler                    m_collision;
-    std::vector<PhysicalObject::Ptr>    m_physicalObjects;
-    Background                          m_background;
+    std::vector<Object::Ptr>            m_objects;
+    LaserFactory                        m_laserFactory;
     PickupFactory                       m_pickupFactory;
     PlayerController                    m_controller;
     Hud                                 m_hud;

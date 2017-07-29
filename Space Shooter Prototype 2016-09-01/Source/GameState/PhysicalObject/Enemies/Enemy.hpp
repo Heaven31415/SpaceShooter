@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Weapons/Laser.hpp"
+#include "../Weapons/LaserFactory.hpp"
 #include "../../PhysicalObject.hpp"
 #include "../../AI/Enemy/EnemyState.hpp"
 #include "../../../Common/Context.hpp"
@@ -14,18 +14,15 @@ class Enemy : public PhysicalObject
 public:
     typedef std::unique_ptr<Enemy> Ptr;
     
-                                        Enemy(Context* context, World* world);
+                                        Enemy(Context& context, World& world, LaserFactory& laserFactory);
     virtual void                        collision(PhysicalObject* object) override;
-    virtual void                        draw(sf::RenderTarget& target) const override;
     virtual void                        update(sf::Time dt) override;
-    void                                changeState(EnemyState::Type state);
+    void                                changeState(unsigned state);
     void                                addLaser();
     std::size_t                         countLasers();
+    void                                setAI(EnemyStateManager::Ptr manager);
 
 private:
-    Context*                            m_context;
-    World*                              m_world;
-
-private:
-    EnemyStateManager                   m_manager;
+    LaserFactory&                       m_laserFactory;
+    EnemyStateManager::Ptr              m_manager;
 };

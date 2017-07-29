@@ -113,6 +113,24 @@
     <ClCompile Include="Source\GameState\AI\Enemy\EnemyState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameState\AI\Enemy\EnemyAggressor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\AI\Enemy\EnemyMaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\AI\Enemy\EnemyDefender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\GUID.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\PhysicalObject\Weapons\LaserFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\ObjectContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.hpp">
@@ -172,18 +190,6 @@
     <ClInclude Include="Source\GameState\System\Spawner.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameState\PhysicalObject\Enemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameState\PhysicalObject\Laser.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameState\PhysicalObject\Pickup.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameState\PhysicalObject\PickupFactory.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GameState\PhysicalObject\Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -196,10 +202,40 @@
     <ClInclude Include="Source\GameState\Object\Score.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameState\AI\EnemyState.hpp">
+    <ClInclude Include="Source\Common\Observer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Common\Observer.hpp">
+    <ClInclude Include="Source\GameState\AI\Enemy\EnemyState.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\PhysicalObject\Enemies\Enemy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\PhysicalObject\Weapons\Laser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\PhysicalObject\Pickups\Pickup.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\PhysicalObject\Pickups\PickupFactory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\AI\Enemy\EnemyAggressor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\AI\Enemy\EnemyMaster.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\AI\Enemy\EnemyDefender.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\GUID.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\PhysicalObject\Weapons\LaserFactory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\ObjectContainer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

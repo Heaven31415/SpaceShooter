@@ -12,7 +12,7 @@ GameConfig::GameConfig()
 , soundsPath{ "Resources/Sounds" }
 , fontsPath{ "Resources/Fonts" }
 , laserSpeed{500.f}
-, backgroundSpeed{100.f}
+, backgroundSpeed{0.f, 100.f}
 , enemySpeed{250.f, 300.f}
 , playerSpeed{250.f, 350.f}
 , playerHealth{5}

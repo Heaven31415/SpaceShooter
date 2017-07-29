@@ -1,48 +1,49 @@
 #include "PhysicalObject.hpp"
 #include "World.hpp"
 
-PhysicalObject::PhysicalObject(World* world, Type::Type type)
-: Object(type)
-, m_world(world)
+PhysicalObject::PhysicalObject(Context& context, World& world, Type::Type type)
+: Object(context, world, type)
 , m_health(1)
 , m_maxHealth(1)
 , m_destroyed(false)
 {
-    #ifdef _DEBUG
-        std::cout << "Physical Object created " << this << '\n';
-    #endif
-    world->getCollision()->registerObject(this);
+    getWorld().getCollision()->registerObject(this);
 }
 
-PhysicalObject::PhysicalObject(World* world, Type::Type type, const sf::Texture & texture)
-: Object(type, texture)
-, m_world(world)
+PhysicalObject::PhysicalObject(Context& context, World& world, Type::Type type, const sf::Texture & texture)
+: Object(context, world, type, texture)
+, m_health(1)
+, m_maxHealth(1)
 , m_destroyed(false)
 {
-    #ifdef _DEBUG
-        std::cout << "Physical Object created " << this << '\n';
-    #endif
-    world->getCollision()->registerObject(this);
+    getWorld().getCollision()->registerObject(this);
 }
 
-PhysicalObject::PhysicalObject(World* world, Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
-: Object(type, texture, rectangle)
-, m_world(world)
+PhysicalObject::PhysicalObject(Context& context, World& world, Type::Type type, const sf::Texture & texture, const sf::IntRect & rectangle)
+: Object(context, world, type, texture, rectangle)
+, m_health(1)
+, m_maxHealth(1)
 , m_destroyed(false)
 {
-    #ifdef _DEBUG
-        std::cout << "Physical Object created " << this << '\n';
-    #endif
-    world->getCollision()->registerObject(this);
+    getWorld().getCollision()->registerObject(this);
 }
 
 PhysicalObject::~PhysicalObject()
 {
-    #ifdef _DEBUG
-        std::cout << "Physical Object destroyed " << this << '\n';
-    #endif
     // automatically remove object from collision system at it's destruction
-    m_world->getCollision()->unregisterObject(this);
+    getWorld().getCollision()->unregisterObject(this);
+}
+
+void PhysicalObject::draw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+    if (!isDestroyed())
+        Object::draw(target, states);
+}
+
+void PhysicalObject::update(sf::Time dt)
+{
+    if (!isDestroyed())
+        Object::update(dt);
 }
 
 void PhysicalObject::collision(PhysicalObject * object)
@@ -59,7 +60,7 @@ bool PhysicalObject::isDestroyed() const
 unsigned PhysicalObject::getCollisionMatch()
 {
     // check whether two kinds of objects should collide
-    switch (m_type)
+    switch (getType())
     {
         case Type::Player:
             return Type::Enemy + Type::EnemyWeapon;
@@ -75,11 +76,6 @@ unsigned PhysicalObject::getCollisionMatch()
             return 0;
     }
     return 0;
-}
-
-World * PhysicalObject::getWorld()
-{
-    return m_world;
 }
 
 void PhysicalObject::destroy()

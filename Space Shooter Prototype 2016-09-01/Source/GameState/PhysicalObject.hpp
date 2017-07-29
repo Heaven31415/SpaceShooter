@@ -1,13 +1,13 @@
 #pragma once
 
+#include <map>
 #include "Object.hpp"
 #include "../Common/Observer.hpp"
 
-#ifdef _DEBUG
-#include <iostream>
-#endif // _DEBUG
-
 class World;
+
+// @todo: find a better place for this
+typedef std::map<std::string, sf::IntRect> GraphicsFrames;
 
 namespace Event
 {
@@ -28,16 +28,17 @@ public:
     typedef std::unique_ptr<PhysicalObject> Ptr;
     typedef std::vector<PhysicalObject*> Children;
 
-                            PhysicalObject(World* world, Type::Type type);
-                            PhysicalObject(World* world, Type::Type type, const sf::Texture& texture);
-                            PhysicalObject(World* world, Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
+                            PhysicalObject(Context& context, World& world, Type::Type type);
+                            PhysicalObject(Context& context, World& world, Type::Type type, const sf::Texture& texture);
+                            PhysicalObject(Context& context, World& world, Type::Type type, const sf::Texture& texture, const sf::IntRect& rectangle);
     virtual                ~PhysicalObject();
+    virtual void            draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    virtual void            update(sf::Time dt);
     virtual void            collision(PhysicalObject* object);
 
 public:
     bool                    isDestroyed() const;
     unsigned                getCollisionMatch();
-    World*                  getWorld();
     void                    destroy();
 
     void                    setHealth(std::size_t health);
@@ -52,7 +53,6 @@ public:
     void                    removeChild(PhysicalObject* child); // @todo: move to object
 
 protected:
-    World*                  m_world;
     Children                m_children; // @todo: move to object
 
 private:

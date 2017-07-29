@@ -2,11 +2,9 @@
 #include "../World.hpp"
 #include "../../Game.hpp"
 
-Hud::Hud(Context* context, World* world)
-: Object(Type::Special)
-, m_context(context)
-, m_world(world)
-, m_texture(context->textures.get("Life"))
+Hud::Hud(Context& context, World& world)
+: Object(context, world, Type::Special)
+, m_texture(context.textures.get("Life"))
 {
     m_texture.setRepeated(true);
     setTexture(m_texture);
@@ -21,7 +19,7 @@ void Hud::onNotify(Object * object, unsigned int code)
         auto event = static_cast<Event::Type>(code);
         if (event == Event::TakenDamage || event == Event::Healed)
         {
-            Player* player = m_world->getPlayer();
+            Player* player = getWorld().getPlayer();
             std::size_t health = player->getHealth();
             // player not found, 'hide' hud
             if (!player) health = 0;

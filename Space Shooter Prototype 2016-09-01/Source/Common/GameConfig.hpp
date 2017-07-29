@@ -21,7 +21,7 @@ struct GameConfig
     const std::string           soundsPath;
     const std::string           fontsPath;
     const float                 laserSpeed;
-    const float                 backgroundSpeed;
+    const sf::Vector2f          backgroundSpeed;
     const sf::Vector2f          enemySpeed;
     const sf::Vector2f          playerSpeed;
     const std::size_t           playerHealth;

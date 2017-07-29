@@ -4,9 +4,9 @@
 #include <functional>
 #include <SFML/System/Time.hpp>
 
-class PhysicalObject;
+class Object;
 
-typedef std::function<void(PhysicalObject*, sf::Time)> Action;
+typedef std::function<void(Object*, sf::Time)> Action;
 
 struct Command
 {

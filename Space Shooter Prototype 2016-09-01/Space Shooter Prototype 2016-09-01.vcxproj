@@ -135,9 +135,14 @@
     <ClCompile Include="Source\Common\Randomizer.cpp" />
     <ClCompile Include="Source\Common\ResourceHolder.cpp" />
     <ClCompile Include="Source\Common\SoundSystem.cpp" />
+    <ClCompile Include="Source\GameState\AI\Enemy\EnemyAggressor.cpp" />
+    <ClCompile Include="Source\GameState\AI\Enemy\EnemyDefender.cpp" />
+    <ClCompile Include="Source\GameState\AI\Enemy\EnemyMaster.cpp" />
     <ClCompile Include="Source\GameState\AI\Enemy\EnemyState.cpp" />
     <ClCompile Include="Source\GameState\GameState.cpp" />
+    <ClCompile Include="Source\GameState\GUID.cpp" />
     <ClCompile Include="Source\GameState\Object.cpp" />
+    <ClCompile Include="Source\GameState\ObjectContainer.cpp" />
     <ClCompile Include="Source\GameState\Object\Background.cpp" />
     <ClCompile Include="Source\GameState\Object\Hud.cpp" />
     <ClCompile Include="Source\GameState\Object\Score.cpp" />
@@ -147,6 +152,7 @@
     <ClCompile Include="Source\GameState\PhysicalObject\Pickups\Pickup.cpp" />
     <ClCompile Include="Source\GameState\PhysicalObject\Pickups\PickupFactory.cpp" />
     <ClCompile Include="Source\GameState\PhysicalObject\Player.cpp" />
+    <ClCompile Include="Source\GameState\PhysicalObject\Weapons\LaserFactory.cpp" />
     <ClCompile Include="Source\GameState\System\CollisionHandler.cpp" />
     <ClCompile Include="Source\GameState\System\CommandQueue.cpp" />
     <ClCompile Include="Source\GameState\System\PlayerController.cpp" />
@@ -167,9 +173,14 @@
     <ClInclude Include="Source\Common\SoundSystem.hpp" />
     <ClInclude Include="Source\Common\Tools.hpp" />
     <ClInclude Include="Source\Game.hpp" />
+    <ClInclude Include="Source\GameState\AI\Enemy\EnemyAggressor.hpp" />
+    <ClInclude Include="Source\GameState\AI\Enemy\EnemyDefender.hpp" />
+    <ClInclude Include="Source\GameState\AI\Enemy\EnemyMaster.hpp" />
     <ClInclude Include="Source\GameState\AI\Enemy\EnemyState.hpp" />
     <ClInclude Include="Source\GameState\GameState.hpp" />
+    <ClInclude Include="Source\GameState\GUID.hpp" />
     <ClInclude Include="Source\GameState\Object.hpp" />
+    <ClInclude Include="Source\GameState\ObjectContainer.hpp" />
     <ClInclude Include="Source\GameState\Object\Background.hpp" />
     <ClInclude Include="Source\GameState\Object\Hud.hpp" />
     <ClInclude Include="Source\GameState\Object\Score.hpp" />
@@ -179,6 +190,7 @@
     <ClInclude Include="Source\GameState\PhysicalObject\Pickups\Pickup.hpp" />
     <ClInclude Include="Source\GameState\PhysicalObject\Pickups\PickupFactory.hpp" />
     <ClInclude Include="Source\GameState\PhysicalObject\Player.hpp" />
+    <ClInclude Include="Source\GameState\PhysicalObject\Weapons\LaserFactory.hpp" />
     <ClInclude Include="Source\GameState\System\CollisionHandler.hpp" />
     <ClInclude Include="Source\GameState\System\CommandQueue.hpp" />
     <ClInclude Include="Source\GameState\System\PlayerController.hpp" />

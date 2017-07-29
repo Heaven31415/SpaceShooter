@@ -1,11 +1,10 @@
 #include "Enemy.hpp"
 #include "../../../Game.hpp"
 
-Enemy::Enemy(Context* context, World* world)
-: PhysicalObject(world, Type::Enemy, context->textures.get("EnemyShip"))
-, m_context(context)
-, m_world(world)
-, m_manager()
+Enemy::Enemy(Context& context, World& world, LaserFactory& laserFactory)
+: PhysicalObject(context, world, Type::Enemy, context.textures.get("EnemyShip"))
+, m_laserFactory(laserFactory)
+, m_manager(nullptr)
 {
     setVelocity(Game::Config.enemySpeed);
     /* for now, they doesn't use configuration for their health
@@ -28,33 +27,28 @@ void Enemy::collision(PhysicalObject* object)
         object->takeDamage(1);
         takeDamage(1);
     }
-    m_context->soundSystem.playSound("Explosion");
-}
-
-void Enemy::draw(sf::RenderTarget & target) const
-{
-    if (!isDestroyed())
-        Object::draw(target);
+    getContext().soundSystem.playSound("Explosion");
 }
 
 void Enemy::update(sf::Time dt)
 {
-    if (!isDestroyed())
-        m_manager.update(this, dt);
+    if (!isDestroyed() && m_manager)
+        m_manager->update(this, dt);
 }
 
-void Enemy::changeState(EnemyState::Type state)
+void Enemy::changeState(unsigned state)
 {
-    m_manager.changeState(state);
+    if(m_manager) m_manager->changeState(state);
 }
 
 void Enemy::addLaser()
 {
-    auto laser = std::make_unique<Laser>(Type::EnemyWeapon, m_context, m_world, this);
-    // create a 'reference' pointer in children container
+    auto laser = m_laserFactory.build("enemyLaser");
+    laser->setOwner(this);
+    laser->setPosition(getPosition());
+
     addChild(laser.get());
-    // move ownership of this laser to world
-    m_world->add(std::move(laser));
+    getWorld().add(std::move(laser));
 }
 
 std::size_t Enemy::countLasers()
@@ -64,4 +58,9 @@ std::size_t Enemy::countLasers()
         if (child->getType() == Type::EnemyWeapon)
             count++;
     return count;
+}
+
+void Enemy::setAI(EnemyStateManager::Ptr manager)
+{
+    m_manager.swap(manager);
 }

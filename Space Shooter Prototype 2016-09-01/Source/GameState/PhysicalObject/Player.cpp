@@ -1,20 +1,17 @@
 #include "Player.hpp"
 #include "../../Game.hpp"
 
-Player::Player(Context* context, World* world)
-: PhysicalObject(world, Type::Player, context->textures.get("Ship"))
-, m_context(context)
-, m_world(world)
-, m_maxWeaponCount(Game::Config.playerMaxLaser)
+Player::Player(Context& context, World& world, LaserFactory& laserFactory)
+: PhysicalObject(context, world, Type::Player, context.textures.get("Ship"))
+, m_laserFactory(laserFactory)
+, m_frames{ {"straight", {0, 0, 100, 80}}, {"left", { 100, 0, 100, 80 }}, {"right", { 200, 0, 100, 80 }} }
+, m_maxWeaponCount(Game::Config.playerMaxWeaponCount)
 {
-    setVelocity(Game::Config.playerSpeed);
+    setMaxVelocity(Game::Config.playerSpeed);
     setMaxHealth(Game::Config.playerHealth);
     setHealth(getMaxHealth());
 
-    m_frames["straight"] = { 0, 0, 100, 80 };
-    m_frames["left"] = { 100, 0, 100, 80 };
-    m_frames["right"] = { 200, 0, 100, 80 };
-    setTextureRect(m_frames["straight"]);
+    setTextureRect(m_frames.at("straight"));
     centerOrigin();
 }
 
@@ -38,15 +35,15 @@ void Player::setGraphicsFrame(Player::Frame frame)
     switch (frame)
     {
         case Player::Frame::Straight:
-            setTextureRect(m_frames["straight"]);
+            setTextureRect(m_frames.at("straight"));
             centerOrigin();
             break;
         case Player::Frame::Left:
-            setTextureRect(m_frames["left"]);
+            setTextureRect(m_frames.at("left"));
             centerOrigin();
             break;
         case Player::Frame::Right:
-            setTextureRect(m_frames["right"]);
+            setTextureRect(m_frames.at("right"));
             centerOrigin();
             break;
         default:
@@ -60,10 +57,12 @@ void Player::addWeapon(Player::Weapon weapon)
     {
         case Player::Weapon::Laser:
         {
-            auto laser = std::make_unique<Laser>(Type::PlayerWeapon, m_context, m_world, this);
+            auto laser = m_laserFactory.build("playerLaser");
+            laser->setOwner(this);
+            laser->setPosition(getPosition());
             addChild(laser.get());
-            m_world->add(std::move(laser));
-            m_context->soundSystem.playSound("PlayerLaser");
+            getWorld().add(std::move(laser));
+            getContext().soundSystem.playSound("PlayerLaser");
             break;
         }
         default:
@@ -84,10 +83,4 @@ bool Player::canAddWeapon()
 {
     if (getWeaponCount() < m_maxWeaponCount) return true;
     else return false;
-}
-
-void Player::draw(sf::RenderTarget & target) const
-{
-    if (!isDestroyed())
-        Object::draw(target);
 }

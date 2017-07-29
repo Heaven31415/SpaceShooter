@@ -25,15 +25,10 @@ class Pickup : public PhysicalObject
 public:
     typedef std::unique_ptr<Pickup> Ptr;
 
-                                        Pickup(Context* context, World* world, PickupData data);
+                                        Pickup(Context& context, World& world, PickupData data);
     virtual void                        collision(PhysicalObject* object) override;
-    virtual void                        draw(sf::RenderTarget& target) const;
-    virtual void                        update(sf::Time dt) override;
 
 private:
     OnCollisionFunc                     m_onCollision;
-
-private:
-    Context*                            m_context;
     sf::Time                            m_respawnTimer;
 };
