@@ -9,6 +9,7 @@ class World;
 #include <memory>
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
+#include "../../GUID.hpp"
 
 struct Message
 {
@@ -20,6 +21,7 @@ struct Message
         Vector2f,
         Object,
         PhysicalObject,
+        GUID
     } type;
 
     union
@@ -29,6 +31,7 @@ struct Message
         sf::Vector2f Vector2f;
         Object* Object;
         PhysicalObject* PhysicalObject;
+        GUID Guid;
     };
 };
 

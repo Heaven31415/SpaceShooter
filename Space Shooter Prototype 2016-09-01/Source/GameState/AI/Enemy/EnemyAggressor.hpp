@@ -6,8 +6,9 @@ namespace Aggressor
 {
     enum Type
     {
-        VerticalPositioning,
-        HorizontalPositioning,
+        Search,
+        Move,
+        Positioning,
         Shooting,
         Evading,
     };
@@ -18,21 +19,25 @@ class EnemyAggressor : public EnemyStateManager
 public:
     EnemyAggressor();
 
-    struct VerticalPositioning : public EnemyState
+    struct Search : public EnemyState
     {
-        VerticalPositioning();
+        Search();
         virtual void update(Enemy* enemy, sf::Time dt, Message* message);
-
-        float minDistance;
-        float maxDistance;
     };
 
-    struct HorizontalPositioning : public EnemyState
+    struct Move : public EnemyState
     {
-        HorizontalPositioning();
+        Move();
+        virtual void update(Enemy* enemy, sf::Time dt, Message* message);
+    };
+
+    struct Positioning : public EnemyState
+    {
+        Positioning();
         virtual void update(Enemy* enemy, sf::Time dt, Message* message);
 
-        float distance;
+        std::pair<float, float> horizontalDistance;
+        std::pair<float, float> verticalDistance;
     };
 
     struct Shooting : public EnemyState

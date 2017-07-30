@@ -6,7 +6,6 @@ class GUID
 {
 public:
     GUID() : magic(counter++) {}
-    GUID& operator=(const GUID&) = delete;
     bool operator==(const GUID& other) const;
     bool operator!=(const GUID& other) const;
     bool operator<(const GUID& other) const;
@@ -19,5 +18,5 @@ public:
 
 private:
     static long unsigned counter;
-    const long unsigned magic;
+    long unsigned magic;
 };

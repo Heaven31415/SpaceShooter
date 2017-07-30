@@ -6,7 +6,8 @@ Enemy::Enemy(Context& context, World& world, LaserFactory& laserFactory)
 , m_laserFactory(laserFactory)
 , m_manager(nullptr)
 {
-    setVelocity(Game::Config.enemySpeed);
+    setVelocity({0.f, 0.f});
+    setMaxVelocity(Game::Config.enemySpeed);
     /* for now, they doesn't use configuration for their health
     setMaxHealth(Game::Config.enemyHealth);
     setHealth(getMaxHealth());
@@ -32,6 +33,8 @@ void Enemy::collision(PhysicalObject* object)
 
 void Enemy::update(sf::Time dt)
 {
+    Object::update(dt);
+
     if (!isDestroyed() && m_manager)
         m_manager->update(this, dt);
 }
