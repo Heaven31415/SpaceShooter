@@ -1,6 +1,8 @@
 #pragma once
 #include <random>
 
+// @todo: total rework, it's a mess
+
 class Randomizer
 {
 public:

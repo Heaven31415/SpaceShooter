@@ -128,9 +128,6 @@
     <ClCompile Include="Source\GameState\PhysicalObject\Weapons\LaserFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameState\ObjectContainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.hpp">
@@ -233,9 +230,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameState\PhysicalObject\Weapons\LaserFactory.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameState\ObjectContainer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -142,7 +142,6 @@
     <ClCompile Include="Source\GameState\GameState.cpp" />
     <ClCompile Include="Source\GameState\GUID.cpp" />
     <ClCompile Include="Source\GameState\Object.cpp" />
-    <ClCompile Include="Source\GameState\ObjectContainer.cpp" />
     <ClCompile Include="Source\GameState\Object\Background.cpp" />
     <ClCompile Include="Source\GameState\Object\Hud.cpp" />
     <ClCompile Include="Source\GameState\Object\Score.cpp" />
@@ -180,7 +179,6 @@
     <ClInclude Include="Source\GameState\GameState.hpp" />
     <ClInclude Include="Source\GameState\GUID.hpp" />
     <ClInclude Include="Source\GameState\Object.hpp" />
-    <ClInclude Include="Source\GameState\ObjectContainer.hpp" />
     <ClInclude Include="Source\GameState\Object\Background.hpp" />
     <ClInclude Include="Source\GameState\Object\Hud.hpp" />
     <ClInclude Include="Source\GameState\Object\Score.hpp" />
