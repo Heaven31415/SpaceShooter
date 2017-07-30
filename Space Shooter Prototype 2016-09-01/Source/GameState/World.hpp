@@ -13,8 +13,17 @@
 
 #include "AI\Enemy\EnemyAggressor.hpp"
 #include "AI\Enemy\EnemyMaster.hpp"
+#include <unordered_map>
 
-typedef std::vector<PhysicalObject*> pObjectContainer;
+struct GUIDHasher
+{
+    std::size_t operator()(const GUID& guid) const
+    {
+        return guid.getMagic();
+    }
+};
+
+typedef std::unordered_map<GUID, Object::Ptr, GUIDHasher> ObjectContainer;
 
 class World
 {
@@ -28,8 +37,15 @@ public:
     void                                handleCommands(sf::Time dt);
     CommandQueue&                       getCommandQueue();
     CollisionHandler*                   getCollision();
+    Object*                             getObject(GUID guid);
     
 public:
+    //////////////////////////////////////////////////////////////////////////////////
+    /// \brief Find Player in the World
+    ///
+    /// \return Player represented as a pointer with nullptr value if it wasn't found
+    ///
+    ///////////////////////////////////////////////////////////////////////////////////
     Player*                             getPlayer();
 
 private:
@@ -37,7 +53,7 @@ private:
     Context*                            m_context;
     std::pair<bool, State::Type>&       m_exitFlag;
     CollisionHandler                    m_collision;
-    std::vector<Object::Ptr>            m_objects;
+    ObjectContainer                     m_objects;
     LaserFactory                        m_laserFactory;
     PickupFactory                       m_pickupFactory;
     PlayerController                    m_controller;

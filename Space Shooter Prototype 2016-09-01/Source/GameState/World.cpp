@@ -6,6 +6,7 @@ World::World(CommandQueue & commands, Context * context, std::pair<bool, State::
 , m_context(context)
 , m_exitFlag(exitFlag)
 , m_collision()
+, m_objects(128)
 , m_pickupFactory(*context, *this)
 , m_laserFactory(*context, *this)
 , m_controller(*context, *this)
@@ -28,13 +29,14 @@ World::World(CommandQueue & commands, Context * context, std::pair<bool, State::
     add(std::move(player));
 
     auto enemy = std::make_unique<Enemy>(*context, *this, m_laserFactory);
-    enemy->setAI(std::make_unique<EnemyMaster>());
+    enemy->setAI(std::make_unique<EnemyAggressor>());
     add(std::move(enemy));
 }
 
 void World::add(Object::Ptr obj)
 {
-    m_objects.push_back(std::move(obj));
+    m_objects[obj->getGUID()] = std::move(obj);
+    //m_objects.push_back(std::move(obj));
 }
 
 void World::handleInput()
@@ -69,11 +71,18 @@ void World::update(sf::Time dt)
     handleCommands(dt);
 
     // if object is destroyed and has no children, get rid of it
-    std::experimental::erase_if(m_objects, [](const Object::Ptr& obj) { return obj->isErasable(); });
+    //std::experimental::erase_if(m_objects, [](const Object::Ptr& obj) { return obj->isErasable(); });
+    for (auto it = m_objects.begin(); it != m_objects.end(); )
+        if (it->second->isErasable()) 
+            it = m_objects.erase(it);
+        else 
+            it++;
 
     // use this instead of range based for loop because update may invalidate iterators
-    for (std::size_t i = 0; i < m_objects.size(); i++)
-        m_objects[i]->update(dt);
+    //for (std::size_t i = 0; i < m_objects.size(); i++)
+        //m_objects[i]->update(dt);
+    for (auto& pair : m_objects)
+        pair.second->update(dt);
 
     m_hud.update(dt);
     m_score.update(dt);
@@ -86,7 +95,7 @@ void World::render()
 
     window.clear();
 
-    for (const auto& obj : m_objects) window.draw(*obj);
+    for (const auto& pair : m_objects) window.draw(*pair.second);
     window.draw(m_hud);
     window.draw(m_score);
 
@@ -97,10 +106,14 @@ void World::handleCommands(sf::Time dt)
 {
     while (!m_commands.isEmpty())
     {
-        auto command = m_commands.pop();
+        /*auto command = m_commands.pop();
         for (std::size_t i = 0; i < m_objects.size(); i++)
             if (command.who & m_objects[i]->getType())
-                command.action(m_objects[i].get(), dt);
+                command.action(m_objects[i].get(), dt);*/
+        auto command = m_commands.pop();
+        for (auto& pair : m_objects)
+            if (command.who & pair.second->getType())
+                command.action(pair.second.get(), dt);
     }
 }
 
@@ -114,10 +127,16 @@ CollisionHandler * World::getCollision()
     return &m_collision;
 }
 
+Object * World::getObject(GUID guid)
+{
+    auto it = m_objects.find(guid);
+    return it != m_objects.end() ? it->second.get() : nullptr;
+}
+
 Player * World::getPlayer()
 {
-    for (const auto& objectPtr : m_objects)
-        if (objectPtr->getType() == Type::Player)
-            return static_cast<Player*>(objectPtr.get());
+    for (const auto& pair : m_objects)
+        if (pair.second->getType() == Type::Player)
+            return static_cast<Player*>(pair.second.get());
     return nullptr;
 }
