@@ -26,9 +26,9 @@ public:
                                         ~Laser();
     virtual void                        collision(PhysicalObject* object) override;
     virtual void                        update(sf::Time dt) override;
-    void                                setOwner(PhysicalObject* owner);
+    void                                setOwner(GUID guid);
 
 private:
-    PhysicalObject*                     m_owner;
+    GUID                                m_owner;
     const GraphicsFrames                m_frames;
 };

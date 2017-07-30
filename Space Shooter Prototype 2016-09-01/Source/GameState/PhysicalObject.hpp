@@ -26,7 +26,7 @@ class PhysicalObject : public Object, public Subject
 {
 public:
     typedef std::unique_ptr<PhysicalObject> Ptr;
-    typedef std::vector<PhysicalObject*> Children;
+    typedef std::vector<GUID> Children;
 
                             PhysicalObject(Context& context, World& world, Type::Type type);
                             PhysicalObject(Context& context, World& world, Type::Type type, const sf::Texture& texture);
@@ -49,11 +49,12 @@ public:
     void                    heal(std::size_t amount);
     void                    takeDamage(std::size_t amount);
 
-    void                    addChild(PhysicalObject* child); // @todo: move to object
-    void                    removeChild(PhysicalObject* child); // @todo: move to object
+    void                    addChild(GUID guid);
+    void                    removeChild(GUID guid);
+    Children                getChildren() const;
 
 protected:
-    Children                m_children; // @todo: move to object
+    Children                m_children;
 
 private:
     std::size_t             m_health;

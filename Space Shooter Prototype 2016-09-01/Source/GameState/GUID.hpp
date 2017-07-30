@@ -5,7 +5,12 @@
 class GUID
 {
 public:
-    GUID() : magic(counter++) {}
+    enum class Type
+    {
+        Empty,
+        NonEmpty
+    };
+    GUID(Type type = Type::NonEmpty);
     bool operator==(const GUID& other) const;
     bool operator!=(const GUID& other) const;
     bool operator<(const GUID& other) const;

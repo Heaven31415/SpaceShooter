@@ -47,10 +47,10 @@ void Enemy::changeState(unsigned state)
 void Enemy::addLaser()
 {
     auto laser = m_laserFactory.build("enemyLaser");
-    laser->setOwner(this);
+    laser->setOwner(getGUID());
     laser->setPosition(getPosition());
 
-    addChild(laser.get());
+    addChild(laser->getGUID());
     getWorld().add(std::move(laser));
 }
 
@@ -58,8 +58,11 @@ std::size_t Enemy::countLasers()
 {
     std::size_t count = 0;
     for (auto& child : m_children)
-        if (child->getType() == Type::EnemyWeapon)
+    {
+        auto* object = getWorld().getObject(child);
+        if (object && object->getType() == Type::EnemyWeapon)
             count++;
+    }
     return count;
 }
 

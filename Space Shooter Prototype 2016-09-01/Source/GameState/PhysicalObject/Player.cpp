@@ -58,9 +58,10 @@ void Player::addWeapon(Player::Weapon weapon)
         case Player::Weapon::Laser:
         {
             auto laser = m_laserFactory.build("playerLaser");
-            laser->setOwner(this);
+            laser->setOwner(getGUID());
             laser->setPosition(getPosition());
-            addChild(laser.get());
+
+            addChild(laser->getGUID());
             getWorld().add(std::move(laser));
             getContext().soundSystem.playSound("PlayerLaser");
             break;
@@ -74,8 +75,11 @@ std::size_t Player::getWeaponCount()
 {
     std::size_t count = 0;
     for (auto& child : m_children)
-        if (child->getType() == Type::PlayerWeapon)
+    {
+        auto* object = getWorld().getObject(child);
+        if (object && object->getType() == Type::PlayerWeapon)
             count++;
+    }
     return count;
 }
 

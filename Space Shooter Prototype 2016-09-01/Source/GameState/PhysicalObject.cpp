@@ -132,25 +132,29 @@ void PhysicalObject::takeDamage(std::size_t amount)
     notify(this, Event::TakenDamage);
 }
 
-void PhysicalObject::addChild(PhysicalObject* child)
+void PhysicalObject::addChild(GUID guid)
 {
-    // add a reference pointer to children container
-    m_children.push_back(child);
+    m_children.push_back(guid);
 }
 
-void PhysicalObject::removeChild(PhysicalObject* child)
+void PhysicalObject::removeChild(GUID guid)
 {
-    // search for a reference pointer
-    // and delete it if it was found
     for (std::size_t i = 0; i < m_children.size(); i++)
-        if (m_children[i] == child)
+    {
+        if (m_children[i] == guid)
         {
             m_children.erase(m_children.begin() + i);
             break;
         }
+    }
 
     // if this object is destroyed and it has no children, 
-    // we can erase it (delete from program memory)
+    // we can delete it from program memory
     if (isDestroyed() && m_children.empty())
         erase(); 
+}
+
+PhysicalObject::Children PhysicalObject::getChildren() const
+{
+    return m_children;
 }

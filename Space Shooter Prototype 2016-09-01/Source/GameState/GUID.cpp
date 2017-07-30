@@ -1,6 +1,12 @@
 #include "GUID.hpp"
 
-long unsigned GUID::counter = 0;
+long unsigned GUID::counter = 1;
+
+GUID::GUID(Type type)
+: magic(0)
+{
+    if (type == Type::NonEmpty) magic = counter++;
+}
 
 bool GUID::operator==(const GUID& other) const
 {

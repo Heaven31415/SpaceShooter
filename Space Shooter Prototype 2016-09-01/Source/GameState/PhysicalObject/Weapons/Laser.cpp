@@ -4,7 +4,7 @@
 
 Laser::Laser(Context & context, World & world, LaserData data)
 : PhysicalObject(context, world, data.type, context.textures.get(data.textureName))
-, m_owner(nullptr)
+, m_owner(GUID::Type::Empty)
 , m_frames{ {"laser", { 0, 0, 9, 33 }}, {"explosion", { 9, 0, 56, 54 }} }
 {
     setVelocity(data.velocity);
@@ -15,8 +15,8 @@ Laser::Laser(Context & context, World & world, LaserData data)
 
 Laser::~Laser()
 {
-    // tell the owner that we no longer exist
-     if (m_owner) m_owner->removeChild(this);
+    auto* object = static_cast<PhysicalObject*>(getWorld().getObject(m_owner));
+    if (object) object->removeChild(getGUID());
 }
 
 void Laser::collision(PhysicalObject* object)
@@ -24,8 +24,12 @@ void Laser::collision(PhysicalObject* object)
     destroy();
     object->takeDamage(1);
 
-    if (object->getType() == Type::Enemy && m_owner->getType() == Type::Player)
-        static_cast<Player*>(m_owner)->onEnemyKilled(object);
+    if (object->getType() == Type::Enemy)
+    {
+        auto* owner = getWorld().getObject(m_owner);
+        if (owner->getType() == Type::Player)
+            static_cast<Player*>(owner)->onEnemyKilled(object);
+    }
 }
 
 void Laser::update(sf::Time dt)
@@ -44,7 +48,7 @@ void Laser::update(sf::Time dt)
         destroy();
 }
 
-void Laser::setOwner(PhysicalObject * owner)
+void Laser::setOwner(GUID guid)
 {
-    m_owner = owner;
+    m_owner = guid;
 }
