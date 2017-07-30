@@ -122,6 +122,7 @@ void EnemyAggressor::Shooting::update(Enemy * enemy, sf::Time dt, Message * mess
         if (cooldown <= dt)
         {
             enemy->addLaser();
+            enemy->getContext().soundSystem.playSound("EnemyLaser");
             fired++;
             cooldown = sf::seconds(0.3f);
         }
