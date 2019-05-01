@@ -44,4 +44,3 @@ public:
 private:
     std::vector<Observer*> m_observers;
 };
-

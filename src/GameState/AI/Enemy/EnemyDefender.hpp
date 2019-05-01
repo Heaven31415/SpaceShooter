@@ -32,4 +32,3 @@ public:
         virtual void update(Enemy* enemy, sf::Time dt, Message* message);
     };
 };
-
