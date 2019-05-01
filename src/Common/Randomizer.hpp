@@ -43,7 +43,9 @@ public:
 
     static sf::Vector2f PointAtRectangle(const sf::Vector2f& leftTopCorner, float width, float height)
     {
-        float x, y;
+        float x = 0.f;
+        float y = 0.f;
+
         switch (Int(1, 4))
         {
         case 1:
@@ -63,6 +65,7 @@ public:
             y = Real<float>(leftTopCorner.y, leftTopCorner.y + height);
             break;
         }
+
         return{ x, y };
     }
 
@@ -70,6 +73,3 @@ private:
     static std::random_device random;
     static std::default_random_engine generator;
 };
-
-std::random_device Random::random;
-std::default_random_engine Random::generator(random());

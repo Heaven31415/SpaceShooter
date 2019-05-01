@@ -1,5 +1,6 @@
 #include "Enemy.hpp"
 #include "../../../Game.hpp"
+#include "../../../Common/Randomizer.hpp"
 
 Enemy::Enemy(Context& context, World& world, LaserFactory& laserFactory)
 : PhysicalObject(context, world, Type::Enemy, context.textures.get("EnemyShip"))
@@ -8,6 +9,7 @@ Enemy::Enemy(Context& context, World& world, LaserFactory& laserFactory)
 {
     setVelocity({0.f, 0.f});
     setMaxVelocity(Game::Config.enemySpeed);
+
     /* for now, they doesn't use configuration for their health
     setMaxHealth(Game::Config.enemyHealth);
     setHealth(getMaxHealth());
@@ -15,9 +17,9 @@ Enemy::Enemy(Context& context, World& world, LaserFactory& laserFactory)
     centerOrigin();
 
     // this shouldn't be here
-    Randomizer random;
     sf::Vector2f mapSize = static_cast<sf::Vector2f>(Game::Config.windowSize);
-    sf::Vector2f position = { random.getRealNumber(1.f/10.f * mapSize.x, 9.f/10.f * mapSize.x), random.getRealNumber(-mapSize.y / 10, 0.f) };
+    
+    sf::Vector2f position = { Random::Real(1.f / 10.f * mapSize.x, 9.f / 10.f * mapSize.x), Random::Real(-mapSize.y / 10, 0.f) };
     setPosition(position);
 }
 

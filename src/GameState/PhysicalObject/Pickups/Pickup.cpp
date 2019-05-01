@@ -10,9 +10,8 @@ Pickup::Pickup(Context & context, World & world, PickupData data)
     setVelocity({ 0, data.speed });
     centerOrigin();
 
-    Randomizer random;
     sf::Vector2f mapSize = static_cast<sf::Vector2f>(context.window.getSize());
-    sf::Vector2f position = { random.getRealNumber(0.1f * mapSize.x, 0.9f * mapSize.x), -mapSize.y };
+    sf::Vector2f position = { Random::Real(0.1f * mapSize.x, 0.9f * mapSize.x), -mapSize.y };
     setPosition(position);
 }
 
